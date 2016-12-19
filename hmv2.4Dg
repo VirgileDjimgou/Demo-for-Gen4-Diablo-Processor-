@@ -1,0 +1,457 @@
+#platform "Gen4-uLCD-43DCT-CLB"
+
+// Program Skeleton 1.2 generated 12/14/2016 12:18:44 PM
+
+#inherit "4DGL_16bitColours.fnc"
+
+#inherit "VisualConst.inc"
+
+#inherit "hmv2Const.inc"
+
+// Demo Dependcies
+var Token_Ring := 0 ;
+var status;
+var n,i;
+var state := 0 ;
+// Pause  Zustand fur das Video ....
+var Pause_Session := 0;
+
+//  Demo 1
+
+var Command_1[]:=['b','u','t','t','o','n',' ','p','r','e','s','s','e','d','\n','\r'];
+var Command_2[]:=['r','l','t','t','o','n',' ','p','r','e','s','s','e','d','\n','\r'];
+var Command_3[]:=['z','p','t','t','o','n',' ','p','r','e','s','s','e','d','\n','\r'];
+var Command_4[]:=['t','t','t','t','o','n',' ','p','r','e','s','s','e','d','\n','\r'];
+func main()
+//  var hstrings ; // Handle to access uSD strings, uncomment if required
+//  var hFontx ;   // Handle to access uSD fonts, uncomment if required and change n to font number
+//  Uncomment the following if uSD images, fonts or strings used.
+com_SetBaud(COM0,960);  //COM1 9600 baud
+    putstr("Mounting...\n");
+    if (!(file_Mount()))
+        while(!(file_Mount()))
+            putstr("Drive not mounted...");
+            pause(200);
+            gfx_Cls();
+            pause(200);
+        wend
+    endif
+
+    hndl := file_LoadImageControl("hmv2.dat", "hmv2.gci", 1);
+
+    gfx_Cls();
+    // Aufruf von HauptMenu
+    Menu ();
+
+    putstr ("raus von der Programm ");
+    pause(3000);
+
+
+
+endfunc
+
+
+func Demo_1()
+
+
+
+    hndl := file_LoadImageControl("hmv2.dat", "hmv2.gci", 1);
+
+    gfx_Cls();
+    // Form2 1.1 generated 18.12.2016 00:14:32
+
+    // Statictext3 1.0 generated 18.12.2016 00:14:32
+    img_Show(hndl,iStatictext3) ;
+
+    // Winbutton5 1.0 generated 18.12.2016 00:14:32
+    img_ClearAttributes(hndl, iWinbutton5, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton5);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton5, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton5) ;
+
+    // Winbutton6 1.0 generated 18.12.2016 00:14:32
+    img_ClearAttributes(hndl, iWinbutton6, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton6);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton6, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton6) ;
+
+    // Winbutton7 1.0 generated 18.12.2016 00:14:33
+    img_ClearAttributes(hndl, iWinbutton7, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton7);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton7, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton7) ;
+
+    // Winbutton8 1.0 generated 18.12.2016 00:14:33
+    img_ClearAttributes(hndl, iWinbutton8, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton8);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton8, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton8) ;
+
+    // Winbutton9 1.0 generated 18.12.2016 00:14:33
+    img_ClearAttributes(hndl, iWinbutton9, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton9);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton9, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton9) ;
+
+    // Winbutton10 1.0 generated 18.12.2016 00:14:33
+    img_ClearAttributes(hndl, iWinbutton10, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton10);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton10, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton10) ;
+
+    // Winbutton11 1.0 generated 18.12.2016 00:14:34
+    img_ClearAttributes(hndl, iWinbutton11, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton11);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton11, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton11) ;
+
+    touch_Set(TOUCH_ENABLE);
+
+    repeat
+
+            status:=touch_Get(TOUCH_STATUS);
+            if(status==TOUCH_PRESSED)
+            n:=img_Touched(hndl,-1);
+                    if(n== iWinbutton6)
+                          putstr ("Deztztz.......") ;
+                          // Demmo 1
+                          // Display saubern
+                          // Zurucksetzung  von Image Puffer
+
+                           endif
+
+
+                    if(n==iWinbutton7)
+                          putstr ("Demiooiiii .......");
+                          // Demo 2
+                          // Display saubern
+
+                          endif
+
+
+
+                    if(n==iWinbutton8)
+                          putstr ("Ddfghfgghjghjhjkjjkjhjg......") ;
+
+                          endif
+
+
+                    if(n==iWinbutton9)
+                          putstr ("Diuiu.")   ;
+
+                     endif
+
+
+                    if(n==iWinbutton10)
+                          putstr ("Demo 1 Button  5 .......")   ;
+
+
+                     endif
+
+                     if(n==iWinbutton11)
+                          putstr ("Demo 1 Button  5 .......")   ;
+
+
+
+
+                     endif
+
+                      if(n==iWinbutton5)
+                          putstr ("Demo 1 Button  5 .......")   ;
+                          Token_Ring:=0;
+                          gfx_Cls();
+
+
+                     endif
+
+    endif
+    if(Token_Ring!=1)
+       putstr("Raus von der Demo 1   to Menu ......  ");
+       pause(10);
+
+       break;
+       endif
+   forever
+
+   Menu();
+endfunc
+
+func Demo_2()
+
+    hndl := file_LoadImageControl("hmv2.dat", "hmv2.gci", 1);
+
+    gfx_Cls();
+    // Form3 1.1 generated 18.12.2016 00:44:37
+     var frame := 50;
+    // Coolgauge1 1.0 generated 18.12.2016 00:44:38
+    img_SetWord(hndl, iCoolgauge1, IMAGE_INDEX, frame) ; // where frame is 0 to 100 (for a displayed -1 to -1)
+    img_Show(hndl,iCoolgauge1) ;
+
+    // Angularmeter1 1.0 generated 18.12.2016 00:44:38
+    img_SetWord(hndl, iAngularmeter1, IMAGE_INDEX, frame) ; // where frame is 0 to 100 (for a displayed 0 to 100)
+    img_Show(hndl,iAngularmeter1) ;
+
+    // 4Dbutton6 1.0 generated 18.12.2016 00:44:38
+    img_ClearAttributes(hndl, i4Dbutton6, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, i4Dbutton6);  // show button, only do this once
+    img_SetWord(hndl, i4Dbutton6, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,i4Dbutton6) ;
+
+    // Statictext4 1.0 generated 18.12.2016 00:44:38
+    img_Show(hndl,iStatictext4) ;
+
+    // Thermometer1 1.0 generated 18.12.2016 00:44:39
+    img_SetWord(hndl, iThermometer1, IMAGE_INDEX, frame) ; // where frame is 0 to 100 (for a displayed -1 to -1)
+    img_Show(hndl,iThermometer1) ;
+
+
+    touch_Set(TOUCH_ENABLE);
+
+    repeat
+
+            status:=touch_Get(TOUCH_STATUS);
+            if(status==TOUCH_PRESSED)
+            n:=img_Touched(hndl,-1);
+
+
+                     endif
+
+                      if(n==i4Dbutton6)
+                          putstr ("Demo 2 go to Home  .......")   ;
+                          Token_Ring:=0;
+                          gfx_Cls();
+
+
+                     endif
+
+
+    if(Token_Ring!=2)
+       putstr("Raus von der Demo 2   to Menu ......  ");
+       pause(10);
+
+       break;
+       endif
+   forever
+   Menu();
+
+
+
+endfunc
+
+func Demo_3()
+     // aushlatehn evnet Menu
+    Token_Ring:= 3;
+    hndl := file_LoadImageControl("hmv2.dat", "hmv2.gci", 1);
+
+    gfx_Cls();
+
+
+    // Form4 1.1 generated 18.12.2016 23:18:46
+
+    // Winbutton14 1.0 generated 18.12.2016 23:18:46
+    img_ClearAttributes(hndl, iWinbutton14, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton14);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton14, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton14) ;
+
+    // Video1 1.0 generated 18.12.2016 23:18:46
+    img_SetWord(hndl, iVideo1, IMAGE_INDEX, frame) ; // where frame is 0 to 3306
+    img_Show(hndl,iVideo1) ;
+
+    touch_Set(TOUCH_ENABLE);
+    var frame:= 0;
+
+    for(frame:=0;frame<=3306;frame++)
+        pause(2);
+        img_SetWord(hndl, iVideo1, IMAGE_INDEX, frame) ; // where frame is 0 to 3306
+        img_Show(hndl,iVideo1) ;
+        gfx_Set(SCREEN_MODE,LANDSCAPE);
+
+
+
+
+            status:=touch_Get(TOUCH_STATUS);
+            if(status==TOUCH_PRESSED)
+            n:=img_Touched(hndl,-1);
+
+
+                     endif
+
+                      if(n==iWinbutton14)
+                          putstr ("Demo 3 go to Home  .......")   ;
+                          Token_Ring:=0;
+                          gfx_Cls();
+
+
+                     endif
+
+
+    if(Token_Ring!=3)
+       putstr("Raus von der Demo 3   to Menu ......  ");
+       pause(10);
+
+       break;
+       endif
+
+
+    next
+
+   Menu();
+
+endfunc
+
+
+func Demo_4()
+// aushlatehn evnet Menu
+    Token_Ring:= 4;
+
+
+endfunc
+
+
+
+func Menu ()
+
+
+
+    // Einschalten vent  Menu
+    Token_Ring := 0;
+        // Titel Rutronik
+
+    // rutronik 1.0 generated 17.12.2016 15:34:23
+    img_Show(hndl,irutronik) ;
+
+
+    // Winbutton1 1.0 generated 12/14/2016 2:17:53 PM
+    img_ClearAttributes(hndl, iWinbutton1, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton1);  // show button, only do this once
+    // Form1 1.1 generated 17.12.2016 14:34:48
+    img_SetWord(hndl, iWinbutton1, IMAGE_INDEX,state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton1) ;
+
+
+    //  Winbutton 2 Demo 2
+
+    // Winbutton2 1.0 generated 17.12.2016 15:31:42
+    img_ClearAttributes(hndl, iWinbutton2, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton2);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton2, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton2) ;
+
+    // Winbutton  3  Demo  3
+
+    // Winbutton3 1.0 generated 17.12.2016 15:32:30
+    img_ClearAttributes(hndl, iWinbutton3, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton3);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton3, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton3) ;
+
+
+    // Winbutton 4 Demo   4
+                        //
+
+    // Winbutton4 1.0 generated 17.12.2016 15:33:11
+    img_ClearAttributes(hndl, iWinbutton4, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton4);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton4, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton4) ;
+
+
+    // Statictext1 1.0 generated 17.12.2016 15:35:00
+    img_Show(hndl,iStatictext1) ;
+
+
+    // Statictext2 1.0 generated 17.12.2016 15:37:08
+    img_Show(hndl,iStatictext2) ;
+
+    touch_Set(TOUCH_ENABLE);
+
+
+    repeat
+
+            status:=touch_Get(TOUCH_STATUS);
+            if(status==TOUCH_PRESSED)
+            n:=img_Touched(hndl,-1);
+                    if(n==iWinbutton1)
+
+                          // Demmo 1
+                          // Display saubern
+                          // Zurucksetzung  von Image Puffer
+                          Token_Ring:=1;
+                          putstr("Start Demo 1 "  + Token_Ring );
+                           pause (10) ;
+                           gfx_Cls();
+
+                           endif
+
+
+                    if(n==iWinbutton2)
+                          putstr ("Start von Demo 2 .......");
+                          // Demo 2
+                          // Display saubern
+                          // Zurucksetzung  von Image Puffer
+                          Token_Ring:=2;
+                          pause (10);
+                          gfx_Cls();
+
+                          endif
+
+
+
+
+                    if(n==iWinbutton3)
+                          putstr ("Start von Demo 3 .......") ;
+                          // Demo 3
+                          // Display saubern
+                          // Zurucksetzung  von Image Puffer
+                          Token_Ring := 3;
+
+                          pause(10);
+                          gfx_Cls();
+                          endif
+
+
+                    if(n==iWinbutton4)
+                          putstr ("Start von Demo 4 .......")   ;
+                          // Demo  4
+                          // Display saubern
+
+                          putstr ("Size Image Puffer "+hndl);
+                          pause (10);
+                          gfx_Cls();
+
+
+                     endif
+
+    endif
+    if(Token_Ring!=0)
+       putstr("Raus von der Menu ......  ");
+       pause(10);
+
+       break;
+       endif
+   forever
+  touch_Set(TOUCH_DISABLE);
+
+  if (Token_Ring == 1)
+      Demo_1();
+      endif
+
+  if (Token_Ring == 2)
+      Demo_2();
+      endif
+  if (Token_Ring == 3)
+      Demo_3();
+      endif
+  if (Token_Ring == 4)
+      Demo_4();
+      endif
+
+
+endfunc
+
+
+
+
+
+
