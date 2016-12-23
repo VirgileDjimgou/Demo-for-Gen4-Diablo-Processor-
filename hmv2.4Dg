@@ -8,6 +8,36 @@
 
 #inherit "hmv2Const.inc"
 
+#inherit "ledDigitsDisplay.inc"
+
+// add
+
+
+#inherit "XYposToDegree.inc"
+
+// Var Serial Int
+#CONST
+    PRINTRCV_LINE   3   // where the received bytes will be printed along the y-axis
+    PRINTRCV_COL    0   // where the received bytes will be printed along the x-axis
+#END
+
+#CONST
+    FALSE
+    TRUE
+#END
+
+#CONST
+    T0PERIOD    250
+    T1PERIOD    100
+#END
+
+var combuf[5];     // a buffer for up to 10 characters
+var lengthG;
+var brFlag := FALSE;
+
+
+// End Add
+
 // Demo Dependcies
 var Token_Ring := 0 ;
 var status;
@@ -15,19 +45,35 @@ var n,i;
 var state := 0 ;
 // Pause  Zustand fur das Video ....
 var Pause_Session := 0;
+// Zustand von Video ... in Play Zustand oder In Pause  ....
+// Default Play := 0 or Play := 1  bedeuted  Video in Pause Modus
+var Play := 0;
+
 
 //  Demo 1
+var vDigit_value[]:=['R','Z','\n','\r'];
+var Command_1[]:=['B','\n','\r'];
+var Command_2[]:=['C','\n','\r'];
 
-var Command_1[]:=['b','u','t','t','o','n',' ','p','r','e','s','s','e','d','\n','\r'];
-var Command_2[]:=['r','l','t','t','o','n',' ','p','r','e','s','s','e','d','\n','\r'];
+
 var Command_3[]:=['z','p','t','t','o','n',' ','p','r','e','s','s','e','d','\n','\r'];
 var Command_4[]:=['t','t','t','t','o','n',' ','p','r','e','s','s','e','d','\n','\r'];
+
+// funktion Knob and  Rotary Swicth
+var x, y ;
+
+
+
 func main()
 //  var hstrings ; // Handle to access uSD strings, uncomment if required
 //  var hFontx ;   // Handle to access uSD fonts, uncomment if required and change n to font number
 //  Uncomment the following if uSD images, fonts or strings used.
 com_SetBaud(COM0,960);  //COM1 9600 baud
-    putstr("Mounting...\n");
+pause(100);
+// muss man im Prinzipe die Initialisierung  von com_Inti in Demo 4 loschen
+// Falls es moch nicht geloscht  wurde
+com_Init(combuf, 10, 0);      // set up a comms buffer for COMO, no qualifier
+    // putstr("Mounting...\n");
     if (!(file_Mount()))
         while(!(file_Mount()))
             putstr("Drive not mounted...");
@@ -41,140 +87,221 @@ com_SetBaud(COM0,960);  //COM1 9600 baud
 
     gfx_Cls();
     // Aufruf von HauptMenu
-    Menu ();
+    // nur zum Testen ... muss spater gelooscht werden    (get Command )
 
-    putstr ("raus von der Programm ");
-    pause(3000);
+    getCommand();
 
+    repeat
+          if (Token_Ring == 0)
+               Menu();
+               endif
+
+          if (Token_Ring == 1)
+              // Demo_1();
+              Demo_1();
+              endif
+
+          if (Token_Ring == 2)
+              Demo_2();
+              endif
+          if (Token_Ring == 3)
+              Demo_3();
+              endif
+
+          if (Token_Ring == 4)
+              Demo_4();
+              endif
+
+
+
+    forever
+
+endfunc
+
+
+
+
+
+    // Form2 1.1 generated 20.12.2016 20:04:19
+func moveiknob()
+    var degrees, posit , numx;
+    var Digit_value[]:=['\n','\r'];
+    // var Test = Test+Digit_value;
+
+
+    degrees := XYposToDegree(x-346,      // x - CentreX
+                             y-170) ;    // y - centreY
+    if (degrees < 45)                   // anything in the first 'dead zone' is minvalue
+        degrees := 0 ;
+    else
+        if (degrees > 315)              // anything in the last 'dead zone' is maxvalue
+            degrees := 270 ;
+        else
+            degrees -= 45 ;             // offset by -baseangle
+        endif
+    endif
+    posit := degrees * 100 / 270 ;        // convert degrees to position
+    img_SetWord(hndl, iKnob1, IMAGE_INDEX, posit);
+    img_Show(hndl, iKnob1);
+
+
+
+    // Leddigits1 1.0 generated 20.12.2016 20:56:33
+    img_Show(hndl, iLeddigits1);  // show all digits at 0, only do this once
+    ledDigitsDisplay(posit, iLeddigits1+1, 241, 4, 3, 38, 0) ;
+
+    // Tranfert a Command  to Serial Port
+    // serout(posit);
+    vDigit_value[1]:=posit;
+    for(i:=0;i<3;i++)
+        serout(vDigit_value[i]);
+        next
 
 
 endfunc
 
 
+
 func Demo_1()
+    var state_knob, n_knob;
+    var degrees, zero, posit;
+
+
+
+    gfx_TransparentColour(0x0020);
+    gfx_Transparency(ON);
 
 
 
     hndl := file_LoadImageControl("hmv2.dat", "hmv2.gci", 1);
+    gfx_Cls() ;
 
-    gfx_Cls();
-    // Form2 1.1 generated 18.12.2016 00:14:32
 
-    // Statictext3 1.0 generated 18.12.2016 00:14:32
+    // Statictext3 1.0 generated 20.12.2016 20:16:03
     img_Show(hndl,iStatictext3) ;
 
-    // Winbutton5 1.0 generated 18.12.2016 00:14:32
-    img_ClearAttributes(hndl, iWinbutton5, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-    img_Show(hndl, iWinbutton5);  // show button, only do this once
-    img_SetWord(hndl, iWinbutton5, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-    img_Show(hndl,iWinbutton5) ;
 
-    // Winbutton6 1.0 generated 18.12.2016 00:14:32
+    // Winbutton6 1.0 generated 20.12.2016 20:16:33
     img_ClearAttributes(hndl, iWinbutton6, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
     img_Show(hndl, iWinbutton6);  // show button, only do this once
     img_SetWord(hndl, iWinbutton6, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
     img_Show(hndl,iWinbutton6) ;
 
-    // Winbutton7 1.0 generated 18.12.2016 00:14:33
+
+    // Winbutton7 1.0 generated 20.12.2016 20:16:50
     img_ClearAttributes(hndl, iWinbutton7, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
     img_Show(hndl, iWinbutton7);  // show button, only do this once
     img_SetWord(hndl, iWinbutton7, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
     img_Show(hndl,iWinbutton7) ;
 
-    // Winbutton8 1.0 generated 18.12.2016 00:14:33
-    img_ClearAttributes(hndl, iWinbutton8, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-    img_Show(hndl, iWinbutton8);  // show button, only do this once
-    img_SetWord(hndl, iWinbutton8, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-    img_Show(hndl,iWinbutton8) ;
 
-    // Winbutton9 1.0 generated 18.12.2016 00:14:33
-    img_ClearAttributes(hndl, iWinbutton9, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-    img_Show(hndl, iWinbutton9);  // show button, only do this once
-    img_SetWord(hndl, iWinbutton9, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-    img_Show(hndl,iWinbutton9) ;
+    // Winbutton5 1.0 generated 20.12.2016 20:17:16
+    img_ClearAttributes(hndl, iWinbutton5, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton5);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton5, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton5) ;
 
-    // Winbutton10 1.0 generated 18.12.2016 00:14:33
-    img_ClearAttributes(hndl, iWinbutton10, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-    img_Show(hndl, iWinbutton10);  // show button, only do this once
-    img_SetWord(hndl, iWinbutton10, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-    img_Show(hndl,iWinbutton10) ;
 
-    // Winbutton11 1.0 generated 18.12.2016 00:14:34
-    img_ClearAttributes(hndl, iWinbutton11, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-    img_Show(hndl, iWinbutton11);  // show button, only do this once
-    img_SetWord(hndl, iWinbutton11, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-    img_Show(hndl,iWinbutton11) ;
 
-    touch_Set(TOUCH_ENABLE);
+
+
+    /// end Initialised
+
+
+    img_Show(hndl,iKnob1) ;
+    img_SetWord(hndl, iKnob1, IMAGE_FLAGS, (img_GetWord(hndl, iKnob1, IMAGE_FLAGS) | I_STAYONTOP) & ~I_TOUCH_DISABLE);
+
+    touch_Set(TOUCH_ENABLE);                            // enable the touch screen
 
     repeat
+        // hgjhghgjhghjg
 
-            status:=touch_Get(TOUCH_STATUS);
+       status:=touch_Get(TOUCH_STATUS);
             if(status==TOUCH_PRESSED)
             n:=img_Touched(hndl,-1);
                     if(n== iWinbutton6)
-                          putstr ("Deztztz.......") ;
+                          putstr ("Action 1.......") ;
                           // Demmo 1
                           // Display saubern
                           // Zurucksetzung  von Image Puffer
+
+                           for(i:=0;i<3;i++)
+                           serout(Command_1[i]);
+                           next
+
 
                            endif
 
 
                     if(n==iWinbutton7)
-                          putstr ("Demiooiiii .......");
-                          // Demo 2
-                          // Display saubern
+                          putstr ("Action 2  .......");
+
+                           for(i:=0;i<3;i++)
+                           serout(Command_2[i]);
+                           next
+
 
                           endif
 
 
-
-                    if(n==iWinbutton8)
-                          putstr ("Ddfghfgghjghjhjkjjkjhjg......") ;
-
-                          endif
-
-
-                    if(n==iWinbutton9)
-                          putstr ("Diuiu.")   ;
-
-                     endif
-
-
-                    if(n==iWinbutton10)
-                          putstr ("Demo 1 Button  5 .......")   ;
-
-
-                     endif
-
-                     if(n==iWinbutton11)
-                          putstr ("Demo 1 Button  5 .......")   ;
-
-
-
-
-                     endif
 
                       if(n==iWinbutton5)
-                          putstr ("Demo 1 Button  5 .......")   ;
+
                           Token_Ring:=0;
                           gfx_Cls();
 
 
                      endif
 
-    endif
+          endif
     if(Token_Ring!=1)
        putstr("Raus von der Demo 1   to Menu ......  ");
        pause(10);
 
        break;
        endif
-   forever
 
-   Menu();
+        //begin knob ...
+
+        state_knob := touch_Get(TOUCH_STATUS);               // get touchscreen status
+        n_knob := img_Touched(hndl,-1) ;
+
+        //-----------------------------------------------------------------------------------------
+        if(state_knob == TOUCH_PRESSED)                        // if there's a press
+            x := touch_Get(TOUCH_GETX);
+            y := touch_Get(TOUCH_GETY);
+            endif
+
+
+            if(Token_Ring!=1)
+               putstr("Raus von der Demo 1   to Menu ......  ");
+               pause(10);
+
+               break;
+               endif
+        // endif
+
+        //-----------------------------------------------------------------------------------------
+        if(state_knob == TOUCH_RELEASED)                      // if there's a release
+        endif
+
+        //-----------------------------------------------------------------------------------------
+        if(state_knob == TOUCH_MOVING)                       // if it's moving
+            x := touch_Get(TOUCH_GETX);
+            y := touch_Get(TOUCH_GETY);
+
+            if (n_knob == iKnob1) moveiknob() ;
+        endif
+
+
+
+
+
+
+    forever
+    touch_Set(TOUCH_DISABLE);
 endfunc
+
 
 func Demo_2()
 
@@ -187,9 +314,14 @@ func Demo_2()
     img_SetWord(hndl, iCoolgauge1, IMAGE_INDEX, frame) ; // where frame is 0 to 100 (for a displayed -1 to -1)
     img_Show(hndl,iCoolgauge1) ;
 
-    // Angularmeter1 1.0 generated 18.12.2016 00:44:38
-    img_SetWord(hndl, iAngularmeter1, IMAGE_INDEX, frame) ; // where frame is 0 to 100 (for a displayed 0 to 100)
-    img_Show(hndl,iAngularmeter1) ;
+
+    // Statictext5 1.0 generated 22.12.2016 23:00:56
+    img_Show(hndl,iStatictext5) ;
+
+
+    // Statictext6 1.0 generated 22.12.2016 23:01:08
+    img_Show(hndl,iStatictext6) ;
+
 
     // 4Dbutton6 1.0 generated 18.12.2016 00:44:38
     img_ClearAttributes(hndl, i4Dbutton6, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
@@ -226,13 +358,13 @@ func Demo_2()
 
 
     if(Token_Ring!=2)
-       putstr("Raus von der Demo 2   to Menu ......  ");
+       // putstr("Raus von der Demo 2   to Menu ......  ");
        pause(10);
 
        break;
        endif
    forever
-   Menu();
+    touch_Set(TOUCH_DISABLE);
 
 
 
@@ -248,6 +380,23 @@ func Demo_3()
 
     // Form4 1.1 generated 18.12.2016 23:18:46
 
+    // Winbutton4 1.0 generated 20.12.2016 22:00:31
+    img_ClearAttributes(hndl, iWinbutton4, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton4);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton4, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton4) ;
+
+
+
+    // Winbutton8 1.0 generated 20.12.2016 22:00:40
+    img_ClearAttributes(hndl, iWinbutton8, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton8);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton8, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton8) ;
+
+
+
+
     // Winbutton14 1.0 generated 18.12.2016 23:18:46
     img_ClearAttributes(hndl, iWinbutton14, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
     img_Show(hndl, iWinbutton14);  // show button, only do this once
@@ -261,12 +410,22 @@ func Demo_3()
     touch_Set(TOUCH_ENABLE);
     var frame:= 0;
 
-    for(frame:=0;frame<=3306;frame++)
+    repeat
+    // for(frame:=0;frame<=3306;frame++)
         pause(2);
         img_SetWord(hndl, iVideo1, IMAGE_INDEX, frame) ; // where frame is 0 to 3306
         img_Show(hndl,iVideo1) ;
         gfx_Set(SCREEN_MODE,LANDSCAPE);
 
+        if (Play==0)
+            frame := frame + 1 ;
+            endif
+
+        if (frame >= 3305)
+           // keine Frame oder Images auf dem Puffer zu lesen
+           // dann mussen  wir raus von der Repeat Schleife
+           break;
+           endif
 
 
 
@@ -277,8 +436,25 @@ func Demo_3()
 
                      endif
 
+                      if(n==iWinbutton4)
+                          // putstr ("Play Modus  .......")   ;
+                          Play := 0;
+
+
+
+                     endif
+
+                      if(n==iWinbutton8)
+                          // putstr ("Pause Modus  .......")   ;
+                          Play := 1;
+
+
+                     endif
+
+
+
                       if(n==iWinbutton14)
-                          putstr ("Demo 3 go to Home  .......")   ;
+
                           Token_Ring:=0;
                           gfx_Cls();
 
@@ -287,28 +463,116 @@ func Demo_3()
 
 
     if(Token_Ring!=3)
-       putstr("Raus von der Demo 3   to Menu ......  ");
+       // putstr("Raus von der Demo 3   to Menu ......  ");
        pause(10);
 
        break;
        endif
 
 
-    next
+       // next
+    forever
 
-   Menu();
+   touch_Set(TOUCH_DISABLE);
 
 endfunc
 
 
 func Demo_4()
-// aushlatehn evnet Menu
-    Token_Ring:= 4;
+
+    Token_Ring:=4;
+    hndl := file_LoadImageControl("hmv2.dat", "hmv2.gci", 1);
+
+    gfx_Cls();
+
+    //  gfx_ScreenMode(LANDSCAPE_R) ;   // set the screen orientation
+
+    txt_FGcolour(ORANGE);           // change the text foreground color to orange
+    txt_Width(2);                 // multiply the font width by 2
+    txt_Height(2);                // multiply the font height by 2
+    print("Buffered:");
+    txt_FGcolour(LIME);           // change the text foreground color to lime
+    txt_MoveCursor(2,0);
+    print("Input 10 characters:");
+
+    //COM1_RX_pin(PA0);             // Specify PA0 to use for the com ports receive line  (COM1)
+    //COM1_TX_pin(PA1);             // Specify PA1 to use for the com ports transmit line (COM1)
+    //COM2_RX_pin(PA0);             // Specify PA0 to use for the com ports receive line  (COM2)
+    //COM2_TX_pin(PA1);             // Specify PA1 to use for the com ports transmit line (COM2)
+
+    com_Init(combuf, 10, 0);      // set up a comms buffer for COMO, no qualifier
+    //com1_Init(combuf, 10, 0);      // set up a comms buffer for COM1, no qualifier
+
+    com_SetBaud(COM0, 960);                 // set the baudrate to 9600 bps (COM0)
+    //com_SetBaud(COM1, 960);                 // set the baudrate to 9600 bps (COM1)
+
+
+
+    // Winbutton9 1.0 generated 22.12.2016 23:47:35
+    img_ClearAttributes(hndl, iWinbutton9, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton9);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton9, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton9) ;
+
+
+    sys_SetTimer(TIMER0, T0PERIOD);              // start TIMER0
+    sys_SetTimer(TIMER1, T1PERIOD);              // start TIMER1
+
+    touch_Set(TOUCH_ENABLE);
+
+
+    repeat
+        if(sys_GetTimer(TIMER0)== 0)    // if TIMER0 is now zero, check the receive buffer
+            lengthG := com_Count();
+            //lengthG := com1_Count();
+            if(lengthG)                  // if there is a character available (COM0)
+                if(!brFlag)
+                    printBufferedBytes(lengthG);
+                    brFlag := TRUE;
+                else
+                    printBufferedBytes(lengthG-1);
+                    printReceivedBytes();
+                    brFlag := FALSE;
+                endif
+                clearBufLine.clearedFlag := FALSE;
+            endif
+            sys_SetTimer(TIMER0, T0PERIOD);  // reset TIMER0
+        endif
+
+
+        doSomethingElse();
+        clearBufLine();
+
+            status:=touch_Get(TOUCH_STATUS);
+            if(status==TOUCH_PRESSED)
+            n:=img_Touched(hndl,-1);
+                    if(n==iWinbutton9)
+
+                          // Demmo 1
+                          // Display saubern
+                          // Zurucksetzung  von Image Puffer
+                          Token_Ring:=0;
+                          // putstr("Start Demo 4 "  + Token_Ring );
+                           pause (10) ;
+                           gfx_Cls();
+
+                           endif
+                    endif
+
+
+    if(Token_Ring!=4)
+       // putstr("Raus von der Demo 4   to Menu ......  ");
+       pause(10);
+
+       break;
+       endif
+    forever
+
+
+   touch_Set(TOUCH_DISABLE);
 
 
 endfunc
-
-
 
 func Menu ()
 
@@ -347,15 +611,15 @@ func Menu ()
     img_Show(hndl,iWinbutton3) ;
 
 
-    // Winbutton 4 Demo   4
-                        //
+    // Winbutton10 1.0 generated 23.12.2016 00:03:24
+    img_ClearAttributes(hndl, iWinbutton10, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
+    img_Show(hndl, iWinbutton10);  // show button, only do this once
+    img_SetWord(hndl, iWinbutton10, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
+    img_Show(hndl,iWinbutton10) ;
 
-    // Winbutton4 1.0 generated 17.12.2016 15:33:11
-    img_ClearAttributes(hndl, iWinbutton4, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-    img_Show(hndl, iWinbutton4);  // show button, only do this once
-    img_SetWord(hndl, iWinbutton4, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-    img_Show(hndl,iWinbutton4) ;
 
+
+    // Winbutton 4 Demo
 
     // Statictext1 1.0 generated 17.12.2016 15:35:00
     img_Show(hndl,iStatictext1) ;
@@ -378,7 +642,7 @@ func Menu ()
                           // Display saubern
                           // Zurucksetzung  von Image Puffer
                           Token_Ring:=1;
-                          putstr("Start Demo 1 "  + Token_Ring );
+                          // putstr("Start Demo 1 "  + Token_Ring );
                            pause (10) ;
                            gfx_Cls();
 
@@ -386,7 +650,7 @@ func Menu ()
 
 
                     if(n==iWinbutton2)
-                          putstr ("Start von Demo 2 .......");
+                          // putstr ("Start von Demo 2 .......");
                           // Demo 2
                           // Display saubern
                           // Zurucksetzung  von Image Puffer
@@ -400,7 +664,7 @@ func Menu ()
 
 
                     if(n==iWinbutton3)
-                          putstr ("Start von Demo 3 .......") ;
+                          // putstr ("Start von Demo 3 .......") ;
                           // Demo 3
                           // Display saubern
                           // Zurucksetzung  von Image Puffer
@@ -410,22 +674,21 @@ func Menu ()
                           gfx_Cls();
                           endif
 
-
-                    if(n==iWinbutton4)
-                          putstr ("Start von Demo 4 .......")   ;
-                          // Demo  4
+                      if(n==iWinbutton10)
+                          // putstr ("Start von Demo 3 .......") ;
+                          // Demo 3
                           // Display saubern
+                          // Zurucksetzung  von Image Puffer
+                          Token_Ring := 4;
 
-                          putstr ("Size Image Puffer "+hndl);
-                          pause (10);
+                          pause(10);
                           gfx_Cls();
+                          endif
 
-
-                     endif
 
     endif
     if(Token_Ring!=0)
-       putstr("Raus von der Menu ......  ");
+       // putstr("Raus von der Menu ......  ");
        pause(10);
 
        break;
@@ -433,21 +696,143 @@ func Menu ()
    forever
   touch_Set(TOUCH_DISABLE);
 
-  if (Token_Ring == 1)
-      Demo_1();
-      endif
-
-  if (Token_Ring == 2)
-      Demo_2();
-      endif
-  if (Token_Ring == 3)
-      Demo_3();
-      endif
-  if (Token_Ring == 4)
-      Demo_4();
-      endif
 
 
+
+endfunc
+
+// Serial int Function  zum nutzen nur mit Verbindung mit Demo 2 ....
+// auf keinen Fall mit dem  anderen Demo  ...
+func getCommand()
+var char ;
+   repeat
+
+    char := serin();        // get a character from the buffer (COM0)
+    print(char;
+    pause(10);
+
+   forever
+
+endfunc
+
+
+
+func printReceivedBytes()
+    var char;
+    var private colorFlag := FALSE;
+    var private x := PRINTRCV_COL;
+    var private y := PRINTRCV_LINE;
+
+    char := serin();        // get a character from the buffer (COM0)
+    //char := serin1();        // get a character from the buffer (COM1)
+    //lengthG--;
+    if(lengthG < 0) lengthG:= 0;
+
+
+    serout(char);           // echo the character to the serial port (COM0)
+    //serout1(char);           // echo the character to the serial port (COM1)
+
+    // print the received bytes in yellow or red font
+    if(!colorFlag)
+        txt_FGcolour(YELLOW);   // change the text foreground color to yellow
+    else
+        txt_FGcolour(RED);
+    endif
+
+    txt_MoveCursor(y,x);    // move cursor to line y, column x
+    putch(char);            // print the character
+    x++;
+    if(x > 9)               // if past ten characters wide
+        x := 0;             // carriage return
+        y++;                // move to next line
+        if(y > PRINTRCV_LINE + 3) // if exceeded four lines of text
+            y := PRINTRCV_LINE;   // return cursor to the first position
+            colorFlag := !colorFlag; // change text color
+        endif
+    endif
+
+endfunc
+
+func doSomethingElse()
+    var private onFlag := FALSE;
+    var private counter := 0;
+
+    txt_MoveCursor(8,0);
+    txt_FGcolour(LIME);           // change the text foreground color to lime
+    print("com_Count:", [DEC2ZB] com_Count());    // show current count (COM0)
+    //print("\ncom1_Count:", [DEC2ZB] com1_Count());    // show current count (COM1)
+
+    if(sys_GetTimer(TIMER1)== 0)    // if TIMER1 is now zero (which means 100 ms has passed)
+        if(onFlag == FALSE)
+            gfx_CircleFilled(240,223, 10, BLACK);
+        else
+            gfx_CircleFilled(240,223, 10, ORANGE);
+        endif
+        onFlag := !onFlag;
+        sys_SetTimer(TIMER1, T1PERIOD);              // reset TIMER1
+        txt_MoveCursor(9,0);
+        txt_FGcolour(LIME);           // change the text foreground color to lime
+        print("counter:", [DEC5ZB] counter);    // show value of counter
+        counter++;
+    endif
+endfunc
+
+var combufCopy[10];
+var combufCopyR[10];
+
+func printBufferedBytes(var length)
+    var ptr, lineHeight;
+
+    if(!length)    return;
+
+
+    mem_Copy(combuf, combufCopy, 2*sizeof(combuf));
+    reverseString( combufCopy, combufCopyR);
+    ptr := str_Ptr(combufCopyR);
+    str_PutByte(ptr + length, 0);
+    txt_MoveCursor(1,0);
+    txt_FGcolour(0x01C9F);           // change the text foreground color to orange
+    lineHeight := charheight('W');
+    gfx_RectangleFilled(0,lineHeight,320,2*lineHeight,BLACK);
+    str_Printf(&ptr,"%s");
+endfunc
+
+func reverseString( var *original, var *reversed)
+    var i, j, length, myByte;
+    var ptrOrig;
+    ptrOrig := str_Ptr(original);
+    var ptrRevr;
+    ptrRevr := str_Ptr(reversed);
+    length := str_Length(ptrOrig);
+
+        //txt_MoveCursor(1,0);             //debug
+        //txt_FGcolour(0x01C9F);           //debug
+        //print("length: ",length," ");
+
+    for(i := length - 1, j := 0; i >= 0; i--, j++)
+        myByte := str_GetByte(ptrOrig + i);
+        str_PutByte(ptrRevr + j, myByte);
+    next
+        //txt_MoveCursor(1,0);             //debug
+        //txt_FGcolour(0x01C9F);           //debug
+        //print("length: ",length," ");
+        //str_Printf(&ptrOrig,"%s");
+        //ptrRevr := str_Ptr(reversed);
+        //str_Printf(&ptrRevr,"%s");
+        /*for(i:=0; i < length; i++)
+            myByte := str_GetByte(ptrRevr + i);
+            print([HEX2]myByte," ");
+        next*/
+endfunc
+
+func clearBufLine()
+    var private clearedFlag := TRUE;
+    var lineHeight;
+    lineHeight := charheight('W');
+    if(!lengthG && !clearedFlag)
+        gfx_RectangleFilled(0,lineHeight,320,2*lineHeight,BLACK);
+        clearedFlag := TRUE;
+    endif
 endfunc
 
 

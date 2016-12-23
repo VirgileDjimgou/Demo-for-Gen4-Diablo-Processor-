@@ -1,3 +1,7 @@
-0 errors
+Error: expected ')' but got ';' (line 711 file:hmv2.4dg)
+Error: expected ';' but got identifier 'pause' (line 712 file:hmv2.4dg)
+Error: expected a semicolon following previous expression (line 712 file:hmv2.4dg)
+Error: syntax error in expression ? ')' (line 712 file:hmv2.4dg)
+4 errors
 0 warnings
-5 notices
+15 notices

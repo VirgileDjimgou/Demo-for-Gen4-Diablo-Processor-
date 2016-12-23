@@ -1,0 +1,197 @@
+#platform "Gen4-uLCD-43DCT-CLB"
+
+#inherit "4DGL_16bitColours.fnc"
+
+// Demo to illustrate buffering of received bytes while the processor is doing other tasks
+// Use the Workshop Terminal Utility to test this demo
+// Send 10 or less characters only and WAIT until the buffer is emptied
+// The program will fail if bytes are sent while the buffer is not yet empty. In reality,
+// the processor knows the locations of the queue head and tail, even if bytes are sent to
+// the display while the buffer still contains previously received bytes
+
+#CONST
+    PRINTRCV_LINE   3   // where the received bytes will be printed along the y-axis
+    PRINTRCV_COL    0   // where the received bytes will be printed along the x-axis
+#END
+
+#CONST
+    FALSE
+    TRUE
+#END
+
+#CONST
+    T0PERIOD    250
+    T1PERIOD    100
+#END
+
+var combuf[5];     // a buffer for up to 10 characters
+var lengthG;
+var brFlag := FALSE;
+
+func main()
+    gfx_ScreenMode(LANDSCAPE_R) ;   // set the screen orientation
+
+    txt_FGcolour(ORANGE);           // change the text foreground color to orange
+    txt_Width(2);                 // multiply the font width by 2
+    txt_Height(2);                // multiply the font height by 2
+    print("Buffered:");
+    txt_FGcolour(LIME);           // change the text foreground color to lime
+    txt_MoveCursor(2,0);
+    print("Input 10 characters:");
+
+    //COM1_RX_pin(PA0);             // Specify PA0 to use for the com ports receive line  (COM1)
+    //COM1_TX_pin(PA1);             // Specify PA1 to use for the com ports transmit line (COM1)
+    //COM2_RX_pin(PA0);             // Specify PA0 to use for the com ports receive line  (COM2)
+    //COM2_TX_pin(PA1);             // Specify PA1 to use for the com ports transmit line (COM2)
+
+    com_Init(combuf, 10, 0);      // set up a comms buffer for COMO, no qualifier
+    //com1_Init(combuf, 10, 0);      // set up a comms buffer for COM1, no qualifier
+
+    com_SetBaud(COM0, 960);                 // set the baudrate to 9600 bps (COM0)
+    //com_SetBaud(COM1, 960);                 // set the baudrate to 9600 bps (COM1)
+
+    sys_SetTimer(TIMER0, T0PERIOD);              // start TIMER0
+    sys_SetTimer(TIMER1, T1PERIOD);              // start TIMER1
+
+    repeat
+        if(sys_GetTimer(TIMER0)== 0)    // if TIMER0 is now zero, check the receive buffer
+            lengthG := com_Count();
+            //lengthG := com1_Count();
+            if(lengthG)                  // if there is a character available (COM0)
+                if(!brFlag)
+                    printBufferedBytes(lengthG);
+                    brFlag := TRUE;
+                else
+                    printBufferedBytes(lengthG-1);
+                    printReceivedBytes();
+                    brFlag := FALSE;
+                endif
+                clearBufLine.clearedFlag := FALSE;
+            endif
+            sys_SetTimer(TIMER0, T0PERIOD);  // reset TIMER0
+        endif
+
+        doSomethingElse();
+        clearBufLine();
+    forever
+
+endfunc
+
+func printReceivedBytes()
+    var char;
+    var private colorFlag := FALSE;
+    var private x := PRINTRCV_COL;
+    var private y := PRINTRCV_LINE;
+
+    char := serin();        // get a character from the buffer (COM0)
+    //char := serin1();        // get a character from the buffer (COM1)
+    //lengthG--;
+    if(lengthG < 0) lengthG:= 0;
+
+
+    serout(char);           // echo the character to the serial port (COM0)
+    //serout1(char);           // echo the character to the serial port (COM1)
+
+    // print the received bytes in yellow or red font
+    if(!colorFlag)
+        txt_FGcolour(YELLOW);   // change the text foreground color to yellow
+    else
+        txt_FGcolour(RED);
+    endif
+
+    txt_MoveCursor(y,x);    // move cursor to line y, column x
+    putch(char);            // print the character
+    x++;
+    if(x > 9)               // if past ten characters wide
+        x := 0;             // carriage return
+        y++;                // move to next line
+        if(y > PRINTRCV_LINE + 3) // if exceeded four lines of text
+            y := PRINTRCV_LINE;   // return cursor to the first position
+            colorFlag := !colorFlag; // change text color
+        endif
+    endif
+
+endfunc
+
+func doSomethingElse()
+    var private onFlag := FALSE;
+    var private counter := 0;
+
+    txt_MoveCursor(8,0);
+    txt_FGcolour(LIME);           // change the text foreground color to lime
+    print("com_Count:", [DEC2ZB] com_Count());    // show current count (COM0)
+    //print("\ncom1_Count:", [DEC2ZB] com1_Count());    // show current count (COM1)
+
+    if(sys_GetTimer(TIMER1)== 0)    // if TIMER1 is now zero (which means 100 ms has passed)
+        if(onFlag == FALSE)
+            gfx_CircleFilled(240,223, 10, BLACK);
+        else
+            gfx_CircleFilled(240,223, 10, ORANGE);
+        endif
+        onFlag := !onFlag;
+        sys_SetTimer(TIMER1, T1PERIOD);              // reset TIMER1
+        txt_MoveCursor(9,0);
+        txt_FGcolour(LIME);           // change the text foreground color to lime
+        print("counter:", [DEC5ZB] counter);    // show value of counter
+        counter++;
+    endif
+endfunc
+
+var combufCopy[10];
+var combufCopyR[10];
+
+func printBufferedBytes(var length)
+    var ptr, lineHeight;
+
+    if(!length)    return;
+
+
+    mem_Copy(combuf, combufCopy, 2*sizeof(combuf));
+    reverseString( combufCopy, combufCopyR);
+    ptr := str_Ptr(combufCopyR);
+    str_PutByte(ptr + length, 0);
+    txt_MoveCursor(1,0);
+    txt_FGcolour(0x01C9F);           // change the text foreground color to orange
+    lineHeight := charheight('W');
+    gfx_RectangleFilled(0,lineHeight,320,2*lineHeight,BLACK);
+    str_Printf(&ptr,"%s");
+endfunc
+
+func reverseString( var *original, var *reversed)
+    var i, j, length, myByte;
+    var ptrOrig;
+    ptrOrig := str_Ptr(original);
+    var ptrRevr;
+    ptrRevr := str_Ptr(reversed);
+    length := str_Length(ptrOrig);
+
+        //txt_MoveCursor(1,0);             //debug
+        //txt_FGcolour(0x01C9F);           //debug
+        //print("length: ",length," ");
+
+    for(i := length - 1, j := 0; i >= 0; i--, j++)
+        myByte := str_GetByte(ptrOrig + i);
+        str_PutByte(ptrRevr + j, myByte);
+    next
+        //txt_MoveCursor(1,0);             //debug
+        //txt_FGcolour(0x01C9F);           //debug
+        //print("length: ",length," ");
+        //str_Printf(&ptrOrig,"%s");
+        //ptrRevr := str_Ptr(reversed);
+        //str_Printf(&ptrRevr,"%s");
+        /*for(i:=0; i < length; i++)
+            myByte := str_GetByte(ptrRevr + i);
+            print([HEX2]myByte," ");
+        next*/
+endfunc
+
+func clearBufLine()
+    var private clearedFlag := TRUE;
+    var lineHeight;
+    lineHeight := charheight('W');
+    if(!lengthG && !clearedFlag)
+        gfx_RectangleFilled(0,lineHeight,320,2*lineHeight,BLACK);
+        clearedFlag := TRUE;
+    endif
+endfunc
+

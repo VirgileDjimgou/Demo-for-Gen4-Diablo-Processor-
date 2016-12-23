@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>4D Codebase | 4D-CD-00054</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link type="text/css" rel="stylesheet" href="css/styles.css"/>
+        <link type="text/css" rel="stylesheet" href="css/blueTable.css"/>
+        <link type="text/css" rel="stylesheet" href="css/redTable.css"/>
+        <link type="text/css" rel="stylesheet" href="css/tooltipCustom.css"/>
+        <link type="text/css" rel="stylesheet" href="css/fourDGLstyle.css"/>
+
+        <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+
+
+        <script type="text/javascript" src="js/libs/jquery/jquery.js"></script>        
+        <script type="text/javascript" src="js/libs/bootstrap/bootstrap.min.js"></script>        
+        <script type="text/javascript" src="js/script.js"></script>        
+
+    </head>
+    <body>		
+        <div class="header">
+            <div class="container">                
+                <h2 class="header-heading">Designer or ViSi Diablo16 Serial Communication</h2>  
+            </div>
+        </div>             
+
+        <div class="customBar">
+            <div class="container">            
+                <h4 style="margin: 0;">4D Systems Codebase Example</h4>
+            </div>
+        </div>
+
+        <div class="nav-bar">
+            <div class="container">
+                <ul class="nav">
+                    <li><a href="#topic1">Introduction</a></li>
+                    <li><a href="#topic2">UART Interface with Diablo16</a></li>
+                    <li><a href="#topic3">Hardware Setup</a></li>
+                    <li><a href="#topic4">Project File(s)</a></li>
+                    <li><a href="#topic5">Instructions</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="container">
+                <div class="main">
+                    <a name="topic1"></a>
+                    <h1>Introduction</h1>
+                    <hr>
+
+                    <p> 
+                        This codebase example shows how UART serial communication is implemented on a Diablo16 display
+                        module. More specifically, this codebase example shows how to read data from the serial port,
+                        how to print the received data on the screen, and how to send the data back to the 
+                        serial port. Furthermore, the concept of buffered serial communication is illustrated.
+                    </p>
+
+                    <div style="margin-bottom: 3em; margin-top: 3em;">
+                        <div style="width: 60%; margin: auto;">
+                            <img class="img-responsive" src="images/uLCD35DT_BUYNOW_kit_image01.jpg" 
+                                 alt="image of the uLCD-35DT" style=" border: none;">
+                        </div>
+                        <div style="text-align: center; font-weight: bold;">
+                            The uLCD-35DT
+                        </div>
+                    </div>
+
+                    <p> The display module used was the 
+                        <a href="http://www.4dsystems.com.au/product/uLCD_35DT/" target="_blank">uLCD-35DT</a>,
+                        which is a Diablo16 display module. The 
+                        <a href="http://www.4dsystems.com.au/product/4D_Programming_Cable/" target="_blank">
+                            4D USB programming cable</a>
+                        OR the 
+                        <a href="http://www.4dsystems.com.au/product/uUSB_PA5/" target="_blank">uUSB-PA5</a>
+                        is needed to program and communicate with the display. For this example, the uUSB-PA5 programming module was used. 
+                        The 
+                        <a href="http://www.4dsystems.com.au/product/4D_Workshop_4_IDE/" target="_blank">
+                            Workshop 4 IDE</a> 
+                        (Designer environment) was used to create and develop the program for the display module.                        
+                    </p>
+
+                    <div style="margin-bottom: 3em; margin-top: 3em;">
+                        <div style="width: 60%; margin: auto;">
+                            <img class="img-responsive" src="images/uUSB-PA5_s_01.jpg" 
+                                 alt="image of the uUSB-PA5" style=" border: none;">
+                        </div>
+                        <div style="text-align: center; font-weight: bold;">
+                            The uUSB-PA5
+                        </div>
+                    </div>
+
+                    <p>
+                        After the program was loaded to the display module, the Serial Terminal was then used to communicate
+                        with the display through the programming module. The Serial Terminal is a utility included in the
+                        Workshop 4 IDE. 
+                    </p>                        
+
+                    <h3 style="margin-top: 2em;">Prerequisites</h3>
+                    <p> Before reading this codebase example, the reader is expected to know the basics of creating a Designer project
+                        in the Workshop 4 IDE and downloading the compiled program onto a display. Beginners may refer to the 
+                        application note
+                        <a href="http://www.4dsystems.com.au/appnote/4D-AN-00117/" target="_blank">
+                            Designer Getting Started - First Project</a>.                 
+                    </p>
+                    <p>
+                        Readers who want to study more basic 4DGL code examples may refer to the following application notes.
+                    </p>
+
+                    <ul>
+                        <li><a href="http://www.4dsystems.com.au/appnote/4D-AN-00058/" target="_blank">
+                                Designer or ViSi How to Draw Pixels and Lines</a></li>
+                        <li><a href="http://www.4dsystems.com.au/appnote/4D-AN-00059/" target="_blank">
+                                Designer or ViSi How to Draw Circles and Rectangles</a></li>
+                        <li><a href="http://www.4dsystems.com.au/appnote/4D-AN-00060/" target="_blank">
+                                Designer or ViSi How to Draw Triangles and Polygons</a></li>
+                    </ul>
+
+                    <p style="margin-bottom: 5em;"></p>
+
+
+                    <a name="topic2"></a>
+                    <h1>UART Interface with Diablo16</h1>
+                    <hr>
+                    <p>The DIABLO16 Processor has four hardware asynchronous serial ports, one of which is fixed and the other
+                        three can be configured on a variety of the processor's GPIO pins. COM0(TX0 and RX0) is dedicated and 
+                        is fixed on to pins 33(TX0) and 43(RX0). COM1(TX1 and RX1), COM2(TX2 and RX2), and COM3(TX3 and RX3)
+                        can all be configured to work on various GPIO pins. All of the DIABLO16’s serial ports can be used to 
+                        communicate with external serial devices. COM0 is the only one used for programming the DIABLO16 itself.
+                    </p>
+                    <p>The primary features are:</p>
+                    <ul style="text-align: justify;">
+                        <li>Full-Duplex 8 bit data transmission and reception.</li>
+                        <li>Data format: 8 bits, No Parity, 1 Stop bit. </li>
+                        <li>Independent Baud rates from 300 baud up to 600K baud.</li>
+                        <li>Single byte transmits and receives or a fully buffered service. The buffered service feature 
+                            runs in the background capturing and buffering serial data without the user application having to
+                            constantly poll any of the serial ports. This frees up the application to service other tasks. 
+                        </li>
+                    </ul>
+
+                    <p>A single byte serial transmission consists of the start bit, 8-bits of data followed by the stop bit.
+                        The start bit is always 0, while a stop bit is always 1. The LSB (Least Significant Bit, Bit 0) is sent out
+                        first following the start bit. 
+                    </p>
+
+                    <h3 style="margin-top: 2em;">The Programming Port</h3>
+                    <p> COM0 is also the primary interface for 4DGL user program downloads (or uploads) and chip configuration PmmC 
+                        programming. Once the compiled 4DGL application program (EVE byte-code) is downloaded and the user code starts 
+                        executing, the serial port is then available to the user application.               
+                    </p>
+
+                    <h3 style="margin-top: 2em;">The UART Pins</h3>
+                    <p>Below are the pins related to the UART module and their descriptions. </p>
+
+                    <div style="margin-bottom: 3em;">
+                        <div class="redTable" style="margin: auto; max-width: 50%;" >
+                            <table >
+                                <tr>
+                                    <td>Pin</td>
+                                    <td>Description</td>                  
+                                </tr>
+                                <tr>
+                                    <td>TX0 pin (Serial Transmit COM0)</td>
+                                    <td>Dedicated Asynchronous Serial port COM0
+                                        transmit pin, TX0. Connect this pin to external
+                                        serial device receive (Rx) signal. This pin is 5.0V
+                                        tolerant.</td>                     
+                                </tr>
+                                <tr>
+                                    <td>RX0 pin (Serial Receive COM0)</td>
+                                    <td>Dedicated Asynchronous Serial port COM0 receive
+                                        pin, RX0. Connect this pin to external serial device
+                                        transmit (Tx) signal. This pin is 5.0V tolerant.</td>                     
+                                </tr>
+                                <tr>
+                                    <td>TX1 pin (Serial Transmit COM1)</td>
+                                    <td>Asynchronous Serial port COM1 transmit pin, TX1.
+                                        Connect this pin to external serial device receive
+                                        (Rx) signal. This pin is 5.0V tolerant. This can be
+                                        configured to 1 of the GPIO pins, see table below.</td>                     
+                                </tr>
+
+                                <tr>
+                                    <td>RX1 pin (Serial Receive COM1)</td>
+                                    <td>Asynchronous Serial port COM1 receive pin, RX1.
+                                        Connect this pin to external serial device transmit
+                                        (Tx) signal. This pin is 5.0V tolerant. This can be
+                                        configured to 1 of the GPIO pins, see table below.</td>                     
+                                </tr>     
+
+                                <tr>
+                                    <td>TX2 pin (Serial Transmit COM2)</td>
+                                    <td>Asynchronous Serial port COM2 transmit pin, TX2.
+                                        Connect this pin to external serial device receive
+                                        (Rx) signal. This pin is 5.0V tolerant. This can be
+                                        configured to 1 of the GPIO pins, see table below.</td>                     
+                                </tr>
+
+                                <tr>
+                                    <td>RX2 pin (Serial Receive COM2)</td>
+                                    <td>Asynchronous Serial port COM2 receive pin, RX2.
+                                        Connect this pin to external serial device transmit
+                                        (Tx) signal. This pin is 5.0V tolerant. This can be
+                                        configured to 1 of the GPIO pins, see table below.</td>                     
+                                </tr>    
+
+                                <tr>
+                                    <td>TX3 pin (Serial Transmit COM3)</td>
+                                    <td>Asynchronous Serial port COM3 transmit pin, TX3.
+                                        Connect this pin to external serial device receive
+                                        (Rx) signal. This pin is 5.0V tolerant. This can be
+                                        configured to 1 of the GPIO pins, see table below.</td>                     
+                                </tr>
+
+                                <tr>
+                                    <td>RX3 pin (Serial Receive COM3)</td>
+                                    <td>Asynchronous Serial port COM3 receive pin, RX3.
+                                        Connect this pin to external serial device transmit
+                                        (Tx) signal. This pin is 5.0V tolerant. This can be
+                                        configured to 1 of the GPIO pins, see table below.</td>                     
+                                </tr>    
+                            </table>
+                        </div>
+                    </div>
+                    <p></p>
+
+                    <div style="margin-bottom: 2em;">
+                        <div style="width: 60%; margin: auto;">
+                            <img class="img-responsive" src="images/serialPortsConfigOptions.jpg" 
+                                 alt="DIABLO16 Serial TTL Comm Port Configuration Options">
+                        </div>
+                        <div style="text-align: center; font-weight: bold;">
+                            DIABLO16 Serial TTL Comm Port Configuration Options
+                        </div>
+                    </div>
+
+                    <p>For more information, refer to the <a href="http://www.4dsystems.com.au/product/DIABLO16/downloads"
+                                                             target="_blank">Diablo16 processor datasheet</a>.
+                    </p>
+
+                    <p style="margin-bottom: 5em;"></p>
+
+                    <a name="topic3"></a>
+                    <h1>Hardware Setup</h1>
+                    <hr>
+                    <p>For this codebase example, the uLCD-35DT is used. For other Diablo16 display modules, refer to their
+                        respective datasheets.</p>
+
+                    <p>
+                        The TX0 and RX0 pins are available in both the H1 (I/O Expansion) and H2 (Programming) headers of the 
+                        uLCD-35DT. Remember that COM0 is also used for downloading programs to the display. On the other hand, 
+                        the GPIO pins, on which COM1, COM2, and COM3 can be configured, are available in the H1 (I/O Expansion)
+                        header only. Below is the pin configuration and summary for the uLCD-35DT. For more information, refer 
+                        to the 
+                        <a href="http://www.4dsystems.com.au/product/uLCD_35DT/downloads" target="_blank">uLCD-35DT datasheet</a>.
+                    </p>
+
+                    <div style="margin-bottom: 2em;">
+                        <div style="width: 95%; margin: auto;">
+                            <img class="img-responsive" src="images/uLCD-35DTPinConfig.jpg" 
+                                 alt="uLCD-35DT Pin Configuration and Summary">
+                        </div>
+                        <div style="text-align: center; font-weight: bold;">
+                            uLCD-35DT Pin Configuration and Summary
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 2em;">Using COM0</h3>
+                    <p>
+                        Using the serial port COM0 is as easy as plugging the programming module straight to the programming (H2) header
+                        of the display module. Below are a schematic diagram and actual images of the uUSB-PA5 and the uLCD-35DT 
+                        connected together. Note that this is also the connection for downloading programs to the display.
+                    </p>
+
+                    <div style="margin-bottom: 5em;">
+                        <div style="width: 95%; margin: auto;">
+                            <img class="img-responsive" src="images/programmingModulesOnH2header.png" 
+                                 alt="uLCD-35DT and uUSB-PA5 schematic">
+                        </div>
+                        <div style="text-align: center; font-weight: bold;">
+                            The uLCD-35DT and the uUSB-PA5 (Schematic Diagram)
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 5em;">
+                        <div style="width: 95%; margin: auto;">
+                            <img class="img-responsive" src="images/uLCD-35DTuUSBPA5zoomedOut.jpg" 
+                                 alt="uLCD-35DT and uUSB-PA5 zoomed out">
+                        </div>
+                        <div style="text-align: center; font-weight: bold;">
+                            The uLCD-35DT and the uUSB-PA5
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 2em;">
+                        <div style="width: 95%; margin: auto;">
+                            <img class="img-responsive" src="images/uLCD-35DTuUSBPA5zoomedIn.jpg" 
+                                 alt="uLCD-35DT and uUSB-PA5 zoomed in">
+                        </div>
+                        <div style="text-align: center; font-weight: bold;">
+                            The uLCD-35DT and the uUSB-PA5 (Close up)
+                        </div>
+                    </div>  
+
+                    <h4 style="margin-top: 2em;">COM0 in H1 and in H2</h4>
+                    <p style="margin-bottom: 3em;">
+                        Note that the COM0 pins in the H2(Programming) header are labeled as "TX" and "RX", while they are labeled as "TX0" and
+                        "RX0" in the H1(I/O Expansion) header. The COM0 pins in the H2 header have additional pull-up and series resistors. 
+                        Refer to the datasheet for more information.
+                    </p>
+
+                    <h3 style="margin-top: 2em;">Using COM1, COM2, or COM3</h3>
+                    <p>
+                        To use COM1, COM2, or COM3, select and assign the TXn and RXn pins, where "n" is the serial port number (1, 2, or 3). 
+                        <span style="color: red; font-weight: bold;">
+                            Make sure that the pins are valid to be used as serial port pins by referring to the DIABLO16 Serial TTL Comm Port 
+                            Configuration Options table above or to the datasheet of your display module. Make sure also that the pins are not 
+                            used for other purposes. 
+                        </span>
+                        Then connect the RX and TX pins of the programming module to the chosen TXn and RXn pins 
+                        of the display module. The GPIO pins are available in the I/O Expansion header (H1) of the display module. 
+                        One possible scenario is illustrated in the schematic diagram below. An alternative way is to transfer all 
+                        connections to the I/O Expansion header (H1) since the +5V, GND, and RES pins are also mapped to that header.                    
+                    </p>
+
+                    <div style="margin-bottom: 3em;">
+                        <div style="width: 95%; margin: auto;">
+                            <img class="img-responsive" src="images/programmingModulesOnH2COMx.png" 
+                                 alt="uLCD-35DT and uUSB-PA5 - COM1, COM2, or COM3 schematic">
+                        </div>
+                        <div style="text-align: center; font-weight: bold;">
+                            The uLCD-35DT and the uUSB-PA5 - COM1, COM2, or COM3 (Schematic Diagram)
+                        </div>
+                    </div>
+
+                    <h4>Assign the RX Pin</h4>
+                    <p style="margin-bottom: 2em;">
+                        To assign a GPIO pin as the RX pin of COM1, in the source code for the program write 
+                    </p>
+
+                    <div style="margin-bottom: 3em; background-color: black;">
+                        <p style=" margin-left: 2em; ">                            
+                            <span class="FourDGLfunction">COM1_RX_pin</span>
+                            <span class="FourDGLdel">(</span>
+                            <span class="FourDGLstring">PINx</span>
+                            <span class="FourDGLdel">);</span>
+                        </p>
+                    </div>
+
+                    <p>Where "PINx" is the valid GPIO pin. Similarly, for the other two ports, we would write,</p>
+
+                    <div style="margin-bottom: 2em; background-color: black;">
+                        <p style=" margin-left: 2em; ">                            
+                            <span class="FourDGLfunction">COM2_RX_pin</span>
+                            <span class="FourDGLdel">(</span>
+                            <span class="FourDGLstring">PINx</span>
+                            <span class="FourDGLdel">);</span>
+                        </p>
+                    </div>
+
+                    <p>and</p>
+
+                    <div style="margin-bottom: 5em; background-color: black;">
+                        <p style=" margin-left: 2em; ">                            
+                            <span class="FourDGLfunction">COM3_RX_pin</span>
+                            <span class="FourDGLdel">(</span>
+                            <span class="FourDGLstring">PINx</span>
+                            <span class="FourDGLdel">);</span>
+                        </p>
+                    </div>
+
+                    <h4>Assign the TX Pin</h4>
+                    <p style="margin-bottom: 2em;">
+                        To assign a GPIO pin as the TX pin of COM1, in the source code for the program write 
+                    </p>
+
+                    <div style="margin-bottom: 3em; background-color: black;">
+                        <p style=" margin-left: 2em; ">                            
+                            <span class="FourDGLfunction">COM1_TX_pin</span>
+                            <span class="FourDGLdel">(</span>
+                            <span class="FourDGLstring">PINx</span>
+                            <span class="FourDGLdel">);</span>
+                        </p>
+                    </div>
+
+                    <p>Where "PINx" is the valid GPIO pin. Similarly, for the other two ports, we would write,</p>
+
+                    <div style="margin-bottom: 2em; background-color: black;">
+                        <p style=" margin-left: 2em; ">                            
+                            <span class="FourDGLfunction">COM2_TX_pin</span>
+                            <span class="FourDGLdel">(</span>
+                            <span class="FourDGLstring">PINx</span>
+                            <span class="FourDGLdel">);</span>
+                        </p>
+                    </div>
+
+                    <p>and</p>
+
+                    <div style="margin-bottom: 3em; background-color: black;">
+                        <p style=" margin-left: 2em; ">                            
+                            <span class="FourDGLfunction">COM3_TX_pin</span>
+                            <span class="FourDGLdel">(</span>
+                            <span class="FourDGLstring">PINx</span>
+                            <span class="FourDGLdel">);</span>
+                        </p>
+                    </div>
+
+                    <p>These functions are documented in 
+                        <strong>section "2.11. Serial (UART) Communications Functions"</strong> 
+                        of the 
+                        <a href="http://www.4dsystems.com.au/product/4D_Workshop_4_IDE/downloads"
+                           target="_blank">Diablo16 Internal Functions manual</a>.
+                        Also, see the attached project files for examples of actual usage.
+                    </p>
+
+                    <h3 style="margin-top: 2em; color: maroon; font-weight: bold;">Alternate Pin Functions </h3>
+                    <p style="border: solid 1px red; padding: 1em;">
+                        Most of the GPIO pins have an alternate function other than being for General Purpose I/O. GPIO pins can be 
+                        configured to be SPI, I2C, Serial or a range of other functions. Not all pins however can be configured to 
+                        be any of the alternate pin functions. Once a pin is allocated to an alternate function, another pin cannot 
+                        also be allocated to the same alternate function. Consult the datasheet of your display module for more 
+                        information. 
+                    </p>
+
+
+                    <p style="margin-bottom: 5em;"></p>
+
+                    <a name="topic4"></a>
+                    <h1>Project File(s)</h1>
+                    <hr>
+                    <p>Attached to this example are the following projects.</p>                    
+                    <div style="border: solid 1px gray; margin-bottom: 2em; padding: 1em;">
+                        <p style="font-weight: bold;">
+                            Workshop (Designer) Project Files:</p>
+                        <ol>
+                            <li>
+                                <span style="font-weight: bold; font-style: italic;">serialDBasic_R_1_0</span>
+                                <p>Basic implementation of buffered serial communication on COM0.</p>
+                            </li>
+                            <li>
+                                <span style="font-weight: bold; font-style: italic;">serialDBasic_R_1_01b</span>
+                                <p>Basic implementation of buffered serial communication on COM1. The comments
+                                    also show how the other ports would be assigned and used.</p>
+                            </li>
+                            <li>
+                                <span style="font-weight: bold; font-style: italic;">serialDBasic_R_1_0c</span>
+                                <p>Demo for illustrating buffered serial communication on COM0.</p>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <p style="margin-bottom: 5em;"></p>                    
+
+                    <a name="topic5"></a>
+                    <h1>Instructions</h1>
+                    <hr>
+                    <p>Follow the instructions below to run this example. The reader is also advised to watch the accompanying video.</p>
+
+                    <p style="font-weight: bold;">Part 1: Use the Serial Port COM0</p>
+                    <ol>
+                        <li>Prepare the display and programming modules.</li>
+                        <li>Open the Designer project "<span style="font-weight: bold;">serialDBasic_R_1_0</span>" 
+                            in the Workshop 4 IDE.</li>
+                        <li>Connect the display-and-programming modules setup to a USB port of the PC.</li>
+                        <li>Make sure that the Workshop 4 IDE is able to detect the display module (select the correct COM port).</li>
+                        <li>Compile the code and download (or upload) the program to the display module.</li>
+                        <li>Open the Serial Terminal utility in Workshop.</li>
+                        <li>Send ASCII bytes to the display module.</li>
+                    </ol>
+
+                    <p style="font-weight: bold; margin-top: 3em;">Part 2: Use the Serial Port COM1</p>
+                    <ol>
+                        <li>Open the Designer project "<span style="font-weight: bold;">serialDBasic_R_1_01b</span>". 
+                            Compile it and download the program to the display module.
+                            Then disconnect the programming module from the display module.</li>
+                        <li>Prepare the programming module. Here COM1 is used and the programming module is connected to the display 
+                            module using jumper wires.</li>
+                        <li>Connect the display-and-programming modules setup to a USB port of the PC.</li>                        
+                        <li>Open the Serial Terminal utility in Workshop.</li>
+                        <li>Send ASCII bytes to the display module.</li>
+                    </ol>
+
+                    <p style="font-weight: bold; margin-top: 3em;">Part 3: Buffered serial communication Illustrated</p>
+                    <ol>
+                        <li>Open the Designer project "<span style="font-weight: bold;">serialDBasic_R_1_0c</span>". 
+                            Compile the code and download the program to the display module.</li>
+                        <li>Use the Serial Terminal Utility to send and receive bytes to and from the display module. Send ten or less bytes 
+                            at a time.</li>
+                    </ol>
+
+                    <p style="margin-top: 3em;">If not familiar with the details of opening a Designer project and programming the display 
+                        module, consult the application note 
+                        <a href="http://www.4dsystems.com.au/appnote/4D-AN-00117/" target="_blank">
+                            Designer Getting Started - First Project</a>.                          
+                    </p>
+
+                    <hr>                                       
+                </div>
+                <div class="aside">
+                    <div id="remedyo1">
+                        <div id="slidePanelMessage1">   
+                            <!--dynamic content-->
+                        </div>
+                    </div>
+                    <div id="panel">
+                        <div class="blueTable" >
+                            <table >
+                                <tr>
+                                    <td>Property</td>
+                                    <td>Details</td>                  
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="withToolTip" data-toggle="tooltip" 
+                                              data-placement="bottom" 
+                                              title="Codebase examples are numbered using the format 
+                                              '4D-CD-XXXXX'.">Number
+                                        </span>
+                                    </td>
+                                    <td>4D-CD-00054</td>                     
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="withToolTip" data-toggle="tooltip" 
+                                              data-placement="bottom" 
+                                              title="Remember to always check for the latest 
+                                              revision!">Revision
+                                        </span>
+                                    </td>
+                                    <td>1.0</td>                              
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="withToolTip" data-toggle="tooltip" 
+                                              data-placement="bottom" 
+                                              title="Examples usually come from 4D Staff members, but
+                                              soon you can also upload and share your projects as well!">Author
+                                        </span>
+                                    </td>
+                                    <td>4D Systems</td>                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="withToolTip" data-toggle="tooltip" 
+                                              data-placement="bottom" 
+                                              title="The difficulty of an example can be 'easy', 'medium',
+                                              or 'hard', depending on the number of pre-requisite 
+                                              codebase examples it requires.">
+                                            Difficulty
+                                        </span>
+                                    </td>
+                                    <td>Easy</td>                 
+                                </tr>
+                                <tr>                                    
+                                    <td>
+                                        <span class="withToolTip" data-toggle="tooltip"                                                 
+                                              data-placement="bottom" 
+                                              title="The 4D product(s) on which this example was tested. 
+                                              The user should be able to successfully run this example on other 
+                                              products specified in 'Relevant 4D Product/s'.">
+                                            Tested on a
+                                        </span>
+                                    </td>  
+                                    <td>
+                                        <a href="http://www.4dsystems.com.au/product/uLCD_35DT/"
+                                           target="_blank">
+                                            uLCD-35DT</a>
+                                    </td>
+                                </tr>
+                                <tr>                                    
+                                    <td>
+                                        <a class="withToolTip" data-toggle="tooltip" 
+                                           href="http://www.4dsystems.com.au/products"
+                                           target="_blank"
+                                           data-placement="bottom" 
+                                           title="Product(s) to which this example is applicable.">
+                                            Relevant 4D Product/s
+                                        </a>
+                                    </td>  
+                                    <td>All Diablo16 displays</td>                 
+                                </tr>
+                                <tr>                                
+                                    <td>
+                                        <a class="withToolTip" data-toggle="tooltip" 
+                                           href="http://www.4dsystems.com.au/product/4D_Workshop_4_IDE/"
+                                           target="_blank"
+                                           data-placement="bottom" 
+                                           title="The Workshop 4 environment(s) in which this example
+                                           was designed or to which it is applicable. Workshop 4 has
+                                           four environments - ViSi-Genie, ViSi, Designer, and Serial.">
+                                            Workshop 4 Environment
+                                        </a>
+                                    </td>  
+                                    <td>Designer or ViSi</td>                 
+                                </tr>
+                                <tr>                                    
+                                    <td>
+                                        <a class="withToolTip" data-toggle="tooltip" 
+                                           href="http://forum.4dsystems.com.au/forum/codebase-code-demos-and-examples/staff-codebase-code-examples-to-help-or-inspire"
+                                           target="_blank"
+                                           data-placement="bottom" 
+                                           title="Pre-requisite codebase example(s) that the user is advised
+                                           to study first before reading this example.">
+                                            Recommended Codebase Examples
+                                        </a>
+                                    </td> 
+                                    <td> NA</td>                 
+                                </tr>
+                                <tr>                                   
+                                    <td>
+                                        <a class="withToolTip"                                                 
+                                           href="http://www.4dsystems.com.au/appnotes"
+                                           target="_blank"
+                                           data-toggle="tooltip" 
+                                           data-placement="bottom" 
+                                           title="Application note(s) that may help the user understand
+                                           the example more easily. Application notes have a document 
+                                           that contains more detailed discussions.">
+                                            Relevant Application Notes
+                                        </a>
+                                    </td> 
+                                    <td>
+                                        <div style="margin-bottom: 1em;">
+                                            <a href="http://www.4dsystems.com.au/appnote/4D-AN-00117/" target="_blank">
+                                                Designer Getting Started - First Project</a>
+                                        </div>
+                                        <div style="margin-bottom: 1em;">
+                                            <a href="http://www.4dsystems.com.au/appnote/4D-AN-00058/" target="_blank">
+                                                Designer or ViSi How to Draw Pixels and Lines</a>
+                                        </div>
+                                        <div style="margin-bottom: 1em;">
+                                            <a href="http://www.4dsystems.com.au/appnote/4D-AN-00059/" target="_blank">
+                                                Designer or ViSi How to Draw Circles and Rectangles</a>
+                                        </div>
+                                        <div>
+                                            <a href="http://www.4dsystems.com.au/appnote/4D-AN-00060/" target="_blank">
+                                                Designer or ViSi How to Draw Triangles and Polygons</a>
+                                        </div>
+
+                                    </td>                 
+                                </tr>                                
+                                <tr>                                    
+                                    <td>
+                                        <a class="withToolTip" 
+                                           href="http://forum.4dsystems.com.au/forum/customer-projects-formally-anna-s-sandbox/staff-project-share-projects-to-help-or-inspire"
+                                           target="_blank"
+                                           data-toggle="tooltip" 
+                                           data-placement="bottom" 
+                                           title="Project(s) to which this example is relevant. 
+                                           Projects are usually application-specific.">
+                                            Relevant Projects
+                                        </a>
+                                    </td> 
+                                    <td>NA</td>                 
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="withToolTip" data-toggle="tooltip" 
+                                              data-placement="bottom" 
+                                              title="The Workshop 4 IDE comes with a lot of working examples. Go to the File menu
+                                              and select 'Samples'.">
+                                            Relevant Workshop 4 IDE Examples
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span>Picaso Designer\PICASO - SERIAL COMMS</span>
+                                        <ul>
+                                            <li>BUFFEREDTX</li>
+                                            <li>COMCHECK</li>
+                                            <li>SERIAL</li>
+                                            <li>SERIALKEYPAD</li>
+                                        </ul>
+                                    </td>                 
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div id="slide">
+                        <div class="btn-slide">
+                            <span id="slidePanelMessage2"><!--dynamic content--></span>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="container">
+                Copyright &copy; 2015 4D Systems. All rights reserved. 
+                All trade and/or services marks mentioned are the property of their respective owners.
+            </div>
+        </div>
+    </body>
+</html>

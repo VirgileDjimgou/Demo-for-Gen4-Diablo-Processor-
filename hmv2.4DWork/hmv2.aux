@@ -1,50 +1,94 @@
-==============================================================
-==============================================================
-4DGL Compiler 2.8.0.5 -- Copyright 2004-2015 4D Labs
-** C:\Users\virgile\Desktop\Rutronik_Projekt\hmv2.4Dg
-compiled Sun Dec 18 23:41:40 2016
-
-==============================================================
-==============================================================
-
-
 No Ref for file
 [LINKING]
-function 6, Menu, address 612
+function 15, clearBufLine, address 0
+stack usage 2 + 4
+function 'clearBufLine' requires no arguments
+function 'clearBufLine' has no return value
+
+[LINKING]
+function 14, reverseString, address 52
+stack usage 12 + 4
+function 'reverseString' requires 2 argument
+function 'reverseString' has no return value
+
+[LINKING]
+function 13, printBufferedBytes, address 158
+stack usage 4 + 4
+function 'printBufferedBytes' requires 1 argument
+function 'printBufferedBytes' has no return value
+
+[LINKING]
+function 12, doSomethingElse, address 275
+stack usage 0 + 4
+function 'doSomethingElse' requires no arguments
+function 'doSomethingElse' has no return value
+
+[LINKING]
+function 11, printReceivedBytes, address 435
+stack usage 2 + 4
+function 'printReceivedBytes' requires no arguments
+function 'printReceivedBytes' has no return value
+
+[LINKING]
+function 10, getCommand, address 558
+stack usage 2 + 4
+function 'getCommand' requires no arguments
+function 'getCommand' has no return value
+
+[LINKING]
+function 9, Menu, address 588
 stack usage 0 + 4
 function 'Menu' requires no arguments
 function 'Menu' has no return value
 
 [LINKING]
-function 5, Demo_4, address 1126
+function 8, Demo_4, address 992
 stack usage 0 + 4
 function 'Demo_4' requires no arguments
 function 'Demo_4' has no return value
 
 [LINKING]
-function 4, Demo_3, address 1133
+function 7, Demo_3, address 1375
 stack usage 2 + 4
 function 'Demo_3' requires no arguments
 function 'Demo_3' has no return value
 
 [LINKING]
-function 3, Demo_2, address 1416
+function 6, Demo_2, address 1763
 stack usage 2 + 4
 function 'Demo_2' requires no arguments
 function 'Demo_2' has no return value
 
 [LINKING]
-function 2, Demo_1, address 1681
-stack usage 0 + 4
+function 5, Demo_1, address 2017
+stack usage 10 + 4
 function 'Demo_1' requires no arguments
 function 'Demo_1' has no return value
 
 [LINKING]
-function 1, main, address 2300
+function 4, moveiknob, address 2604
+stack usage 10 + 4
+function 'moveiknob' requires no arguments
+function 'moveiknob' has no return value
+
+[LINKING]
+function 3, main, address 2910
 (main entry point)
 stack usage 0 + 4
 function 'main' requires no arguments
 function 'main' has no return value
+
+[LINKING]
+function 2, XYposToDegree, address 3097
+stack usage 6 + 4
+function 'XYposToDegree' requires 2 argument
+function 'XYposToDegree' returns a value
+
+[LINKING]
+function 1, ledDigitsDisplay, address 3289
+stack usage 8 + 4
+function 'ledDigitsDisplay' requires 7 argument
+function 'ledDigitsDisplay' has no return value
 
 [RESERVED WORDS]
 #inherit
@@ -108,124 +152,185 @@ lookup16
 [MACRO]
 
 [CONSTANTS]
-__MAXMEM                          00008000      32768  (usage 1)
-__MAXPROG                         00007FEE      32750  (usage 1)
-COM0                              0000F804      63492  (usage 3)
+BLACK                             00000000          0  (usage 9)
+COM0                              0000F804      63492  (usage 6)
+DEC2ZB                            0000220A       8714  (usage 3)
+DEC5ZB                            0000250A       9482  (usage 3)
 DIABLO                            00000003          3  (usage 3)
-i4Dbutton6                        00000011         17  (usage 15)
+FALSE                             00000000          0  (usage 18)
+i4Dbutton6                        0000000F         15  (usage 15)
+I_STAYONTOP                       00000100        256  (usage 3)
 I_TOUCH_DISABLE                   00000020         32  (usage 39)
-iAngularmeter1                    00000010         16  (usage 6)
-iCoolgauge1                       0000000F         15  (usage 6)
+iCoolgauge1                       0000000E         14  (usage 6)
+iKnob1                            0000000B         11  (usage 18)
+iLeddigits1                       0000000C         12  (usage 6)
+IMAGE_FLAGS                       00000006          6  (usage 6)
 IMAGE_INDEX                       00000009          9  (usage 54)
-irutronik                         00000004          4  (usage 3)
-iStatictext1                      00000005          5  (usage 3)
-iStatictext2                      00000006          6  (usage 3)
+IMAGE_XPOS                        00000002          2  (usage 3)
+irutronik                         00000003          3  (usage 3)
+iStatictext1                      00000004          4  (usage 3)
+iStatictext2                      00000005          5  (usage 3)
 iStatictext3                      00000007          7  (usage 3)
-iStatictext4                      00000012         18  (usage 3)
-iThermometer1                     00000013         19  (usage 6)
+iStatictext4                      00000010         16  (usage 3)
+iStatictext5                      00000012         18  (usage 3)
+iStatictext6                      00000013         19  (usage 3)
+iThermometer1                     00000011         17  (usage 6)
 iVideo1                           00000015         21  (usage 12)
 iWinbutton1                       00000000          0  (usage 15)
-iWinbutton10                      0000000D         13  (usage 15)
-iWinbutton11                      0000000E         14  (usage 15)
+iWinbutton10                      00000006          6  (usage 15)
 iWinbutton14                      00000014         20  (usage 15)
 iWinbutton2                       00000001          1  (usage 15)
 iWinbutton3                       00000002          2  (usage 15)
-iWinbutton4                       00000003          3  (usage 15)
+iWinbutton4                       00000016         22  (usage 15)
 iWinbutton5                       00000008          8  (usage 15)
 iWinbutton6                       00000009          9  (usage 15)
 iWinbutton7                       0000000A         10  (usage 15)
-iWinbutton8                       0000000B         11  (usage 15)
-iWinbutton9                       0000000C         12  (usage 15)
+iWinbutton8                       00000017         23  (usage 15)
+iWinbutton9                       00000018         24  (usage 15)
 LANDSCAPE                         00000000          0  (usage 3)
+LIME                              000007E0       2016  (usage 9)
+ON                                00000001          1  (usage 3)
+ORANGE                            0000FD20      64800  (usage 6)
+PRINTRCV_COL                      00000000          0  (usage 3)
+PRINTRCV_LINE                     00000003          3  (usage 9)
+RED                               0000F800      63488  (usage 3)
 SCREEN_MODE                       00000017         23  (usage 3)
-TOUCH_DISABLE                     00000001          1  (usage 3)
-TOUCH_ENABLE                      00000000          0  (usage 12)
-TOUCH_PRESSED                     00000001          1  (usage 12)
-TOUCH_STATUS                      00000000          0  (usage 12)
+T0PERIOD                          000000FA        250  (usage 6)
+T1PERIOD                          00000064        100  (usage 6)
+TIMER0                            00000000          0  (usage 9)
+TIMER1                            00000001          1  (usage 9)
+TOUCH_DISABLE                     00000001          1  (usage 15)
+TOUCH_ENABLE                      00000000          0  (usage 15)
+TOUCH_GETX                        00000001          1  (usage 6)
+TOUCH_GETY                        00000002          2  (usage 6)
+TOUCH_MOVING                      00000003          3  (usage 3)
+TOUCH_PRESSED                     00000001          1  (usage 18)
+TOUCH_RELEASED                    00000002          2  (usage 3)
+TOUCH_STATUS                      00000000          0  (usage 18)
+TRUE                              00000001          1  (usage 9)
+YELLOW                            0000FFE0      65504  (usage 3)
 
 [PmmC FUNCTIONS]
-com_SetBaud                       FFFFFF1F        -225  args=2 r=1  (usage 3)
-file_LoadImageControl             FFFFFE3D        -451  args=3 r=1  (usage 12)
+ABS                               FFFFFFCB         -53  args=1 r=1  (usage 6)
+charheight                        FFFFFFF4         -12  args=1 r=1  (usage 6)
+com_Count                         FFFFFF08        -248  args=0 r=1  (usage 6)
+com_Init                          FFFFFF18        -232  args=3 r=0  (usage 6)
+com_SetBaud                       FFFFFF1F        -225  args=2 r=1  (usage 6)
+file_LoadImageControl             FFFFFE3D        -451  args=3 r=1  (usage 15)
 file_Mount                        FFFFFE3C        -452  args=0 r=1  (usage 6)
-gfx_Cls                           FFFFFF82        -126  args=0 r=0  (usage 36)
+gfx_CircleFilled                  FFFFFF77        -137  args=4 r=0  (usage 6)
+gfx_Cls                           FFFFFF82        -126  args=0 r=0  (usage 42)
+gfx_RectangleFilled               FFFFFF79        -135  args=5 r=0  (usage 6)
 gfx_Set                           FFFFFF83        -125  args=2 r=0  (usage 3)
-img_ClearAttributes               FFFFFE81        -383  args=3 r=1  (usage 39)
-img_SetWord                       FFFFFE85        -379  args=4 r=1  (usage 54)
-img_Show                          FFFFFE83        -381  args=2 r=1  (usage 108)
-img_Touched                       FFFFFE80        -384  args=2 r=1  (usage 12)
-pause                             FFFFFFFA          -6  args=1 r=0  (usage 36)
-putstr                            FFFFFFF7          -9  args=1 r=1  (usage 63)
-touch_Get                         FFFFFE68        -408  args=1 r=1  (usage 12)
-touch_Set                         FFFFFE69        -407  args=1 r=0  (usage 15)
+gfx_Transparency                  FFFFFF44        -188  args=1 r=1  (usage 3)
+gfx_TransparentColour             FFFFFF45        -187  args=1 r=1  (usage 3)
+img_ClearAttributes               FFFFFE81        -383  args=3 r=1  (usage 36)
+img_GetWord                       FFFFFE84        -380  args=3 r=1  (usage 3)
+img_SetWord                       FFFFFE85        -379  args=4 r=1  (usage 60)
+img_Show                          FFFFFE83        -381  args=2 r=1  (usage 117)
+img_Touched                       FFFFFE80        -384  args=2 r=1  (usage 18)
+mem_Copy                          FFFFFE5C        -420  args=3 r=1  (usage 3)
+pause                             FFFFFFFA          -6  args=1 r=0  (usage 47)
+putch                             FFFFFFFE          -2  args=1 r=0  (usage 3)
+putstr                            FFFFFFF7          -9  args=1 r=1  (usage 18)
+serin                             FFFFFF14        -236  args=0 r=1  (usage 6)
+serout                            FFFFFF10        -240  args=1 r=0  (usage 12)
+str_GetByte                       FFFFFE25        -475  args=1 r=1  (usage 3)
+str_Length                        FFFFFE1D        -483  args=1 r=1  (usage 3)
+str_Printf                        FFFFFE1C        -484  args=2 r=1  (usage 3)
+str_Ptr                           FFFFFE2A        -470  args=1 r=1  (usage 9)
+str_PutByte                       FFFFFE23        -477  args=2 r=0  (usage 6)
+SWAP                              FFFFFFC8         -56  args=2 r=0  (usage 3)
+sys_GetTimer                      FFFFFE76        -394  args=1 r=1  (usage 6)
+sys_SetTimer                      FFFFFE77        -393  args=2 r=0  (usage 12)
+touch_Get                         FFFFFE68        -408  args=1 r=1  (usage 30)
+touch_Set                         FFFFFE69        -407  args=1 r=0  (usage 30)
+txt_FGcolour                      FFFFFFEE         -18  args=1 r=1  (usage 21)
+txt_Height                        FFFFFFEA         -22  args=1 r=1  (usage 3)
+txt_MoveCursor                    FFFFFFF0         -16  args=2 r=0  (usage 15)
+txt_Width                         FFFFFFEB         -21  args=1 r=1  (usage 3)
 
 [USER FUNCTIONS]
-Demo_1                            00000691  args=0 r=0  (usage 3)
-Demo_2                            00000588  args=0 r=0  (usage 3)
-Demo_3                            0000046D  args=0 r=0  (usage 3)
-Demo_4                            00000466  args=0 r=0  (usage 3)
-Menu                              00000264  args=0 r=0  (usage 12)
+clearBufLine                      00000000  args=0 r=0  (usage 3)
+Demo_1                            000007E1  args=0 r=0  (usage 3)
+Demo_2                            000006E3  args=0 r=0  (usage 3)
+Demo_3                            0000055F  args=0 r=0  (usage 3)
+Demo_4                            000003E0  args=0 r=0  (usage 3)
+doSomethingElse                   00000113  args=0 r=0  (usage 3)
+getCommand                        0000022E  args=0 r=0  (usage 3)
+ledDigitsDisplay                  00000CD9  args=7 r=0  (usage 3)
+Menu                              0000024C  args=0 r=0  (usage 3)
+moveiknob                         00000A2C  args=0 r=0  (usage 3)
+printBufferedBytes                0000009E  args=1 r=0  (usage 6)
+printReceivedBytes                000001B3  args=0 r=0  (usage 3)
+reverseString                     00000034  args=2 r=0  (usage 3)
+XYposToDegree                     00000C19  args=2 r=0  (usage 3)
 
 [GLOBAL VARIABLES]
-hndl                                   1  word       (usage 228)
-n                                      4  word       (usage 51)
-Pause_Session                          7  word       (usage 1)
-state                                  6  word       (usage 40)
-status                                 3  word       (usage 24)
-Token_Ring                             2  word       (usage 55)
+brFlag                                 8  word       (usage 10)
+combuf                                 2  word[5]   (usage 12)
+combufCopy                            65  word[10]   (usage 6)
+combufCopyR                           75  word[10]   (usage 6)
+Command_1                             20  word[3]   (usage 3)
+Command_2                             23  word[3]   (usage 3)
+hndl                                   1  word       (usage 249)
+i                                     12  word       (usage 37)
+lengthG                                7  word       (usage 21)
+n                                     11  word       (usage 51)
+Pause_Session                         14  word       (usage 1)
+Play                                  15  word       (usage 10)
+state                                 13  word       (usage 37)
+status                                10  word       (usage 30)
+Token_Ring                             9  word       (usage 67)
+vDigit_value                          16  word[4]   (usage 6)
+x                                     58  word       (usage 22)
+y                                     59  word       (usage 22)
 
 [PRIVATE VARIABLES]
+clearBufLine.clearedFlag              85word      (member of clearBufLine)  (usage 5)
+doSomethingElse.counter               64word      (member of doSomethingElse)  (usage 3)
+doSomethingElse.onFlag                63word      (member of doSomethingElse)  (usage 4)
+printReceivedBytes.colorFlag          60word      (member of printReceivedBytes)  (usage 4)
+printReceivedBytes.x                  61word      (member of printReceivedBytes)  (usage 5)
+printReceivedBytes.y                  62word      (member of printReceivedBytes)  (usage 5)
 
 [DATA]
-0007: 62 00 75 00 74 00 74 00 6F 00 6E 00 20 00 70 00     b.u.t.t.o.n. .p.
-0017: 72 00 65 00 73 00 73 00 65 00 64 00 0A 00 0D 00     r.e.s.s.e.d.....
-0027: 72 00 6C 00 74 00 74 00 6F 00 6E 00 20 00 70 00     r.l.t.t.o.n. .p.
-0037: 72 00 65 00 73 00 73 00 65 00 64 00 0A 00 0D 00     r.e.s.s.e.d.....
-0047: 7A 00 70 00 74 00 74 00 6F 00 6E 00 20 00 70 00     z.p.t.t.o.n. .p.
-0057: 72 00 65 00 73 00 73 00 65 00 64 00 0A 00 0D 00     r.e.s.s.e.d.....
-0067: 74 00 74 00 74 00 74 00 6F 00 6E 00 20 00 70 00     t.t.t.t.o.n. .p.
-0077: 72 00 65 00 73 00 73 00 65 00 64 00 0A 00 0D 00     r.e.s.s.e.d.....
-0087: 53 74 61 72 74 20 44 65 6D 6F 20 31 20 00 53 74     Start Demo 1 .St
-0097: 61 72 74 20 76 6F 6E 20 44 65 6D 6F 20 32 20 2E     art von Demo 2 .
-00A7: 2E 2E 2E 2E 2E 2E 00 53 74 61 72 74 20 76 6F 6E     .......Start von
-00B7: 20 44 65 6D 6F 20 33 20 2E 2E 2E 2E 2E 2E 2E 00      Demo 3 ........
-00C7: 53 74 61 72 74 20 76 6F 6E 20 44 65 6D 6F 20 34     Start von Demo 4
-00D7: 20 2E 2E 2E 2E 2E 2E 2E 00 53 69 7A 65 20 49 6D      ........Size Im
-00E7: 61 67 65 20 50 75 66 66 65 72 20 00 52 61 75 73     age Puffer .Raus
-00F7: 20 76 6F 6E 20 64 65 72 20 4D 65 6E 75 20 2E 2E      von der Menu ..
-0107: 2E 2E 2E 2E 20 20 00 68 6D 76 32 2E 64 61 74 00     ....  .hmv2.dat.
-0117: 68 6D 76 32 2E 67 63 69 00 44 65 6D 6F 20 33 20     hmv2.gci.Demo 3 
-0127: 67 6F 20 74 6F 20 48 6F 6D 65 20 20 2E 2E 2E 2E     go to Home  ....
-0137: 2E 2E 2E 00 52 61 75 73 20 76 6F 6E 20 64 65 72     ....Raus von der
-0147: 20 44 65 6D 6F 20 33 20 20 20 74 6F 20 4D 65 6E      Demo 3   to Men
-0157: 75 20 2E 2E 2E 2E 2E 2E 20 20 00 44 65 6D 6F 20     u ......  .Demo 
-0167: 32 20 67 6F 20 74 6F 20 48 6F 6D 65 20 20 2E 2E     2 go to Home  ..
-0177: 2E 2E 2E 2E 2E 00 52 61 75 73 20 76 6F 6E 20 64     ......Raus von d
-0187: 65 72 20 44 65 6D 6F 20 32 20 20 20 74 6F 20 4D     er Demo 2   to M
-0197: 65 6E 75 20 2E 2E 2E 2E 2E 2E 20 20 00 44 65 7A     enu ......  .Dez
-01A7: 74 7A 74 7A 2E 2E 2E 2E 2E 2E 2E 00 44 65 6D 69     tztz........Demi
-01B7: 6F 6F 69 69 69 69 20 2E 2E 2E 2E 2E 2E 2E 00 44     ooiiii ........D
-01C7: 64 66 67 68 66 67 67 68 6A 67 68 6A 68 6A 6B 6A     dfghfgghjghjhjkj
-01D7: 6A 6B 6A 68 6A 67 2E 2E 2E 2E 2E 2E 00 44 69 75     jkjhjg.......Diu
-01E7: 69 75 2E 00 44 65 6D 6F 20 31 20 42 75 74 74 6F     iu..Demo 1 Butto
-01F7: 6E 20 20 35 20 2E 2E 2E 2E 2E 2E 2E 00 52 61 75     n  5 ........Rau
-0207: 73 20 76 6F 6E 20 64 65 72 20 44 65 6D 6F 20 31     s von der Demo 1
-0217: 20 20 20 74 6F 20 4D 65 6E 75 20 2E 2E 2E 2E 2E        to Menu .....
-0227: 2E 20 20 00 4D 6F 75 6E 74 69 6E 67 2E 2E 2E 0A     .  .Mounting....
-0237: 00 44 72 69 76 65 20 6E 6F 74 20 6D 6F 75 6E 74     .Drive not mount
-0247: 65 64 2E 2E 2E 00 72 61 75 73 20 76 6F 6E 20 64     ed....raus von d
-0257: 65 72 20 50 72 6F 67 72 61 6D 6D 20 00              er Programm .
+0007: 00 01 01 02 02 03 03 04 05 05 06 06 07 07 08 09     ................
+0017: 09 0A 0A 0B 0B 0C 0C 0D 0D 0E 0F 0F 10 10 11 11     ................
+0027: 12 12 13 13 14 14 15 15 16 16 17 17 18 18 19 19     ................
+0037: 1A 1A 1B 1B 1B 1C 1C 1D 1D 1E 1E 1F 1F 1F 20 20     ..............  
+0047: 21 21 21 22 22 23 23 23 24 24 25 25 25 26 26 26     !!!""###$$%%%&&&
+0057: 27 27 27 28 28 28 29 29 29 2A 2A 2A 2B 2B 2B 2C     '''((()))***+++,
+0067: 2C 2C 2C 2D 2D 52 00 5A 00 0A 00 0D 00 42 00 0A     ,,,--R.Z.....B..
+0077: 00 0D 00 43 00 0A 00 0D 00 7A 00 70 00 74 00 74     ...C.....z.p.t.t
+0087: 00 6F 00 6E 00 20 00 70 00 72 00 65 00 73 00 73     .o.n. .p.r.e.s.s
+0097: 00 65 00 64 00 0A 00 0D 00 74 00 74 00 74 00 74     .e.d.....t.t.t.t
+00A7: 00 6F 00 6E 00 20 00 70 00 72 00 65 00 73 00 73     .o.n. .p.r.e.s.s
+00B7: 00 65 00 64 00 0A 00 0D 00 0A 00 0D 00 25 73 00     .e.d.........%s.
+00C7: 63 6F 6D 5F 43 6F 75 6E 74 3A 00 63 6F 75 6E 74     com_Count:.count
+00D7: 65 72 3A 00 68 6D 76 32 2E 64 61 74 00 68 6D 76     er:.hmv2.dat.hmv
+00E7: 32 2E 67 63 69 00 42 75 66 66 65 72 65 64 3A 00     2.gci.Buffered:.
+00F7: 49 6E 70 75 74 20 31 30 20 63 68 61 72 61 63 74     Input 10 charact
+0107: 65 72 73 3A 00 44 65 6D 6F 20 32 20 67 6F 20 74     ers:.Demo 2 go t
+0117: 6F 20 48 6F 6D 65 20 20 2E 2E 2E 2E 2E 2E 2E 00     o Home  ........
+0127: 41 63 74 69 6F 6E 20 31 2E 2E 2E 2E 2E 2E 2E 00     Action 1........
+0137: 41 63 74 69 6F 6E 20 32 20 20 2E 2E 2E 2E 2E 2E     Action 2  ......
+0147: 2E 00 52 61 75 73 20 76 6F 6E 20 64 65 72 20 44     ..Raus von der D
+0157: 65 6D 6F 20 31 20 20 20 74 6F 20 4D 65 6E 75 20     emo 1   to Menu 
+0167: 2E 2E 2E 2E 2E 2E 20 20 00 44 72 69 76 65 20 6E     ......  .Drive n
+0177: 6F 74 20 6D 6F 75 6E 74 65 64 2E 2E 2E 00           ot mounted....
 
 [__MAXPROG]
-32750
-[__MAXMEM]
 32768
+[__MAXMEM]
+32767
 
 [PROGRAM]
 main
 [CODESIZE]
-2421
+3486
 [MEMSIZE]
-71
+85
 [ARGCOUNT]
 0
 [RETURNS]
@@ -233,14 +338,16 @@ NO
 [STACKSIZE]
 0 (AUTO)
 [STACK_ESTIMATE]
-28   (nb:- worst case estimate)
+120   (nb:- worst case estimate)
 [MODE]
 0
 
 [PROJECT]
-C:\Users\virgile\Desktop\Rutronik_Projekt\hmv2.4Dg
+C:\Users\virgile\Desktop\Rutronik_Projekt\hmv2.4dg
 C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\Gen4-uLCD-43DCT-CLB.fnc
 C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\Diablo16_Functions.fnc
 C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\4DGL_16bitColours.fnc
 C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\VisualConst.inc
 C:\Users\virgile\Desktop\Rutronik_Projekt\hmv2.4DWork\hmv2Const.inc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\ledDigitsDisplay.inc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\XYposToDegree.inc

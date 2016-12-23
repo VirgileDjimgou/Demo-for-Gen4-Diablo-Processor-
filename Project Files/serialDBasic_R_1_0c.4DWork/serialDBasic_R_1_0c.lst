@@ -1,8 +1,4 @@
-4DGL Compiler 2.8.0.5 -- Copyright 2004-2015 4D Labs
-** C:\Users\virgile\Desktop\Rutronik_Projekt\hmv2.4dg
-compiled Fri Dec 23 00:55:27 2016
-
-file C:\Users\virgile\Desktop\Rutronik_Projekt\hmv2.4dg
+file C:\Users\virgile\Desktop\Rutronik_Projekt\Project Files\serialDBasic_R_1_0c.4dg
 
 file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\Gen4-uLCD-43DCT-CLB.fnc
 
@@ -5202,1162 +5198,209 @@ file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\Diablo16_Functions
 005192  000105        
 005193  000106        
 005194  000002        
-005195  000003  // Program Skeleton 1.2 generated 12/14/2016 12:18:44 PM
-005196  000004        
 file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\4DGL_16bitColours.fnc
 
-005197  000005  #inherit "4DGL_16bitColours.fnc"
-005198  000005  #inherit "4DGL_16bitColours.fnc"
-005199  000004  */
-005200  000005        
-005201  000006        
-005202  000007        
-005203  000008  #CONST
-005204  000149  #END
-005205  000150        
-005206  000006        
-file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\VisualConst.inc
-
-005207  000007  #inherit "VisualConst.inc"
-005208  000007  #inherit "VisualConst.inc"
-005209  000001  // Line Patterns
-005210  000002  #constant  LPCOARSE    0xF0F0
-005211  000002  #constant  LPCOARSE    0xF0F0
-005212  000003  #constant  LPMEDIUM    0x3333
-005213  000003  #constant  LPMEDIUM    0x3333
-005214  000004  #constant  LPFINE      0xAAAA
-005215  000004  #constant  LPFINE      0xAAAA
-005216  000005  #constant  LPDASHDOT   0x03CF
-005217  000005  #constant  LPDASHDOT   0x03CF
-005218  000006  #constant  LPDASHDOTDOT 0x0333
-005219  000006  #constant  LPDASHDOTDOT 0x0333
-005220  000007  #constant  LPSOLID     0x0000
-005221  000007  #constant  LPSOLID     0x0000
-005222  000008        
-file C:\Users\virgile\Desktop\Rutronik_Projekt\hmv2.4DWork\hmv2Const.inc
-
-005223  000009  #inherit "hmv2Const.inc"
-005224  000009  #inherit "hmv2Const.inc"
-005225  000001  // File generated 23.12.2016 00:51:24
-005226  000002  // Warning! This is a generated file, any manual changes will be
-005227  000003  // lost during the next generation.
-005228  000004        
-005229  000005  // object indexes into ImageControl
-005230  000006  #CONST
-005231  000032  #END
-005232  000033        
-005233  000034  #IFNOT EXISTS NOGLOBALS
-005234  000035  var hndl ;
-005235  000036  #ENDIF
-005236  000010        
-file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\ledDigitsDisplay.inc
-
-005237  000011  #inherit "ledDigitsDisplay.inc"
-005238  000011  #inherit "ledDigitsDisplay.inc"
-005239  000001  // WARNING, this code will crash if newval exceeds maximum displayable number
-005240  000002  func ledDigitsDisplay(var newval, var index, var left, var Digits, var MinDigits, var WidthDigit, var LeadingBlanks)
-005241  000003      var i, k, l, lb ;
-005242  000004      l := 1 ;
-005243  000005      for (i := 1; i < Digits; i++)
-005244  000006          l *= 10 ;
-005245  000007      next
-005246  000008      lb := LeadingBlanks ;
-005247  000009      for (i := 0; i < Digits; i++)
-005248  000010          k := newval / l ;
-005249  000011          newval -= k * l ;
-005250  000012          if ( lb && (i < Digits - MinDigits) )
-005251  000013              if (k == 0)
-005252  000014                  k := 10 ;
-005253  000015              else
-005254  000016                  lb := 0 ;
-005255  000017              endif
-005256  000018          endif
-005257  000019          l /= 10 ;
-005258  000020          img_SetWord(hndl, index, IMAGE_INDEX, k);
-005259  000021          img_SetWord(hndl, index, IMAGE_XPOS, left+i*WidthDigit) ;
-005260  000022          img_Show(hndl, index);
-005261  000023      next
-005262  000024  endfunc
-005263  000025        
-005264  000012        
-005265  000013  // add
-005266  000014        
-005267  000015        
-file C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\XYposToDegree.inc
-
-005268  000016  #inherit "XYposToDegree.inc"
-005269  000016  #inherit "XYposToDegree.inc"
-005270  000001  //
-005271  000002  // Routine to convert X/Y (Relative to 0,0) position into Degrees
-005272  000003  // 0 Degrees is straight down to suit rotary objects
-005273  000004  //
-005274  000005        
-005275  000017  #END
-5276  006B
-5277  006C
-5278  006D
-5279  006E
-5280  006F
-5281  0070
-5282  0071
-5283  0072
-5284  0073
-5285  0074
-5286  0075
-5287  0076
-5288  0077
-5289  0078
-5290  0079
-5291  007A
-5292  007B
-5293  007C
-5294  007D
-5295  007E
-5296  007F
-5297  0080
-5298  0081
-5299  0082
-5300  0083
-5301  0084
-5302  0085
-5303  0086
-5304  0087
-5305  0088
-5306  0089
-5307  008A
-5308  008B
-5309  008C
-5310  008D
-5311  008E
-5312  008F
-5313  0090
-5314  0091
-5315  0092
-5316  0093
-5317  0094
-5318  0095
-5319  0096
-5320  0097
-5321  0098
-5322  0099
-5323  009A
-5324  009B
-5325  009C
-5326  009D
-5327  009E
-5328  009F
-5329  00A0
-5330  00A1
-5331  00A2
-5332  00A3
-5333  00A4
-5334  00A5
-5335  00A6
-5336  00A7
-5337  00A8
-5338  00A9
-5339  00AA
-5340  00AB
-5341  00AC
-5342  00AD
-5343  00AE
-5344  00AF
-5345  00B0
-5346  00B1
-5347  00B2
-5348  00B3
-5349  00B4
-5350  00B5
-5351  00B6
-5352  00B7
-5353  00B8
-5354  00B9
-5355  00BA
-5356  00BB
-5357  00BC
-5358  00BD
-5359  00BE
-5360  00BF
-5361  00C0
-5362  00C1
-5363  00C2
-5364  00C3
-5365  00C4
-5366  00C5
-5367  00C6
-5368  00C7
-5369  00C8
-5370  00C9
-5371  00CA
-5372  00CB
-5373  00CC
-5374  00CD
-5375  00CE
-5376  00CF
-005377  000018        
-005378  000019  func XYposToDegree(var curX, var curY)
-005379  000020      var delta, deg, adj ;
-005380  000021      if (curY < 0)
-005381  000022          if (curX < 0)
-005382  000023              adj := 1 ;
-005383  000024              deg := 90 ;
-005384  000025          else
-005385  000026              adj := 2 ;
-005386  000027              deg := 180 ;
-005387  000028          endif
-005388  000029      else
-005389  000030          if (curX < 0)
-005390  000031              deg := 0 ;
-005391  000032              adj := 2 ;
-005392  000033          else
-005393  000034              deg := 270 ;
-005394  000035              adj := 1 ;
-005395  000036          endif
-005396  000037      endif
-005397  000038        
-005398  000039      curX := ABS(curX) ;
-005399  000040      curY := ABS(curY) ;
-005400  000041      if (curX < curY)
-005401  000042          adj &= 1 ;
-005402  000043      else
-005403  000044          adj &= 2 ;
-005404  000045          SWAP(&curX, &curY) ;
-005405  000046      endif
-005406  000047      delta := arctan[(curX * 100) / curY] ;
-005407  000048      if (adj)
-005408  000049          deg += 90 - delta ;
-005409  000050      else
-005410  000051          deg += delta ;
-005411  000052      endif
-005412  000053        
-005413  000054      return deg ;
-005414  000055  endfunc
-005415  000056        
-005416  000017        
-005417  000018  // Var Serial Int
-005418  000019  #CONST
-005419  000022  #END
-005420  000023        
-005421  000024  #CONST
-005422  000027  #END
-005423  000028        
-005424  000029  #CONST
-005425  000032  #END
-005426  000033        
-005427  000034  var combuf[5];     // a buffer for up to 10 characters
-005428  000035  var lengthG;
-005429  000036  var brFlag := FALSE;
-005430  000037        
-005431  000038        
-005432  000039  // End Add
-005433  000040        
-005434  000041  // Demo Dependcies
-005435  000042  var Token_Ring := 0 ;
-005436  000043  var status;
-005437  000044  var n,i;
-005438  000045  var state := 0 ;
-005439  000046  // Pause  Zustand fur das Video ....
-005440  000047  var Pause_Session := 0;
-005441  000048  // Zustand von Video ... in Play Zustand oder In Pause  ....
-005442  000049  // Default Play := 0 or Play := 1  bedeuted  Video in Pause Modus
-005443  000050  var Play := 0;
-005444  000051        
-005445  000052        
-005446  000053  //  Demo 1
-005447  000054  var vDigit_value[]:=['R','Z','\n','\r'];
-5448  0073
-5449  0074
-5450  0075
-5451  0076
-5452  0077
-5453  0078
-5454  0079
-5455  007A
-005456  000055  var Command_1[]:=['B','\n','\r'];
-5457  0079
-5458  007A
-5459  007B
-5460  007C
-5461  007D
-5462  007E
-005463  000056  var Command_2[]:=['C','\n','\r'];
-5464  007F
-5465  0080
-5466  0081
-5467  0082
-5468  0083
-5469  0084
-005470  000057        
-005471  000058        
-005472  000059  var Command_3[]:=['z','p','t','t','o','n',' ','p','r','e','s','s','e','d','\n','\r'];
-5473  009F
-5474  00A0
-5475  00A1
-5476  00A2
-5477  00A3
-5478  00A4
-5479  00A5
-5480  00A6
-5481  00A7
-5482  00A8
-5483  00A9
-5484  00AA
-5485  00AB
-5486  00AC
-5487  00AD
-5488  00AE
-5489  00AF
-5490  00B0
-5491  00B1
-5492  00B2
-5493  00B3
-5494  00B4
-5495  00B5
-5496  00B6
-5497  00B7
-5498  00B8
-5499  00B9
-5500  00BA
-5501  00BB
-5502  00BC
-5503  00BD
-5504  00BE
-005505  000060  var Command_4[]:=['t','t','t','t','o','n',' ','p','r','e','s','s','e','d','\n','\r'];
-5506  00BF
-5507  00C0
-5508  00C1
-5509  00C2
-5510  00C3
-5511  00C4
-5512  00C5
-5513  00C6
-5514  00C7
-5515  00C8
-5516  00C9
-5517  00CA
-5518  00CB
-5519  00CC
-5520  00CD
-5521  00CE
-5522  00CF
-5523  00D0
-5524  00D1
-5525  00D2
-5526  00D3
-5527  00D4
-5528  00D5
-5529  00D6
-5530  00D7
-5531  00D8
-5532  00D9
-5533  00DA
-5534  00DB
-5535  00DC
-5536  00DD
-5537  00DE
-005538  000061        
-005539  000062  // funktion Knob and  Rotary Swicth
-005540  000063  var x, y ;
-005541  000064        
-005542  000065        
-005543  000066        
-005544  000067  func main()
-005545  000068  //  var hstrings ; // Handle to access uSD strings, uncomment if required
-005546  000069  //  var hFontx ;   // Handle to access uSD fonts, uncomment if required and change n to font number
-005547  000070  //  Uncomment the following if uSD images, fonts or strings used.
-005548  000071  com_SetBaud(COM0,960);  //COM1 9600 baud
-005549  000072  pause(100);
-005550  000073  // muss man im Prinzipe die Initialisierung  von com_Inti in Demo 4 loschen
-005551  000074  // Falls es moch nicht geloscht  wurde
-005552  000075  com_Init(combuf, 10, 0);      // set up a comms buffer for COMO, no qualifier
-005553  000076      // putstr("Mounting...\n");
-005554  000077      if (!(file_Mount()))
-005555  000078          while(!(file_Mount()))
-005556  000079              putstr("Drive not mounted...");
-005557  000080              pause(200);
-005558  000081              gfx_Cls();
-005559  000082              pause(200);
-005560  000083          wend
-005561  000084      endif
-005562  000085        
-005563  000086      hndl := file_LoadImageControl("hmv2.dat", "hmv2.gci", 1);
-005564  000087        
-005565  000088      gfx_Cls();
-005566  000089      // Aufruf von HauptMenu
-005567  000090      // nur zum Testen ... muss spater gelooscht werden    (get Command )
-005568  000091        
-005569  000092      getCommand();
-005570  000093        
-005571  000094      repeat
-005572  000095            if (Token_Ring == 0)
-005573  000096                 Menu();
-005574  000097                 endif
-005575  000098        
-005576  000099            if (Token_Ring == 1)
-005577  000100                // Demo_1();
-005578  000101                Demo_1();
-005579  000102                endif
-005580  000103        
-005581  000104            if (Token_Ring == 2)
-005582  000105                Demo_2();
-005583  000106                endif
-005584  000107            if (Token_Ring == 3)
-005585  000108                Demo_3();
-005586  000109                endif
-005587  000110        
-005588  000111            if (Token_Ring == 4)
-005589  000112                Demo_4();
-005590  000113                endif
-005591  000114        
-005592  000115        
-005593  000116        
-005594  000117      forever
-005595  000118        
-005596  000119  endfunc
-005597  000120        
-005598  000121        
-005599  000122        
-005600  000123        
-005601  000124        
-005602  000125      // Form2 1.1 generated 20.12.2016 20:04:19
-005603  000126  func moveiknob()
-005604  000127      var degrees, posit , numx;
-005605  000128      var Digit_value[]:=['\n','\r'];
-5606  00C3
-5607  00C4
-5608  00C5
-5609  00C6
-005610  000129      // var Test = Test+Digit_value;
-005611  000130        
-005612  000131        
-005613  000132      degrees := XYposToDegree(x-346,      // x - CentreX
-005614  000133                               y-170) ;    // y - centreY
-005615  000134      if (degrees < 45)                   // anything in the first 'dead zone' is minvalue
-005616  000135          degrees := 0 ;
-005617  000136      else
-005618  000137          if (degrees > 315)              // anything in the last 'dead zone' is maxvalue
-005619  000138              degrees := 270 ;
-005620  000139          else
-005621  000140              degrees -= 45 ;             // offset by -baseangle
-005622  000141          endif
-005623  000142      endif
-005624  000143      posit := degrees * 100 / 270 ;        // convert degrees to position
-005625  000144      img_SetWord(hndl, iKnob1, IMAGE_INDEX, posit);
-005626  000145      img_Show(hndl, iKnob1);
-005627  000146        
-005628  000147        
-005629  000148        
-005630  000149      // Leddigits1 1.0 generated 20.12.2016 20:56:33
-005631  000150      img_Show(hndl, iLeddigits1);  // show all digits at 0, only do this once
-005632  000151      ledDigitsDisplay(posit, iLeddigits1+1, 241, 4, 3, 38, 0) ;
-005633  000152        
-005634  000153      // Tranfert a Command  to Serial Port
-005635  000154      // serout(posit);
-005636  000155      vDigit_value[1]:=posit;
-005637  000156      for(i:=0;i<3;i++)
-005638  000157          serout(vDigit_value[i]);
-005639  000158          next
-005640  000159        
-005641  000160        
-005642  000161  endfunc
-005643  000162        
-005644  000163        
-005645  000164        
-005646  000165  func Demo_1()
-005647  000166      var state_knob, n_knob;
-005648  000167      var degrees, zero, posit;
-005649  000168        
-005650  000169        
-005651  000170        
-005652  000171      gfx_TransparentColour(0x0020);
-005653  000172      gfx_Transparency(ON);
-005654  000173        
-005655  000174        
-005656  000175        
-005657  000176      hndl := file_LoadImageControl("hmv2.dat", "hmv2.gci", 1);
-005658  000177      gfx_Cls() ;
-005659  000178        
-005660  000179        
-005661  000180      // Statictext3 1.0 generated 20.12.2016 20:16:03
-005662  000181      img_Show(hndl,iStatictext3) ;
-005663  000182        
-005664  000183        
-005665  000184      // Winbutton6 1.0 generated 20.12.2016 20:16:33
-005666  000185      img_ClearAttributes(hndl, iWinbutton6, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-005667  000186      img_Show(hndl, iWinbutton6);  // show button, only do this once
-005668  000187      img_SetWord(hndl, iWinbutton6, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-005669  000188      img_Show(hndl,iWinbutton6) ;
-005670  000189        
-005671  000190        
-005672  000191      // Winbutton7 1.0 generated 20.12.2016 20:16:50
-005673  000192      img_ClearAttributes(hndl, iWinbutton7, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-005674  000193      img_Show(hndl, iWinbutton7);  // show button, only do this once
-005675  000194      img_SetWord(hndl, iWinbutton7, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-005676  000195      img_Show(hndl,iWinbutton7) ;
-005677  000196        
-005678  000197        
-005679  000198      // Winbutton5 1.0 generated 20.12.2016 20:17:16
-005680  000199      img_ClearAttributes(hndl, iWinbutton5, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-005681  000200      img_Show(hndl, iWinbutton5);  // show button, only do this once
-005682  000201      img_SetWord(hndl, iWinbutton5, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-005683  000202      img_Show(hndl,iWinbutton5) ;
-005684  000203        
-005685  000204        
-005686  000205        
-005687  000206        
-005688  000207        
-005689  000208      /// end Initialised
-005690  000209        
-005691  000210        
-005692  000211      img_Show(hndl,iKnob1) ;
-005693  000212      img_SetWord(hndl, iKnob1, IMAGE_FLAGS, (img_GetWord(hndl, iKnob1, IMAGE_FLAGS) | I_STAYONTOP) & ~I_TOUCH_DISABLE);
-005694  000213        
-005695  000214      touch_Set(TOUCH_ENABLE);                            // enable the touch screen
-005696  000215        
-005697  000216      repeat
-005698  000217          // hgjhghgjhghjg
-005699  000218        
-005700  000219         status:=touch_Get(TOUCH_STATUS);
-005701  000220              if(status==TOUCH_PRESSED)
-005702  000221              n:=img_Touched(hndl,-1);
-005703  000222                      if(n== iWinbutton6)
-005704  000223                            putstr ("Action 1.......") ;
-005705  000224                            // Demmo 1
-005706  000225                            // Display saubern
-005707  000226                            // Zurucksetzung  von Image Puffer
-005708  000227        
-005709  000228                             for(i:=0;i<3;i++)
-005710  000229                             serout(Command_1[i]);
-005711  000230                             next
-005712  000231        
-005713  000232        
-005714  000233                             endif
-005715  000234        
-005716  000235        
-005717  000236                      if(n==iWinbutton7)
-005718  000237                            putstr ("Action 2  .......");
-005719  000238        
-005720  000239                             for(i:=0;i<3;i++)
-005721  000240                             serout(Command_2[i]);
-005722  000241                             next
-005723  000242        
-005724  000243        
-005725  000244                            endif
-005726  000245        
-005727  000246        
-005728  000247        
-005729  000248                        if(n==iWinbutton5)
-005730  000249        
-005731  000250                            Token_Ring:=0;
-005732  000251                            gfx_Cls();
-005733  000252        
-005734  000253        
-005735  000254                       endif
-005736  000255        
-005737  000256            endif
-005738  000257      if(Token_Ring!=1)
-005739  000258         putstr("Raus von der Demo 1   to Menu ......  ");
-005740  000259         pause(10);
-005741  000260        
-005742  000261         break;
-005743  000262         endif
-005744  000263        
-005745  000264          //begin knob ...
-005746  000265        
-005747  000266          state_knob := touch_Get(TOUCH_STATUS);               // get touchscreen status
-005748  000267          n_knob := img_Touched(hndl,-1) ;
-005749  000268        
-005750  000269          //-----------------------------------------------------------------------------------------
-005751  000270          if(state_knob == TOUCH_PRESSED)                        // if there's a press
-005752  000271              x := touch_Get(TOUCH_GETX);
-005753  000272              y := touch_Get(TOUCH_GETY);
-005754  000273              endif
-005755  000274        
-005756  000275        
-005757  000276              if(Token_Ring!=1)
-005758  000277                 putstr("Raus von der Demo 1   to Menu ......  ");
-005759  000278                 pause(10);
-005760  000279        
-005761  000280                 break;
-005762  000281                 endif
-005763  000282          // endif
-005764  000283        
-005765  000284          //-----------------------------------------------------------------------------------------
-005766  000285          if(state_knob == TOUCH_RELEASED)                      // if there's a release
-005767  000286          endif
-005768  000287        
-005769  000288          //-----------------------------------------------------------------------------------------
-005770  000289          if(state_knob == TOUCH_MOVING)                       // if it's moving
-005771  000290              x := touch_Get(TOUCH_GETX);
-005772  000291              y := touch_Get(TOUCH_GETY);
-005773  000292        
-005774  000293              if (n_knob == iKnob1) moveiknob() ;
-005775  000294          endif
-005776  000295        
-005777  000296        
-005778  000297        
-005779  000298        
-005780  000299        
-005781  000300        
-005782  000301      forever
-005783  000302      touch_Set(TOUCH_DISABLE);
-005784  000303  endfunc
-005785  000304        
-005786  000305        
-005787  000306  func Demo_2()
-005788  000307        
-005789  000308      hndl := file_LoadImageControl("hmv2.dat", "hmv2.gci", 1);
-005790  000309        
-005791  000310      gfx_Cls();
-005792  000311      // Form3 1.1 generated 18.12.2016 00:44:37
-005793  000312       var frame := 50;
-005794  000313      // Coolgauge1 1.0 generated 18.12.2016 00:44:38
-005795  000314      img_SetWord(hndl, iCoolgauge1, IMAGE_INDEX, frame) ; // where frame is 0 to 100 (for a displayed -1 to -1)
-005796  000315      img_Show(hndl,iCoolgauge1) ;
-005797  000316        
-005798  000317        
-005799  000318      // Statictext5 1.0 generated 22.12.2016 23:00:56
-005800  000319      img_Show(hndl,iStatictext5) ;
-005801  000320        
-005802  000321        
-005803  000322      // Statictext6 1.0 generated 22.12.2016 23:01:08
-005804  000323      img_Show(hndl,iStatictext6) ;
-005805  000324        
-005806  000325        
-005807  000326      // 4Dbutton6 1.0 generated 18.12.2016 00:44:38
-005808  000327      img_ClearAttributes(hndl, i4Dbutton6, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-005809  000328      img_Show(hndl, i4Dbutton6);  // show button, only do this once
-005810  000329      img_SetWord(hndl, i4Dbutton6, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-005811  000330      img_Show(hndl,i4Dbutton6) ;
-005812  000331        
-005813  000332      // Statictext4 1.0 generated 18.12.2016 00:44:38
-005814  000333      img_Show(hndl,iStatictext4) ;
-005815  000334        
-005816  000335      // Thermometer1 1.0 generated 18.12.2016 00:44:39
-005817  000336      img_SetWord(hndl, iThermometer1, IMAGE_INDEX, frame) ; // where frame is 0 to 100 (for a displayed -1 to -1)
-005818  000337      img_Show(hndl,iThermometer1) ;
-005819  000338        
-005820  000339        
-005821  000340      touch_Set(TOUCH_ENABLE);
-005822  000341        
-005823  000342      repeat
-005824  000343        
-005825  000344              status:=touch_Get(TOUCH_STATUS);
-005826  000345              if(status==TOUCH_PRESSED)
-005827  000346              n:=img_Touched(hndl,-1);
-005828  000347        
-005829  000348        
-005830  000349                       endif
-005831  000350        
-005832  000351                        if(n==i4Dbutton6)
-005833  000352                            putstr ("Demo 2 go to Home  .......")   ;
-005834  000353                            Token_Ring:=0;
-005835  000354                            gfx_Cls();
-005836  000355        
-005837  000356        
-005838  000357                       endif
-005839  000358        
-005840  000359        
-005841  000360      if(Token_Ring!=2)
-005842  000361         // putstr("Raus von der Demo 2   to Menu ......  ");
-005843  000362         pause(10);
-005844  000363        
-005845  000364         break;
-005846  000365         endif
-005847  000366     forever
-005848  000367      touch_Set(TOUCH_DISABLE);
-005849  000368        
-005850  000369        
-005851  000370        
-005852  000371  endfunc
-005853  000372        
-005854  000373  func Demo_3()
-005855  000374       // aushlatehn evnet Menu
-005856  000375      Token_Ring:= 3;
-005857  000376      hndl := file_LoadImageControl("hmv2.dat", "hmv2.gci", 1);
-005858  000377        
-005859  000378      gfx_Cls();
-005860  000379        
-005861  000380        
-005862  000381      // Form4 1.1 generated 18.12.2016 23:18:46
-005863  000382        
-005864  000383      // Winbutton4 1.0 generated 20.12.2016 22:00:31
-005865  000384      img_ClearAttributes(hndl, iWinbutton4, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-005866  000385      img_Show(hndl, iWinbutton4);  // show button, only do this once
-005867  000386      img_SetWord(hndl, iWinbutton4, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-005868  000387      img_Show(hndl,iWinbutton4) ;
-005869  000388        
-005870  000389        
-005871  000390        
-005872  000391      // Winbutton8 1.0 generated 20.12.2016 22:00:40
-005873  000392      img_ClearAttributes(hndl, iWinbutton8, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-005874  000393      img_Show(hndl, iWinbutton8);  // show button, only do this once
-005875  000394      img_SetWord(hndl, iWinbutton8, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-005876  000395      img_Show(hndl,iWinbutton8) ;
-005877  000396        
-005878  000397        
-005879  000398        
-005880  000399        
-005881  000400      // Winbutton14 1.0 generated 18.12.2016 23:18:46
-005882  000401      img_ClearAttributes(hndl, iWinbutton14, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-005883  000402      img_Show(hndl, iWinbutton14);  // show button, only do this once
-005884  000403      img_SetWord(hndl, iWinbutton14, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-005885  000404      img_Show(hndl,iWinbutton14) ;
-005886  000405        
-005887  000406      // Video1 1.0 generated 18.12.2016 23:18:46
-005888  000407      img_SetWord(hndl, iVideo1, IMAGE_INDEX, frame) ; // where frame is 0 to 3306
-005889  000408      img_Show(hndl,iVideo1) ;
-005890  000409        
-005891  000410      touch_Set(TOUCH_ENABLE);
-005892  000411      var frame:= 0;
-005893  000412        
-005894  000413      repeat
-005895  000414      // for(frame:=0;frame<=3306;frame++)
-005896  000415          pause(2);
-005897  000416          img_SetWord(hndl, iVideo1, IMAGE_INDEX, frame) ; // where frame is 0 to 3306
-005898  000417          img_Show(hndl,iVideo1) ;
-005899  000418          gfx_Set(SCREEN_MODE,LANDSCAPE);
-005900  000419        
-005901  000420          if (Play==0)
-005902  000421              frame := frame + 1 ;
-005903  000422              endif
-005904  000423        
-005905  000424          if (frame >= 3305)
-005906  000425             // keine Frame oder Images auf dem Puffer zu lesen
-005907  000426             // dann mussen  wir raus von der Repeat Schleife
-005908  000427             break;
-005909  000428             endif
-005910  000429        
-005911  000430        
-005912  000431        
-005913  000432              status:=touch_Get(TOUCH_STATUS);
-005914  000433              if(status==TOUCH_PRESSED)
-005915  000434              n:=img_Touched(hndl,-1);
-005916  000435        
-005917  000436        
-005918  000437                       endif
-005919  000438        
-005920  000439                        if(n==iWinbutton4)
-005921  000440                            // putstr ("Play Modus  .......")   ;
-005922  000441                            Play := 0;
-005923  000442        
-005924  000443        
-005925  000444        
-005926  000445                       endif
-005927  000446        
-005928  000447                        if(n==iWinbutton8)
-005929  000448                            // putstr ("Pause Modus  .......")   ;
-005930  000449                            Play := 1;
-005931  000450        
-005932  000451        
-005933  000452                       endif
-005934  000453        
-005935  000454        
-005936  000455        
-005937  000456                        if(n==iWinbutton14)
-005938  000457        
-005939  000458                            Token_Ring:=0;
-005940  000459                            gfx_Cls();
-005941  000460        
-005942  000461        
-005943  000462                       endif
-005944  000463        
-005945  000464        
-005946  000465      if(Token_Ring!=3)
-005947  000466         // putstr("Raus von der Demo 3   to Menu ......  ");
-005948  000467         pause(10);
-005949  000468        
-005950  000469         break;
-005951  000470         endif
-005952  000471        
-005953  000472        
-005954  000473         // next
-005955  000474      forever
-005956  000475        
-005957  000476     touch_Set(TOUCH_DISABLE);
-005958  000477        
-005959  000478  endfunc
-005960  000479        
-005961  000480        
-005962  000481  func Demo_4()
-005963  000482        
-005964  000483      Token_Ring:=4;
-005965  000484      hndl := file_LoadImageControl("hmv2.dat", "hmv2.gci", 1);
-005966  000485        
-005967  000486      gfx_Cls();
-005968  000487        
-005969  000488      //  gfx_ScreenMode(LANDSCAPE_R) ;   // set the screen orientation
-005970  000489        
-005971  000490      txt_FGcolour(ORANGE);           // change the text foreground color to orange
-005972  000491      txt_Width(2);                 // multiply the font width by 2
-005973  000492      txt_Height(2);                // multiply the font height by 2
-005974  000493      print("Buffered:");
-005975  000494      txt_FGcolour(LIME);           // change the text foreground color to lime
-005976  000495      txt_MoveCursor(2,0);
-005977  000496      print("Input 10 characters:");
-005978  000497        
-005979  000498      //COM1_RX_pin(PA0);             // Specify PA0 to use for the com ports receive line  (COM1)
-005980  000499      //COM1_TX_pin(PA1);             // Specify PA1 to use for the com ports transmit line (COM1)
-005981  000500      //COM2_RX_pin(PA0);             // Specify PA0 to use for the com ports receive line  (COM2)
-005982  000501      //COM2_TX_pin(PA1);             // Specify PA1 to use for the com ports transmit line (COM2)
-005983  000502        
-005984  000503      com_Init(combuf, 10, 0);      // set up a comms buffer for COMO, no qualifier
-005985  000504      //com1_Init(combuf, 10, 0);      // set up a comms buffer for COM1, no qualifier
-005986  000505        
-005987  000506      com_SetBaud(COM0, 960);                 // set the baudrate to 9600 bps (COM0)
-005988  000507      //com_SetBaud(COM1, 960);                 // set the baudrate to 9600 bps (COM1)
-005989  000508        
-005990  000509        
-005991  000510        
-005992  000511      // Winbutton9 1.0 generated 22.12.2016 23:47:35
-005993  000512      img_ClearAttributes(hndl, iWinbutton9, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-005994  000513      img_Show(hndl, iWinbutton9);  // show button, only do this once
-005995  000514      img_SetWord(hndl, iWinbutton9, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-005996  000515      img_Show(hndl,iWinbutton9) ;
-005997  000516        
-005998  000517        
-005999  000518      sys_SetTimer(TIMER0, T0PERIOD);              // start TIMER0
-006000  000519      sys_SetTimer(TIMER1, T1PERIOD);              // start TIMER1
-006001  000520        
-006002  000521      touch_Set(TOUCH_ENABLE);
-006003  000522        
-006004  000523        
-006005  000524      repeat
-006006  000525          if(sys_GetTimer(TIMER0)== 0)    // if TIMER0 is now zero, check the receive buffer
-006007  000526              lengthG := com_Count();
-006008  000527              //lengthG := com1_Count();
-006009  000528              if(lengthG)                  // if there is a character available (COM0)
-006010  000529                  if(!brFlag)
-006011  000530                      printBufferedBytes(lengthG);
-006012  000531                      brFlag := TRUE;
-006013  000532                  else
-006014  000533                      printBufferedBytes(lengthG-1);
-006015  000534                      printReceivedBytes();
-006016  000535                      brFlag := FALSE;
-006017  000536                  endif
-006018  000537                  clearBufLine.clearedFlag := FALSE;
-006019  000538              endif
-006020  000539              sys_SetTimer(TIMER0, T0PERIOD);  // reset TIMER0
-006021  000540          endif
-006022  000541        
-006023  000542        
-006024  000543          doSomethingElse();
-006025  000544          clearBufLine();
-006026  000545        
-006027  000546              status:=touch_Get(TOUCH_STATUS);
-006028  000547              if(status==TOUCH_PRESSED)
-006029  000548              n:=img_Touched(hndl,-1);
-006030  000549                      if(n==iWinbutton9)
-006031  000550        
-006032  000551                            // Demmo 1
-006033  000552                            // Display saubern
-006034  000553                            // Zurucksetzung  von Image Puffer
-006035  000554                            Token_Ring:=0;
-006036  000555                            // putstr("Start Demo 4 "  + Token_Ring );
-006037  000556                             pause (10) ;
-006038  000557                             gfx_Cls();
-006039  000558        
-006040  000559                             endif
-006041  000560                      endif
-006042  000561        
-006043  000562        
-006044  000563      if(Token_Ring!=4)
-006045  000564         // putstr("Raus von der Demo 4   to Menu ......  ");
-006046  000565         pause(10);
-006047  000566        
-006048  000567         break;
-006049  000568         endif
-006050  000569      forever
-006051  000570        
-006052  000571        
-006053  000572     touch_Set(TOUCH_DISABLE);
-006054  000573        
-006055  000574        
-006056  000575  endfunc
-006057  000576        
-006058  000577  func Menu ()
-006059  000578        
-006060  000579        
-006061  000580        
-006062  000581      // Einschalten vent  Menu
-006063  000582      Token_Ring := 0;
-006064  000583          // Titel Rutronik
-006065  000584        
-006066  000585      // rutronik 1.0 generated 17.12.2016 15:34:23
-006067  000586      img_Show(hndl,irutronik) ;
-006068  000587        
-006069  000588        
-006070  000589      // Winbutton1 1.0 generated 12/14/2016 2:17:53 PM
-006071  000590      img_ClearAttributes(hndl, iWinbutton1, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-006072  000591      img_Show(hndl, iWinbutton1);  // show button, only do this once
-006073  000592      // Form1 1.1 generated 17.12.2016 14:34:48
-006074  000593      img_SetWord(hndl, iWinbutton1, IMAGE_INDEX,state); // where state is 0 for up and 1 for down
-006075  000594      img_Show(hndl,iWinbutton1) ;
-006076  000595        
-006077  000596        
-006078  000597      //  Winbutton 2 Demo 2
-006079  000598        
-006080  000599      // Winbutton2 1.0 generated 17.12.2016 15:31:42
-006081  000600      img_ClearAttributes(hndl, iWinbutton2, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-006082  000601      img_Show(hndl, iWinbutton2);  // show button, only do this once
-006083  000602      img_SetWord(hndl, iWinbutton2, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-006084  000603      img_Show(hndl,iWinbutton2) ;
-006085  000604        
-006086  000605      // Winbutton  3  Demo  3
-006087  000606        
-006088  000607      // Winbutton3 1.0 generated 17.12.2016 15:32:30
-006089  000608      img_ClearAttributes(hndl, iWinbutton3, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-006090  000609      img_Show(hndl, iWinbutton3);  // show button, only do this once
-006091  000610      img_SetWord(hndl, iWinbutton3, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-006092  000611      img_Show(hndl,iWinbutton3) ;
-006093  000612        
-006094  000613        
-006095  000614      // Winbutton10 1.0 generated 23.12.2016 00:03:24
-006096  000615      img_ClearAttributes(hndl, iWinbutton10, I_TOUCH_DISABLE); // set to enable touch, only need to do this once
-006097  000616      img_Show(hndl, iWinbutton10);  // show button, only do this once
-006098  000617      img_SetWord(hndl, iWinbutton10, IMAGE_INDEX, state); // where state is 0 for up and 1 for down
-006099  000618      img_Show(hndl,iWinbutton10) ;
-006100  000619        
-006101  000620        
-006102  000621        
-006103  000622      // Winbutton 4 Demo
-006104  000623        
-006105  000624      // Statictext1 1.0 generated 17.12.2016 15:35:00
-006106  000625      img_Show(hndl,iStatictext1) ;
-006107  000626        
-006108  000627        
-006109  000628      // Statictext2 1.0 generated 17.12.2016 15:37:08
-006110  000629      img_Show(hndl,iStatictext2) ;
-006111  000630        
-006112  000631      touch_Set(TOUCH_ENABLE);
-006113  000632        
-006114  000633        
-006115  000634      repeat
-006116  000635        
-006117  000636              status:=touch_Get(TOUCH_STATUS);
-006118  000637              if(status==TOUCH_PRESSED)
-006119  000638              n:=img_Touched(hndl,-1);
-006120  000639                      if(n==iWinbutton1)
-006121  000640        
-006122  000641                            // Demmo 1
-006123  000642                            // Display saubern
-006124  000643                            // Zurucksetzung  von Image Puffer
-006125  000644                            Token_Ring:=1;
-006126  000645                            // putstr("Start Demo 1 "  + Token_Ring );
-006127  000646                             pause (10) ;
-006128  000647                             gfx_Cls();
-006129  000648        
-006130  000649                             endif
-006131  000650        
-006132  000651        
-006133  000652                      if(n==iWinbutton2)
-006134  000653                            // putstr ("Start von Demo 2 .......");
-006135  000654                            // Demo 2
-006136  000655                            // Display saubern
-006137  000656                            // Zurucksetzung  von Image Puffer
-006138  000657                            Token_Ring:=2;
-006139  000658                            pause (10);
-006140  000659                            gfx_Cls();
-006141  000660        
-006142  000661                            endif
-006143  000662        
-006144  000663        
-006145  000664        
-006146  000665        
-006147  000666                      if(n==iWinbutton3)
-006148  000667                            // putstr ("Start von Demo 3 .......") ;
-006149  000668                            // Demo 3
-006150  000669                            // Display saubern
-006151  000670                            // Zurucksetzung  von Image Puffer
-006152  000671                            Token_Ring := 3;
-006153  000672        
-006154  000673                            pause(10);
-006155  000674                            gfx_Cls();
-006156  000675                            endif
-006157  000676        
-006158  000677                        if(n==iWinbutton10)
-006159  000678                            // putstr ("Start von Demo 3 .......") ;
-006160  000679                            // Demo 3
-006161  000680                            // Display saubern
-006162  000681                            // Zurucksetzung  von Image Puffer
-006163  000682                            Token_Ring := 4;
-006164  000683        
-006165  000684                            pause(10);
-006166  000685                            gfx_Cls();
-006167  000686                            endif
-006168  000687        
-006169  000688        
-006170  000689      endif
-006171  000690      if(Token_Ring!=0)
-006172  000691         // putstr("Raus von der Menu ......  ");
-006173  000692         pause(10);
-006174  000693        
-006175  000694         break;
-006176  000695         endif
-006177  000696     forever
-006178  000697    touch_Set(TOUCH_DISABLE);
-006179  000698        
-006180  000699        
-006181  000700        
-006182  000701        
-006183  000702  endfunc
-006184  000703        
-006185  000704  // Serial int Function  zum nutzen nur mit Verbindung mit Demo 2 ....
-006186  000705  // auf keinen Fall mit dem  anderen Demo  ...
-006187  000706  func getCommand()
-006188  000707  var char ;
-006189  000708     repeat
-006190  000709        
-006191  000710      char := serin();        // get a character from the buffer (COM0)
-006192  000711      print(char;
-006193  000712      pause(10);
-006194  000713        
-006195  000714     forever
-006196  000715        
-006197  000716  endfunc
-006198  000717        
-006199  000718        
-006200  000719        
-006201  000720  func printReceivedBytes()
-006202  000721      var char;
-006203  000722      var private colorFlag := FALSE;
-006204  000723      var private x := PRINTRCV_COL;
-006205  000724      var private y := PRINTRCV_LINE;
-006206  000725        
-006207  000726      char := serin();        // get a character from the buffer (COM0)
-006208  000727      //char := serin1();        // get a character from the buffer (COM1)
-006209  000728      //lengthG--;
-006210  000729      if(lengthG < 0) lengthG:= 0;
-006211  000730        
-006212  000731        
-006213  000732      serout(char);           // echo the character to the serial port (COM0)
-006214  000733      //serout1(char);           // echo the character to the serial port (COM1)
-006215  000734        
-006216  000735      // print the received bytes in yellow or red font
-006217  000736      if(!colorFlag)
-006218  000737          txt_FGcolour(YELLOW);   // change the text foreground color to yellow
-006219  000738      else
-006220  000739          txt_FGcolour(RED);
-006221  000740      endif
-006222  000741        
-006223  000742      txt_MoveCursor(y,x);    // move cursor to line y, column x
-006224  000743      putch(char);            // print the character
-006225  000744      x++;
-006226  000745      if(x > 9)               // if past ten characters wide
-006227  000746          x := 0;             // carriage return
-006228  000747          y++;                // move to next line
-006229  000748          if(y > PRINTRCV_LINE + 3) // if exceeded four lines of text
-006230  000749              y := PRINTRCV_LINE;   // return cursor to the first position
-006231  000750              colorFlag := !colorFlag; // change text color
-006232  000751          endif
-006233  000752      endif
-006234  000753        
-006235  000754  endfunc
-006236  000755        
-006237  000756  func doSomethingElse()
-006238  000757      var private onFlag := FALSE;
-006239  000758      var private counter := 0;
-006240  000759        
-006241  000760      txt_MoveCursor(8,0);
-006242  000761      txt_FGcolour(LIME);           // change the text foreground color to lime
-006243  000762      print("com_Count:", [DEC2ZB] com_Count());    // show current count (COM0)
-006244  000763      //print("\ncom1_Count:", [DEC2ZB] com1_Count());    // show current count (COM1)
-006245  000764        
-006246  000765      if(sys_GetTimer(TIMER1)== 0)    // if TIMER1 is now zero (which means 100 ms has passed)
-006247  000766          if(onFlag == FALSE)
-006248  000767              gfx_CircleFilled(240,223, 10, BLACK);
-006249  000768          else
-006250  000769              gfx_CircleFilled(240,223, 10, ORANGE);
-006251  000770          endif
-006252  000771          onFlag := !onFlag;
-006253  000772          sys_SetTimer(TIMER1, T1PERIOD);              // reset TIMER1
-006254  000773          txt_MoveCursor(9,0);
-006255  000774          txt_FGcolour(LIME);           // change the text foreground color to lime
-006256  000775          print("counter:", [DEC5ZB] counter);    // show value of counter
-006257  000776          counter++;
-006258  000777      endif
-006259  000778  endfunc
-006260  000779        
-006261  000780  var combufCopy[10];
-006262  000781  var combufCopyR[10];
-006263  000782        
-006264  000783  func printBufferedBytes(var length)
-006265  000784      var ptr, lineHeight;
-006266  000785        
-006267  000786      if(!length)    return;
-006268  000787        
-006269  000788        
-006270  000789      mem_Copy(combuf, combufCopy, 2*sizeof(combuf));
-006271  000790      reverseString( combufCopy, combufCopyR);
-006272  000791      ptr := str_Ptr(combufCopyR);
-006273  000792      str_PutByte(ptr + length, 0);
-006274  000793      txt_MoveCursor(1,0);
-006275  000794      txt_FGcolour(0x01C9F);           // change the text foreground color to orange
-006276  000795      lineHeight := charheight('W');
-006277  000796      gfx_RectangleFilled(0,lineHeight,320,2*lineHeight,BLACK);
-006278  000797      str_Printf(&ptr,"%s");
-006279  000798  endfunc
-006280  000799        
-006281  000800  func reverseString( var *original, var *reversed)
-006282  000801      var i, j, length, myByte;
-006283  000802      var ptrOrig;
-006284  000803      ptrOrig := str_Ptr(original);
-006285  000804      var ptrRevr;
-006286  000805      ptrRevr := str_Ptr(reversed);
-006287  000806      length := str_Length(ptrOrig);
-006288  000807        
-006289  000808          //txt_MoveCursor(1,0);             //debug
-006290  000809          //txt_FGcolour(0x01C9F);           //debug
-006291  000810          //print("length: ",length," ");
-006292  000811        
-006293  000812      for(i := length - 1, j := 0; i >= 0; i--, j++)
-006294  000813          myByte := str_GetByte(ptrOrig + i);
-006295  000814          str_PutByte(ptrRevr + j, myByte);
-006296  000815      next
-006297  000816          //txt_MoveCursor(1,0);             //debug
-006298  000817          //txt_FGcolour(0x01C9F);           //debug
-006299  000818          //print("length: ",length," ");
-006300  000819          //str_Printf(&ptrOrig,"%s");
-006301  000820          //ptrRevr := str_Ptr(reversed);
-006302  000821          //str_Printf(&ptrRevr,"%s");
-006303  000825          next*/
-006304  000826  endfunc
-006305  000827        
-006306  000828  func clearBufLine()
-006307  000829      var private clearedFlag := TRUE;
-006308  000830      var lineHeight;
-006309  000831      lineHeight := charheight('W');
-006310  000832      if(!lengthG && !clearedFlag)
-006311  000833          gfx_RectangleFilled(0,lineHeight,320,2*lineHeight,BLACK);
-006312  000834          clearedFlag := TRUE;
-006313  000835      endif
-006314  000836  endfunc
-006315  000837        
-006316  000838        
-006317  000839        
-006318  000840        
-006319  000841        
-006320  000842        
-Notice: ambiguity, private 'y' has same name as global 'y', 							if required to access private 'y', use formal name 'printReceivedBytes.y' (line 742 file:hmv2.4dg)
-Notice: ambiguity, private 'x' has same name as global 'x', 							if required to access private 'x', use formal name 'printReceivedBytes.x' (line 742 file:hmv2.4dg)
-Notice: ambiguity, private 'x' has same name as global 'x', 							if required to access private 'x', use formal name 'printReceivedBytes.x' (line 744 file:hmv2.4dg)
-Notice: ambiguity, private 'x' has same name as global 'x', 							if required to access private 'x', use formal name 'printReceivedBytes.x' (line 745 file:hmv2.4dg)
-Notice: ambiguity, private 'x' has same name as global 'x', 							if required to access private 'x', use formal name 'printReceivedBytes.x' (line 746 file:hmv2.4dg)
-Notice: ambiguity, private 'y' has same name as global 'y', 							if required to access private 'y', use formal name 'printReceivedBytes.y' (line 747 file:hmv2.4dg)
-Notice: ambiguity, private 'y' has same name as global 'y', 							if required to access private 'y', use formal name 'printReceivedBytes.y' (line 748 file:hmv2.4dg)
-Notice: ambiguity, private 'y' has same name as global 'y', 							if required to access private 'y', use formal name 'printReceivedBytes.y' (line 749 file:hmv2.4dg)
-Notice: local var 'posit' in func 'Demo_1' is never used (line 167 file:hmv2.4dg)
-Notice: local var 'zero' in func 'Demo_1' is never used (line 167 file:hmv2.4dg)
-Notice: local var 'degrees' in func 'Demo_1' is never used (line 167 file:hmv2.4dg)
-Notice: local var 'numx' in func 'moveiknob' is never used (line 127 file:hmv2.4dg)
-Notice: local var 'Digit_value' in func 'moveiknob' is never used (line 128 file:hmv2.4dg)
+005195  000003  #inherit "4DGL_16bitColours.fnc"
+005196  000003  #inherit "4DGL_16bitColours.fnc"
+005197  000004  */
+005198  000005        
+005199  000006        
+005200  000007        
+005201  000008  #CONST
+005202  000149  #END
+005203  000150        
+005204  000004        
+005205  000005  // Demo to illustrate buffering of received bytes while the processor is doing other tasks
+005206  000006  // Use the Workshop Terminal Utility to test this demo
+005207  000007  // Send 10 or less characters only and WAIT until the buffer is emptied
+005208  000008  // The program will fail if bytes are sent while the buffer is not yet empty. In reality,
+005209  000009  // the processor knows the locations of the queue head and tail, even if bytes are sent to
+005210  000010  // the display while the buffer still contains previously received bytes
+005211  000011        
+005212  000012  #CONST
+005213  000015  #END
+005214  000016        
+005215  000017  #CONST
+005216  000020  #END
+005217  000021        
+005218  000022  #CONST
+005219  000025  #END
+005220  000026        
+005221  000027  var combuf[5];     // a buffer for up to 10 characters
+005222  000028  var lengthG;
+005223  000029  var brFlag := FALSE;
+005224  000030        
+005225  000031  func main()
+005226  000032      gfx_ScreenMode(LANDSCAPE_R) ;   // set the screen orientation
+005227  000033        
+005228  000034      txt_FGcolour(ORANGE);           // change the text foreground color to orange
+005229  000035      txt_Width(2);                 // multiply the font width by 2
+005230  000036      txt_Height(2);                // multiply the font height by 2
+005231  000037      print("Buffered:");
+005232  000038      txt_FGcolour(LIME);           // change the text foreground color to lime
+005233  000039      txt_MoveCursor(2,0);
+005234  000040      print("Input 10 characters:");
+005235  000041        
+005236  000042      //COM1_RX_pin(PA0);             // Specify PA0 to use for the com ports receive line  (COM1)
+005237  000043      //COM1_TX_pin(PA1);             // Specify PA1 to use for the com ports transmit line (COM1)
+005238  000044      //COM2_RX_pin(PA0);             // Specify PA0 to use for the com ports receive line  (COM2)
+005239  000045      //COM2_TX_pin(PA1);             // Specify PA1 to use for the com ports transmit line (COM2)
+005240  000046        
+005241  000047      com_Init(combuf, 10, 0);      // set up a comms buffer for COMO, no qualifier
+005242  000048      //com1_Init(combuf, 10, 0);      // set up a comms buffer for COM1, no qualifier
+005243  000049        
+005244  000050      com_SetBaud(COM0, 960);                 // set the baudrate to 9600 bps (COM0)
+005245  000051      //com_SetBaud(COM1, 960);                 // set the baudrate to 9600 bps (COM1)
+005246  000052        
+005247  000053      sys_SetTimer(TIMER0, T0PERIOD);              // start TIMER0
+005248  000054      sys_SetTimer(TIMER1, T1PERIOD);              // start TIMER1
+005249  000055        
+005250  000056      repeat
+005251  000057          if(sys_GetTimer(TIMER0)== 0)    // if TIMER0 is now zero, check the receive buffer
+005252  000058              lengthG := com_Count();
+005253  000059              //lengthG := com1_Count();
+005254  000060              if(lengthG)                  // if there is a character available (COM0)
+005255  000061                  if(!brFlag)
+005256  000062                      printBufferedBytes(lengthG);
+005257  000063                      brFlag := TRUE;
+005258  000064                  else
+005259  000065                      printBufferedBytes(lengthG-1);
+005260  000066                      printReceivedBytes();
+005261  000067                      brFlag := FALSE;
+005262  000068                  endif
+005263  000069                  clearBufLine.clearedFlag := FALSE;
+005264  000070              endif
+005265  000071              sys_SetTimer(TIMER0, T0PERIOD);  // reset TIMER0
+005266  000072          endif
+005267  000073        
+005268  000074          doSomethingElse();
+005269  000075          clearBufLine();
+005270  000076      forever
+005271  000077        
+005272  000078  endfunc
+005273  000079        
+005274  000080  func printReceivedBytes()
+005275  000081      var char;
+005276  000082      var private colorFlag := FALSE;
+005277  000083      var private x := PRINTRCV_COL;
+005278  000084      var private y := PRINTRCV_LINE;
+005279  000085        
+005280  000086      char := serin();        // get a character from the buffer (COM0)
+005281  000087      //char := serin1();        // get a character from the buffer (COM1)
+005282  000088      //lengthG--;
+005283  000089      if(lengthG < 0) lengthG:= 0;
+005284  000090        
+005285  000091        
+005286  000092      serout(char);           // echo the character to the serial port (COM0)
+005287  000093      //serout1(char);           // echo the character to the serial port (COM1)
+005288  000094        
+005289  000095      // print the received bytes in yellow or red font
+005290  000096      if(!colorFlag)
+005291  000097          txt_FGcolour(YELLOW);   // change the text foreground color to yellow
+005292  000098      else
+005293  000099          txt_FGcolour(RED);
+005294  000100      endif
+005295  000101        
+005296  000102      txt_MoveCursor(y,x);    // move cursor to line y, column x
+005297  000103      putch(char);            // print the character
+005298  000104      x++;
+005299  000105      if(x > 9)               // if past ten characters wide
+005300  000106          x := 0;             // carriage return
+005301  000107          y++;                // move to next line
+005302  000108          if(y > PRINTRCV_LINE + 3) // if exceeded four lines of text
+005303  000109              y := PRINTRCV_LINE;   // return cursor to the first position
+005304  000110              colorFlag := !colorFlag; // change text color
+005305  000111          endif
+005306  000112      endif
+005307  000113        
+005308  000114  endfunc
+005309  000115        
+005310  000116  func doSomethingElse()
+005311  000117      var private onFlag := FALSE;
+005312  000118      var private counter := 0;
+005313  000119        
+005314  000120      txt_MoveCursor(8,0);
+005315  000121      txt_FGcolour(LIME);           // change the text foreground color to lime
+005316  000122      print("com_Count:", [DEC2ZB] com_Count());    // show current count (COM0)
+005317  000123      //print("\ncom1_Count:", [DEC2ZB] com1_Count());    // show current count (COM1)
+005318  000124        
+005319  000125      if(sys_GetTimer(TIMER1)== 0)    // if TIMER1 is now zero (which means 100 ms has passed)
+005320  000126          if(onFlag == FALSE)
+005321  000127              gfx_CircleFilled(240,223, 10, BLACK);
+005322  000128          else
+005323  000129              gfx_CircleFilled(240,223, 10, ORANGE);
+005324  000130          endif
+005325  000131          onFlag := !onFlag;
+005326  000132          sys_SetTimer(TIMER1, T1PERIOD);              // reset TIMER1
+005327  000133          txt_MoveCursor(9,0);
+005328  000134          txt_FGcolour(LIME);           // change the text foreground color to lime
+005329  000135          print("counter:", [DEC5ZB] counter);    // show value of counter
+005330  000136          counter++;
+005331  000137      endif
+005332  000138  endfunc
+005333  000139        
+005334  000140  var combufCopy[10];
+005335  000141  var combufCopyR[10];
+005336  000142        
+005337  000143  func printBufferedBytes(var length)
+005338  000144      var ptr, lineHeight;
+005339  000145        
+005340  000146      if(!length)    return;
+005341  000147        
+005342  000148        
+005343  000149      mem_Copy(combuf, combufCopy, 2*sizeof(combuf));
+005344  000150      reverseString( combufCopy, combufCopyR);
+005345  000151      ptr := str_Ptr(combufCopyR);
+005346  000152      str_PutByte(ptr + length, 0);
+005347  000153      txt_MoveCursor(1,0);
+005348  000154      txt_FGcolour(0x01C9F);           // change the text foreground color to orange
+005349  000155      lineHeight := charheight('W');
+005350  000156      gfx_RectangleFilled(0,lineHeight,320,2*lineHeight,BLACK);
+005351  000157      str_Printf(&ptr,"%s");
+005352  000158  endfunc
+005353  000159        
+005354  000160  func reverseString( var *original, var *reversed)
+005355  000161      var i, j, length, myByte;
+005356  000162      var ptrOrig;
+005357  000163      ptrOrig := str_Ptr(original);
+005358  000164      var ptrRevr;
+005359  000165      ptrRevr := str_Ptr(reversed);
+005360  000166      length := str_Length(ptrOrig);
+005361  000167        
+005362  000168          //txt_MoveCursor(1,0);             //debug
+005363  000169          //txt_FGcolour(0x01C9F);           //debug
+005364  000170          //print("length: ",length," ");
+005365  000171        
+005366  000172      for(i := length - 1, j := 0; i >= 0; i--, j++)
+005367  000173          myByte := str_GetByte(ptrOrig + i);
+005368  000174          str_PutByte(ptrRevr + j, myByte);
+005369  000175      next
+005370  000176          //txt_MoveCursor(1,0);             //debug
+005371  000177          //txt_FGcolour(0x01C9F);           //debug
+005372  000178          //print("length: ",length," ");
+005373  000179          //str_Printf(&ptrOrig,"%s");
+005374  000180          //ptrRevr := str_Ptr(reversed);
+005375  000181          //str_Printf(&ptrRevr,"%s");
+005376  000185          next*/
+005377  000186  endfunc
+005378  000187        
+005379  000188  func clearBufLine()
+005380  000189      var private clearedFlag := TRUE;
+005381  000190      var lineHeight;
+005382  000191      lineHeight := charheight('W');
+005383  000192      if(!lengthG && !clearedFlag)
+005384  000193          gfx_RectangleFilled(0,lineHeight,320,2*lineHeight,BLACK);
+005385  000194          clearedFlag := TRUE;
+005386  000195      endif
+005387  000196  endfunc
+005388  000197        
 
 
 Symbol Table:
 name                             decimal         hex
 __MAXBANKS                             6  0x00000006 (const dword)  (not used)
-__MAXMEM                           32768  0x00008000 (const dword)  (not used)
-__MAXPROG                          32750  0x00007fee (const dword)  (not used)
+__MAXMEM                           32768  0x00008000 (const dword)  (usage 1)
+__MAXPROG                          32750  0x00007fee (const dword)  (usage 1)
 __PLATFORM                             3  0x00000003 (const dword)  (not used)
 __reserved10                        -111  0xffffff91 (PmmC func) args[0] r=0  (not used)
 __reserved13                        -123  0xffffff85 (PmmC func) args[0] r=0  (not used)
@@ -6408,7 +5451,7 @@ __reserved88                        -571  0xfffffdc5 (PmmC func) args[0] r=0  (n
 __reserved89                        -572  0xfffffdc4 (PmmC func) args[0] r=0  (not used)
 __reserved9                         -110  0xffffff92 (PmmC func) args[0] r=0  (not used)
 __translate                           -8  0xfffffff8 (PmmC func) args[4] r=1  (not used)
-ABS                                  -53  0xffffffcb (PmmC func) args[1] r=1  (usage 6)
+ABS                                  -53  0xffffffcb (PmmC func) args[1] r=1  (not used)
 ALICEBLUE                          63455  0x0000f7df (const dword)  (not used)
 ALL                                65535  0x0000ffff (const dword)  (not used)
 ana_HS                              -533  0xfffffdeb (PmmC func) args[7] r=0  (not used)
@@ -6416,7 +5459,6 @@ ANTIQUEWHITE                       65370  0x0000ff5a (const dword)  (not used)
 APPEND                                 0  0x00000000 (const dword)  (not used)
 AQUA                                2047  0x000007ff (const dword)  (not used)
 AQUAMARINE                         32762  0x00007ffa (const dword)  (not used)
-arctan                                 7  0x00000007arctan                                 7  0x00000007 (mem) byte[101] (member of C:\Users\virgile\Desktop\Rutronik_Projekt\hmv2.4dg)  (usage 3)
 AUDIO_ENABLE                          17  0x00000011 (const dword)  (not used)
 AZURE                              63487  0x0000f7ff (const dword)  (not used)
 BACKGROUND_COLOUR                     17  0x00000011 (const dword)  (not used)
@@ -6503,7 +5545,7 @@ BLUEVIOLET                         35164  0x0000895c (const dword)  (not used)
 BOLD                                  16  0x00000010 (const dword)  (not used)
 BOTTOM_POS                             5  0x00000005 (const dword)  (not used)
 BREAK                              65533  0x0000fffd (const dword)  (not used)
-brFlag                                14  0x0000000e (mem) word (global)  (usage 10)
+brFlag                                12  0x0000000c (mem) word (global)  (usage 10)
 BROWN                              41285  0x0000a145 (const dword)  (not used)
 BURLYWOOD                          56784  0x0000ddd0 (const dword)  (not used)
 bus_ClearPins                       -119  0xffffff89 (PmmC func) args[1] r=0  (not used)
@@ -6517,7 +5559,7 @@ bus_Write8                          -121  0xffffff87 (PmmC func) args[1] r=0  (n
 BUTTON_DOWN                            0  0x00000000 (const dword)  (not used)
 BUTTON_UP                              1  0x00000001 (const dword)  (not used)
 ByteSwap                             -49  0xffffffcf (PmmC func) args[1] r=1  (not used)
-C:\Users\virgile\Desktop\Rutronik_Projekt\hmv2.4dg    2805  0x00000af5 (const ??? 0)  (not used)
+C:\Users\virgile\Desktop\Rutronik_Projekt\Project Files\serialDBasic_R_1_0c.4dg    2805  0x00000af5 (const ??? 0)  (not used)
 CADETBLUE                          23796  0x00005cf4 (const dword)  (not used)
 charheight                           -12  0xfffffff4 (PmmC func) args[1] r=1  (usage 6)
 CHARTREUSE                         32736  0x00007fe0 (const dword)  (not used)
@@ -6525,14 +5567,14 @@ charwidth                            -11  0xfffffff5 (PmmC func) args[1] r=1  (n
 CHECKED                                0  0x00000000 (const dword)  (not used)
 CHOCOLATE                          54083  0x0000d343 (const dword)  (not used)
 CHR                                  129  0x00000081 (const dword)  (not used)
-clearBufLine                           0  0x00000000 (User func) args[0] r=0  (usage 3)
-clearBufLine.clearedFlag             168  0x000000a8 (mem) word (member of clearBufLine)  (usage 5)
+clearBufLine                          61  0x0000003d (User func) args[0] r=0  (usage 3)
+clearBufLine.clearedFlag              64  0x00000040 (mem) word (member of clearBufLine)  (usage 5)
 clearedFlag                       UNRESOLVED  (usage 4)
 CLIPPING                              19  0x00000013 (const dword)  (not used)
 colorFlag                         UNRESOLVED  (usage 7)
 COLOUR16                               0  0x00000000 (const dword)  (not used)
 COLOUR8                                1  0x00000001 (const dword)  (not used)
-COM0                               63492  0x0000f804 (const dword)  (usage 6)
+COM0                               63492  0x0000f804 (const dword)  (usage 3)
 COM1                               63493  0x0000f805 (const dword)  (not used)
 com1_Count                          -249  0xffffff07 (PmmC func) args[0] r=1  (not used)
 com1_Error                          -257  0xfffffeff (PmmC func) args[0] r=1  (not used)
@@ -6587,12 +5629,12 @@ com3_TXemptyEvent                   -275  0xfffffeed (PmmC func) args[1] r=1  (n
 com_Count                           -248  0xffffff08 (PmmC func) args[0] r=1  (usage 6)
 com_Error                           -256  0xffffff00 (PmmC func) args[0] r=1  (not used)
 com_Full                            -252  0xffffff04 (PmmC func) args[0] r=1  (not used)
-com_Init                            -232  0xffffff18 (PmmC func) args[3] r=0  (usage 6)
+com_Init                            -232  0xffffff18 (PmmC func) args[3] r=0  (usage 3)
 com_InitBrk                         -577  0xfffffdbf (PmmC func) args[3] r=0  (not used)
 com_Mode                            -280  0xfffffee8 (PmmC func) args[4] r=1  (not used)
 com_Reset                           -244  0xffffff0c (PmmC func) args[0] r=0  (not used)
 com_RXblock                         -282  0xfffffee6 (PmmC func) args[2] r=0  (not used)
-com_SetBaud                         -225  0xffffff1f (PmmC func) args[2] r=1  (usage 6)
+com_SetBaud                         -225  0xffffff1f (PmmC func) args[2] r=1  (usage 3)
 com_Sync                            -260  0xfffffefc (PmmC func) args[0] r=1  (not used)
 com_TXblock                         -281  0xfffffee7 (PmmC func) args[2] r=0  (not used)
 com_TXbuffer                        -264  0xfffffef8 (PmmC func) args[3] r=0  (not used)
@@ -6600,15 +5642,9 @@ com_TXbufferBrk                     -573  0xfffffdc3 (PmmC func) args[3] r=0  (n
 com_TXbufferHold                    -276  0xfffffeec (PmmC func) args[1] r=1  (not used)
 com_TXcount                         -268  0xfffffef4 (PmmC func) args[0] r=1  (not used)
 com_TXemptyEvent                    -272  0xfffffef0 (PmmC func) args[1] r=1  (not used)
-combuf                                 2  0x00000002 (mem) word[5] (global)  (usage 12)
-combufCopy                           128  0x00000080 (mem) word[10] (global)  (usage 6)
-combufCopyR                          148  0x00000094 (mem) word[10] (global)  (usage 6)
-Command_1                             38  0x00000026 (mem) word[3] (global)  (usage 3)
-Command_2                             44  0x0000002c (mem) word[3] (global)  (usage 3)
-Command_3                             50  0x00000032 (mem) word[16] (global)Notice: global var 'Command_3' is never used
-  (not used)
-Command_4                             82  0x00000052 (mem) word[16] (global)Notice: global var 'Command_4' is never used
-  (not used)
+combuf                                 0  0x00000000 (mem) word[5] (global)  (usage 9)
+combufCopy                            24  0x00000018 (mem) word[10] (global)  (usage 6)
+combufCopyR                           44  0x0000002c (mem) word[10] (global)  (usage 6)
 CONTRAST                              25  0x00000019 (const dword)  (not used)
 CORAL                              64490  0x0000fbea (const dword)  (not used)
 CORNFLOWERBLUE                     25789  0x000064bd (const dword)  (not used)
@@ -6664,10 +5700,6 @@ DECZ                                5386  0x0000150a (const dword)  (not used)
 DECZB                               9482  0x0000250a (const dword)  (not used)
 DEEPPINK                           63666  0x0000f8b2 (const dword)  (not used)
 DEEPSKYBLUE                         1535  0x000005ff (const dword)  (not used)
-Demo_1                              2017  0x000007e1 (User func) args[0] r=0  (usage 3)
-Demo_2                              1763  0x000006e3 (User func) args[0] r=0  (usage 3)
-Demo_3                              1375  0x0000055f (User func) args[0] r=0  (usage 3)
-Demo_4                               992  0x000003e0 (User func) args[0] r=0  (usage 3)
 DIABLO                                 3  0x00000003 (const dword)  (usage 3)
 DIMGRAY                            27469  0x00006b4d (const dword)  (not used)
 DISABLE                                0  0x00000000 (const dword)  (not used)
@@ -6702,9 +5734,9 @@ disp_WriteControl                   -365  0xfffffe93 (PmmC func) args[1] r=0  (n
 disp_WriteWord                      -366  0xfffffe92 (PmmC func) args[1] r=0  (not used)
 DISPLAY_PAGE                          33  0x00000021 (const dword)  (not used)
 DODGERBLUE                          7327  0x00001c9f (const dword)  (not used)
-doSomethingElse                      275  0x00000113 (User func) args[0] r=0  (usage 3)
-doSomethingElse.counter              126  0x0000007e (mem) word (member of doSomethingElse)  (usage 3)
-doSomethingElse.onFlag               124  0x0000007c (mem) word (member of doSomethingElse)  (usage 4)
+doSomethingElse                      336  0x00000150 (User func) args[0] r=0  (usage 3)
+doSomethingElse.counter               22  0x00000016 (mem) word (member of doSomethingElse)  (usage 3)
+doSomethingElse.onFlag                20  0x00000014 (mem) word (member of doSomethingElse)  (usage 4)
 DOWN                                   0  0x00000000 (const dword)  (not used)
 DSK                                63490  0x0000f802 (const dword)  (not used)
 ENABLE                                 1  0x00000001 (const dword)  (not used)
@@ -6767,9 +5799,9 @@ file_GetW                           -443  0xfffffe45 (PmmC func) args[1] r=1  (n
 file_Image                          -438  0xfffffe4a (PmmC func) args[3] r=1  (not used)
 file_Index                          -434  0xfffffe4e (PmmC func) args[4] r=1  (not used)
 file_LoadFunction                   -448  0xfffffe40 (PmmC func) args[1] r=1  (not used)
-file_LoadImageControl               -451  0xfffffe3d (PmmC func) args[3] r=1  (usage 15)
+file_LoadImageControl               -451  0xfffffe3d (PmmC func) args[3] r=1  (not used)
 FILE_MODE                             17  0x00000011 (const dword)  (not used)
-file_Mount                          -452  0xfffffe3c (PmmC func) args[0] r=1  (usage 6)
+file_Mount                          -452  0xfffffe3c (PmmC func) args[0] r=1  (not used)
 FILE_NAME                             11  0x0000000b (const dword)  (not used)
 file_Open                           -430  0xfffffe52 (PmmC func) args[2] r=1  (not used)
 FILE_PAGEFLAG                         19  0x00000013 (const dword)  (not used)
@@ -6899,12 +5931,10 @@ FONT_9                                 9  0x00000009 (const dword)  (not used)
 FONT_ID                                2  0x00000002 (const dword)  (not used)
 FONT_SIZE                              2  0x00000002 (const dword)  (not used)
 FORESTGREEN                         9284  0x00002444 (const dword)  (not used)
-frame                             UNRESOLVED  (usage 1)
 FRAME_DELAY                           22  0x00000016 (const dword)  (not used)
 FUCHSIA                            63519  0x0000f81f (const dword)  (not used)
 GAINSBORO                          57083  0x0000defb (const dword)  (not used)
 Gen4_ULCD_43DCT_CLB_DIABLO16_GFX       0  0x00000000 (const ??? 0)  (not used)
-getCommand                           558  0x0000022e (User func) args[0] r=0  (usage 3)
 GFX                                63489  0x0000f801 (const dword)  (not used)
 gfx_332to565                        -165  0xffffff5b (PmmC func) args[1] r=1  (not used)
 gfx_565to332                        -166  0xffffff5a (PmmC func) args[1] r=1  (not used)
@@ -6933,7 +5963,7 @@ GFX_CLIP_TOP                         112  0x00000070 (const dword)  (not used)
 GFX_CLIP_TOP_VAL                     108  0x0000006c (const dword)  (not used)
 gfx_Clipping                        -186  0xffffff46 (PmmC func) args[1] r=1  (not used)
 gfx_ClipWindow                      -150  0xffffff6a (PmmC func) args[4] r=0  (not used)
-gfx_Cls                             -126  0xffffff82 (PmmC func) args[0] r=0  (usage 42)
+gfx_Cls                             -126  0xffffff82 (PmmC func) args[0] r=0  (not used)
 gfx_Contrast                        -192  0xffffff40 (PmmC func) args[1] r=1  (not used)
 gfx_Dot                             -145  0xffffff6f (PmmC func) args[0] r=0  (not used)
 gfx_Ellipse                         -153  0xffffff67 (PmmC func) args[5] r=0  (not used)
@@ -6983,8 +6013,8 @@ gfx_RoundPanel                      -175  0xffffff51 (PmmC func) args[8] r=0  (n
 gfx_RoundRect                       -173  0xffffff53 (PmmC func) args[6] r=0  (not used)
 gfx_Scope                           -532  0xfffffdec (PmmC func) args[19] r=0  (not used)
 gfx_ScreenCopyPaste                 -163  0xffffff5d (PmmC func) args[6] r=0  (not used)
-gfx_ScreenMode                      -190  0xffffff42 (PmmC func) args[1] r=1  (not used)
-gfx_Set                             -125  0xffffff83 (PmmC func) args[2] r=0  (usage 3)
+gfx_ScreenMode                      -190  0xffffff42 (PmmC func) args[1] r=1  (usage 3)
+gfx_Set                             -125  0xffffff83 (PmmC func) args[2] r=0  (not used)
 gfx_SetClipRegion                   -152  0xffffff68 (PmmC func) args[0] r=0  (not used)
 gfx_Slider                          -162  0xffffff5e (PmmC func) args[8] r=1  (not used)
 gfx_Slider2                         -160  0xffffff60 (PmmC func) args[8] r=1  (not used)
@@ -6997,8 +6027,8 @@ GFX_TOUCH_REGION_X1                  103  0x00000067 (const dword)  (not used)
 GFX_TOUCH_REGION_X2                  105  0x00000069 (const dword)  (not used)
 GFX_TOUCH_REGION_Y1                  104  0x00000068 (const dword)  (not used)
 GFX_TOUCH_REGION_Y2                  106  0x0000006a (const dword)  (not used)
-gfx_Transparency                    -188  0xffffff44 (PmmC func) args[1] r=1  (usage 3)
-gfx_TransparentColour               -187  0xffffff45 (PmmC func) args[1] r=1  (usage 3)
+gfx_Transparency                    -188  0xffffff44 (PmmC func) args[1] r=1  (not used)
+gfx_TransparentColour               -187  0xffffff45 (PmmC func) args[1] r=1  (not used)
 gfx_Triangle                        -140  0xffffff74 (PmmC func) args[7] r=0  (not used)
 gfx_TriangleFilled                  -167  0xffffff59 (PmmC func) args[7] r=0  (not used)
 gfx_Vline                           -133  0xffffff7b (PmmC func) args[4] r=1  (not used)
@@ -7046,11 +6076,9 @@ HEXZB                               9232  0x00002410 (const dword)  (not used)
 HI                                     1  0x00000001 (const dword)  (not used)
 HIbyte                               -48  0xffffffd0 (PmmC func) args[1] r=1  (not used)
 HIDE                                   2  0x00000002 (const dword)  (not used)
-hndl                                   0  0x00000000 (mem) word (global)  (usage 249)
 HONEYDEW                           63486  0x0000f7fe (const dword)  (not used)
 HOTPINK                            64342  0x0000fb56 (const dword)  (not used)
 HYPER                                  3  0x00000003 (const dword)  (not used)
-i                                     22  0x00000016 (mem) word (global)  (usage 37)
 I2C1                               63520  0x0000f820 (const dword)  (not used)
 I2C1_Ack                            -305  0xfffffecf (PmmC func) args[0] r=0  (not used)
 I2C1_AckPoll                        -314  0xfffffec6 (PmmC func) args[1] r=1  (not used)
@@ -7109,38 +6137,33 @@ I2C_50KHZ                              5  0x00000005 (const dword)  (not used)
 I2C_FAST                               2  0x00000002 (const dword)  (not used)
 I2C_MED                                1  0x00000001 (const dword)  (not used)
 I2C_SLOW                               0  0x00000000 (const dword)  (not used)
-i4Dbutton6                            15  0x0000000f (const ??? 0)  (usage 15)
 I_COLOUR16                            16  0x00000010 (const dword)  (not used)
 I_DARKEN                           16384  0x00004000 (const dword)  (not used)
 I_ENABLED                          32768  0x00008000 (const dword)  (not used)
 I_LIGHTEN                           8192  0x00002000 (const dword)  (not used)
 I_MOVIE                              128  0x00000080 (const dword)  (not used)
 I_NOGROUP                             64  0x00000040 (const dword)  (not used)
-I_STAYONTOP                          256  0x00000100 (const dword)  (usage 3)
+I_STAYONTOP                          256  0x00000100 (const dword)  (not used)
 I_TOPMOST                            512  0x00000200 (const dword)  (not used)
-I_TOUCH_DISABLE                       32  0x00000020 (const dword)  (usage 39)
+I_TOUCH_DISABLE                       32  0x00000020 (const dword)  (not used)
 I_TOUCHED                           4096  0x00001000 (const dword)  (not used)
 I_X_LOCK                            1024  0x00000400 (const dword)  (not used)
 I_Y_LOCK                            2048  0x00000800 (const dword)  (not used)
-iCoolgauge1                           14  0x0000000e (const ??? 0)  (usage 6)
-iiLeddigits1                          13  0x0000000d (const ??? 0)  (not used)
-iKnob1                                11  0x0000000b (const ??? 0)  (usage 18)
-iLeddigits1                           12  0x0000000c (const ??? 0)  (usage 6)
 IMAGE_CLUSTER                         10  0x0000000a (const dword)  (not used)
 IMAGE_DELAY                            7  0x00000007 (const dword)  (not used)
-IMAGE_FLAGS                            6  0x00000006 (const dword)  (usage 6)
+IMAGE_FLAGS                            6  0x00000006 (const dword)  (not used)
 IMAGE_FRAMES                           8  0x00000008 (const dword)  (not used)
 IMAGE_HEIGHT                           5  0x00000005 (const dword)  (not used)
 IMAGE_HIWORD                           1  0x00000001 (const dword)  (not used)
-IMAGE_INDEX                            9  0x00000009 (const dword)  (usage 54)
+IMAGE_INDEX                            9  0x00000009 (const dword)  (not used)
 IMAGE_LOWORD                           0  0x00000000 (const dword)  (not used)
 IMAGE_SECTOR                          11  0x0000000b (const dword)  (not used)
 IMAGE_TAG                             12  0x0000000c (const dword)  (not used)
 IMAGE_TAG2                            13  0x0000000d (const dword)  (not used)
 IMAGE_WIDTH                            4  0x00000004 (const dword)  (not used)
-IMAGE_XPOS                             2  0x00000002 (const dword)  (usage 3)
+IMAGE_XPOS                             2  0x00000002 (const dword)  (not used)
 IMAGE_YPOS                             3  0x00000003 (const dword)  (not used)
-img_ClearAttributes                 -383  0xfffffe81 (PmmC func) args[3] r=1  (usage 36)
+img_ClearAttributes                 -383  0xfffffe81 (PmmC func) args[3] r=1  (not used)
 IMG_COUNT                              0  0x00000000 (const dword)  (not used)
 IMG_CURRENT_FRAME                     89  0x00000059 (const dword)  (not used)
 img_Darken                          -377  0xfffffe87 (PmmC func) args[2] r=1  (not used)
@@ -7153,7 +6176,7 @@ IMG_FRAME_COUNT                       86  0x00000056 (const dword)  (not used)
 IMG_FRAME_DELAY                       84  0x00000054 (const dword)  (not used)
 IMG_GCI_FILENAME                       3  0x00000003 (const dword)  (not used)
 IMG_GCIFILE_HANDLE                     5  0x00000005 (const dword)  (not used)
-img_GetWord                         -380  0xfffffe84 (PmmC func) args[3] r=1  (usage 3)
+img_GetWord                         -380  0xfffffe84 (PmmC func) args[3] r=1  (not used)
 IMG_HEIGHT                            83  0x00000053 (const dword)  (not used)
 img_Lighten                         -378  0xfffffe86 (PmmC func) args[2] r=1  (not used)
 IMG_MODE                               2  0x00000002 (const dword)  (not used)
@@ -7163,55 +6186,34 @@ img_SelectReadPosition              -385  0xfffffe7f (PmmC func) args[5] r=1  (n
 img_SequentialRead                  -386  0xfffffe7e (PmmC func) args[2] r=1  (not used)
 img_SetAttributes                   -382  0xfffffe82 (PmmC func) args[3] r=1  (not used)
 img_SetPosition                     -374  0xfffffe8a (PmmC func) args[4] r=1  (not used)
-img_SetWord                         -379  0xfffffe85 (PmmC func) args[4] r=1  (usage 60)
-img_Show                            -381  0xfffffe83 (PmmC func) args[2] r=1  (usage 117)
-img_Touched                         -384  0xfffffe80 (PmmC func) args[2] r=1  (usage 18)
+img_SetWord                         -379  0xfffffe85 (PmmC func) args[4] r=1  (not used)
+img_Show                            -381  0xfffffe83 (PmmC func) args[2] r=1  (not used)
+img_Touched                         -384  0xfffffe80 (PmmC func) args[2] r=1  (not used)
 IMG_WIDTH                             82  0x00000052 (const dword)  (not used)
 INDIANRED                          51947  0x0000caeb (const dword)  (not used)
 INDIGO                             18448  0x00004810 (const dword)  (not used)
 INVERSE                               64  0x00000040 (const dword)  (not used)
-irutronik                              3  0x00000003 (const ??? 0)  (usage 3)
 isalnum                              -41  0xffffffd7 (PmmC func) args[1] r=1  (not used)
 isalpha                              -40  0xffffffd8 (PmmC func) args[1] r=1  (not used)
 isdigit                              -36  0xffffffdc (PmmC func) args[1] r=1  (not used)
 islower                              -39  0xffffffd9 (PmmC func) args[1] r=1  (not used)
 isprint                              -42  0xffffffd6 (PmmC func) args[1] r=1  (not used)
 isspace                              -43  0xffffffd5 (PmmC func) args[1] r=1  (not used)
-iStatictext1                           4  0x00000004 (const ??? 0)  (usage 3)
-iStatictext2                           5  0x00000005 (const ??? 0)  (usage 3)
-iStatictext3                           7  0x00000007 (const ??? 0)  (usage 3)
-iStatictext4                          16  0x00000010 (const ??? 0)  (usage 3)
-iStatictext5                          18  0x00000012 (const ??? 0)  (usage 3)
-iStatictext6                          19  0x00000013 (const ??? 0)  (usage 3)
 isupper                              -38  0xffffffda (PmmC func) args[1] r=1  (not used)
 iswhite                              -44  0xffffffd4 (PmmC func) args[1] r=1  (not used)
 isxdigit                             -37  0xffffffdb (PmmC func) args[1] r=1  (not used)
 ITALIC                                32  0x00000020 (const dword)  (not used)
 iterator                            -404  0xfffffe6c (PmmC func) args[1] r=0  (not used)
-iThermometer1                         17  0x00000011 (const ??? 0)  (usage 6)
-iVideo1                               21  0x00000015 (const ??? 0)  (usage 12)
 IVORY                              65534  0x0000fffe (const dword)  (not used)
-iWinbutton1                            0  0x00000000 (const ??? 0)  (usage 15)
-iWinbutton10                           6  0x00000006 (const ??? 0)  (usage 15)
-iWinbutton14                          20  0x00000014 (const ??? 0)  (usage 15)
-iWinbutton2                            1  0x00000001 (const ??? 0)  (usage 15)
-iWinbutton3                            2  0x00000002 (const ??? 0)  (usage 15)
-iWinbutton4                           22  0x00000016 (const ??? 0)  (usage 15)
-iWinbutton5                            8  0x00000008 (const ??? 0)  (usage 15)
-iWinbutton6                            9  0x00000009 (const ??? 0)  (usage 15)
-iWinbutton7                           10  0x0000000a (const ??? 0)  (usage 15)
-iWinbutton8                           23  0x00000017 (const ??? 0)  (usage 15)
-iWinbutton9                           24  0x00000018 (const ??? 0)  (usage 15)
 KHAKI                              63281  0x0000f731 (const dword)  (not used)
-LANDSCAPE                              0  0x00000000 (const dword)  (usage 3)
-LANDSCAPE_R                            1  0x00000001 (const dword)  (not used)
+LANDSCAPE                              0  0x00000000 (const dword)  (not used)
+LANDSCAPE_R                            1  0x00000001 (const dword)  (usage 3)
 LAVENDER                           59199  0x0000e73f (const dword)  (not used)
 LAVENDERBLUSH                      65438  0x0000ff9e (const dword)  (not used)
 LAWNGREEN                          32736  0x00007fe0 (const dword)  (not used)
-ledDigitsDisplay                    3289  0x00000cd9 (User func) args[7] r=0  (usage 3)
 LEFT_POS                               2  0x00000002 (const dword)  (not used)
 LEMONCHIFFON                       65497  0x0000ffd9 (const dword)  (not used)
-lengthG                               12  0x0000000c (mem) word (global)  (usage 21)
+lengthG                               10  0x0000000a (mem) word (global)  (usage 21)
 LIGHTBLUE                          44764  0x0000aedc (const dword)  (not used)
 LIGHTCORAL                         62480  0x0000f410 (const dword)  (not used)
 LIGHTCYAN                          59391  0x0000e7ff (const dword)  (not used)
@@ -7232,12 +6234,6 @@ LINEN                              65436  0x0000ff9c (const dword)  (not used)
 LO                                     0  0x00000000 (const dword)  (not used)
 LObyte                               -47  0xffffffd1 (PmmC func) args[1] r=1  (not used)
 LOCAL                                N/A         N/A (macro) //   (not used)
-LPCOARSE                           61680  0x0000f0f0 (const dword)  (not used)
-LPDASHDOT                            975  0x000003cf (const dword)  (not used)
-LPDASHDOTDOT                         819  0x00000333 (const dword)  (not used)
-LPFINE                             43690  0x0000aaaa (const dword)  (not used)
-LPMEDIUM                           13107  0x00003333 (const dword)  (not used)
-LPSOLID                                0  0x00000000 (const dword)  (not used)
 M_PA0                                  1  0x00000001 (const dword)  (not used)
 M_PA1                                  2  0x00000002 (const dword)  (not used)
 M_PA10                              1024  0x00000400 (const dword)  (not used)
@@ -7255,7 +6251,7 @@ M_PA7                                128  0x00000080 (const dword)  (not used)
 M_PA8                                256  0x00000100 (const dword)  (not used)
 M_PA9                                512  0x00000200 (const dword)  (not used)
 MAGENTA                            63519  0x0000f81f (const dword)  (not used)
-main                                2910  0x00000b5e (User func) args[0] r=0  (not used)
+main                                 661  0x00000295 (User func) args[0] r=0  (not used)
 MAROON                             32768  0x00008000 (const dword)  (not used)
 MAX                                  -55  0xffffffc9 (PmmC func) args[2] r=1  (not used)
 MDA                                63552  0x0000f840 (const dword)  (not used)
@@ -7297,15 +6293,12 @@ mem_Free                            -417  0xfffffe5f (PmmC func) args[1] r=1  (n
 mem_Heap                            -418  0xfffffe5e (PmmC func) args[0] r=1  (not used)
 mem_Realloc                         -416  0xfffffe60 (PmmC func) args[2] r=1  (not used)
 mem_Set                             -419  0xfffffe5d (PmmC func) args[3] r=1  (not used)
-Menu                                 588  0x0000024c (User func) args[0] r=0  (usage 3)
 MIDI                                   9  0x00000009 (const dword)  (not used)
 MIDNIGHTBLUE                        6350  0x000018ce (const dword)  (not used)
 MIN                                  -54  0xffffffca (PmmC func) args[2] r=1  (not used)
 MINTCREAM                          63487  0x0000f7ff (const dword)  (not used)
 MISTYROSE                          65340  0x0000ff3c (const dword)  (not used)
 MOCCASIN                           65334  0x0000ff36 (const dword)  (not used)
-moveiknob                           2604  0x00000a2c (User func) args[0] r=0  (usage 3)
-n                                     20  0x00000014 (mem) word (global)  (usage 51)
 NAVAJOWHITE                        65269  0x0000fef5 (const dword)  (not used)
 NAVY                                  16  0x00000010 (const dword)  (not used)
 NOTOUCH                                0  0x00000000 (const dword)  (not used)
@@ -7319,7 +6312,7 @@ OFF                                    0  0x00000000 (const dword)  (not used)
 OLDLACE                            65468  0x0000ffbc (const dword)  (not used)
 OLIVE                              33792  0x00008400 (const dword)  (not used)
 OLIVEDRAB                          27748  0x00006c64 (const dword)  (not used)
-ON                                     1  0x00000001 (const dword)  (usage 3)
+ON                                     1  0x00000001 (const dword)  (not used)
 onFlag                            UNRESOLVED  (usage 7)
 OP1_ADD                                5  0x00000005 (const dword)  (not used)
 OP1_AND                                2  0x00000002 (const dword)  (not used)
@@ -7385,8 +6378,7 @@ PANEL_HIDE                             2  0x00000002 (const dword)  (not used)
 PANEL_RAISED                           1  0x00000001 (const dword)  (not used)
 PANEL_SUNKEN                           0  0x00000000 (const dword)  (not used)
 PAPAYAWHIP                         65402  0x0000ff7a (const dword)  (not used)
-pause                                 -6  0xfffffffa (PmmC func) args[1] r=0  (usage 47)
-Pause_Session                         26  0x0000001a (mem) word (global)  (usage 1)
+pause                                 -6  0xfffffffa (PmmC func) args[1] r=0  (not used)
 PEACHPUFF                          65239  0x0000fed7 (const dword)  (not used)
 peekW                                -34  0xffffffde (PmmC func) args[1] r=1  (not used)
 PEN_SIZE                              16  0x00000010 (const dword)  (not used)
@@ -7420,19 +6412,18 @@ pin_Read                            -116  0xffffff8c (PmmC func) args[1] r=1  (n
 pin_Set                             -112  0xffffff90 (PmmC func) args[2] r=1  (not used)
 pin_Val                             -115  0xffffff8d (PmmC func) args[2] r=0  (not used)
 PINK                               65049  0x0000fe19 (const dword)  (not used)
-Play                                  28  0x0000001c (mem) word (global)  (usage 10)
 PLUM                               56603  0x0000dd1b (const dword)  (not used)
 pokeW                                -35  0xffffffdd (PmmC func) args[2] r=0  (not used)
 PORTRAIT                               2  0x00000002 (const dword)  (not used)
 PORTRAIT_R                             3  0x00000003 (const dword)  (not used)
 POWDERBLUE                         46876  0x0000b71c (const dword)  (not used)
-printBufferedBytes                   158  0x0000009e (User func) args[1] r=0  (usage 6)
+printBufferedBytes                   219  0x000000db (User func) args[1] r=0  (usage 6)
 PRINTRCV_COL                           0  0x00000000 (const dword)  (usage 3)
 PRINTRCV_LINE                          3  0x00000003 (const dword)  (usage 9)
-printReceivedBytes                   435  0x000001b3 (User func) args[0] r=0  (usage 3)
-printReceivedBytes.colorFlag         118  0x00000076 (mem) word (member of printReceivedBytes)  (usage 4)
-printReceivedBytes.x                 120  0x00000078 (mem) word (member of printReceivedBytes)  (usage 5)
-printReceivedBytes.y                 122  0x0000007a (mem) word (member of printReceivedBytes)  (usage 5)
+printReceivedBytes                   496  0x000001f0 (User func) args[0] r=0  (usage 3)
+printReceivedBytes.colorFlag          14  0x0000000e (mem) word (member of printReceivedBytes)  (usage 4)
+printReceivedBytes.x                  16  0x00000010 (mem) word (member of printReceivedBytes)  (usage 5)
+printReceivedBytes.y                  18  0x00000012 (mem) word (member of printReceivedBytes)  (usage 5)
 PROGRESSBAR_HIDE                       2  0x00000002 (const dword)  (not used)
 PROGRESSBAR_RAISED                 65535  0x0000ffff (const dword)  (not used)
 PROGRESSBAR_SUNKEN                 65534  0x0000fffe (const dword)  (not used)
@@ -7473,7 +6464,7 @@ putch                                 -2  0xfffffffe (PmmC func) args[1] r=0  (u
 putchXY                               -3  0xfffffffd (PmmC func) args[3] r=0  (not used)
 putnum                                -7  0xfffffff9 (PmmC func) args[2] r=1  (not used)
 putnumXY                             -51  0xffffffcd (PmmC func) args[4] r=1  (not used)
-putstr                                -9  0xfffffff7 (PmmC func) args[1] r=1  (usage 18)
+putstr                                -9  0xfffffff7 (PmmC func) args[1] r=1  (not used)
 putstrCentred                         -5  0xfffffffb (PmmC func) args[3] r=0  (not used)
 putstrXY                              -4  0xfffffffc (PmmC func) args[3] r=0  (not used)
 PWM_10KHZ                              6  0x00000006 (const dword)  (not used)
@@ -7505,7 +6496,7 @@ RANDOM_LO                             32  0x00000020 (const dword)  (not used)
 RANDVAL                              -60  0xffffffc4 (PmmC func) args[2] r=1  (not used)
 READ_PAGE                             34  0x00000022 (const dword)  (not used)
 RED                                63488  0x0000f800 (const dword)  (usage 3)
-reverseString                         52  0x00000034 (User func) args[2] r=0  (usage 3)
+reverseString                        113  0x00000071 (User func) args[2] r=0  (usage 3)
 RIGHT_POS                              4  0x00000004 (const dword)  (not used)
 ROSYBROWN                          48241  0x0000bc71 (const dword)  (not used)
 ROYALBLUE                          17244  0x0000435c (const dword)  (not used)
@@ -7514,15 +6505,15 @@ SADDLEBROWN                        35362  0x00008a22 (const dword)  (not used)
 SALMON                             64526  0x0000fc0e (const dword)  (not used)
 SANDYBROWN                         62764  0x0000f52c (const dword)  (not used)
 SAVE_TO_DISK                           7  0x00000007 (const dword)  (not used)
-SCREEN_MODE                           23  0x00000017 (const dword)  (usage 3)
+SCREEN_MODE                           23  0x00000017 (const dword)  (not used)
 SEAGREEN                           11338  0x00002c4a (const dword)  (not used)
 SEASHELL                           65469  0x0000ffbd (const dword)  (not used)
 SEED                                 -61  0xffffffc3 (PmmC func) args[1] r=0  (not used)
-serin                               -236  0xffffff14 (PmmC func) args[0] r=1  (usage 6)
+serin                               -236  0xffffff14 (PmmC func) args[0] r=1  (usage 3)
 serin1                              -237  0xffffff13 (PmmC func) args[0] r=1  (not used)
 serin2                              -238  0xffffff12 (PmmC func) args[0] r=1  (not used)
 serin3                              -239  0xffffff11 (PmmC func) args[0] r=1  (not used)
-serout                              -240  0xffffff10 (PmmC func) args[1] r=0  (usage 12)
+serout                              -240  0xffffff10 (PmmC func) args[1] r=0  (usage 3)
 serout1                             -241  0xffffff0f (PmmC func) args[1] r=0  (not used)
 serout2                             -242  0xffffff0e (PmmC func) args[1] r=0  (not used)
 serout3                             -243  0xffffff0d (PmmC func) args[1] r=0  (not used)
@@ -7706,8 +6697,6 @@ SSD1963_SET_VERT_PERIOD              182  0x000000b6 (const dword)  (not used)
 SSD1963_SOFT_RESET                     1  0x00000001 (const dword)  (not used)
 SSD1963_WRITE_MEMORY_CONTINUE         60  0x0000003c (const dword)  (not used)
 SSD1963_WRITE_MEMORY_START            44  0x0000002c (const dword)  (not used)
-state                                 24  0x00000018 (mem) word (global)  (usage 37)
-status                                18  0x00000012 (mem) word (global)  (usage 30)
 STEELBLUE                          17430  0x00004416 (const dword)  (not used)
 STR                                  128  0x00000080 (const dword)  (not used)
 str_ByteMove                        -487  0xfffffe19 (PmmC func) args[3] r=1  (not used)
@@ -7735,7 +6724,7 @@ strlen                               -10  0xfffffff6 (PmmC func) args[1] r=1  (n
 strwidth                             -13  0xfffffff3 (PmmC func) args[1] r=1  (not used)
 STYLE1                                 2  0x00000002 (const dword)  (not used)
 STYLE2                                 3  0x00000003 (const dword)  (not used)
-SWAP                                 -56  0xffffffc8 (PmmC func) args[2] r=0  (usage 3)
+SWAP                                 -56  0xffffffc8 (PmmC func) args[2] r=0  (not used)
 sys_DeepSleep                       -405  0xfffffe6b (PmmC func) args[1] r=1  (not used)
 sys_Driver                          -531  0xfffffded (PmmC func) args[0] r=0  (not used)
 sys_ErrorMessage                    -534  0xfffffdea (PmmC func) args[1] r=1  (not used)
@@ -7806,24 +6795,23 @@ TMR5                                  41  0x00000029 (const dword)  (not used)
 TMR6                                  42  0x0000002a (const dword)  (not used)
 TMR7                                  43  0x0000002b (const dword)  (not used)
 to                                    -1  0xffffffff (PmmC func) args[1] r=0  (not used)
-Token_Ring                            16  0x00000010 (mem) word (global)  (usage 67)
 tolower                              -46  0xffffffd2 (PmmC func) args[1] r=1  (not used)
 TOMATO                             64264  0x0000fb08 (const dword)  (not used)
 TOP_POS                                3  0x00000003 (const dword)  (not used)
 touch_DetectRegion                  -406  0xfffffe6a (PmmC func) args[4] r=0  (not used)
-TOUCH_DISABLE                          1  0x00000001 (const dword)  (usage 15)
-TOUCH_ENABLE                           0  0x00000000 (const dword)  (usage 15)
-touch_Get                           -408  0xfffffe68 (PmmC func) args[1] r=1  (usage 30)
-TOUCH_GETX                             1  0x00000001 (const dword)  (usage 6)
-TOUCH_GETY                             2  0x00000002 (const dword)  (usage 6)
-TOUCH_MOVING                           3  0x00000003 (const dword)  (usage 3)
-TOUCH_PRESSED                          1  0x00000001 (const dword)  (usage 18)
+TOUCH_DISABLE                          1  0x00000001 (const dword)  (not used)
+TOUCH_ENABLE                           0  0x00000000 (const dword)  (not used)
+touch_Get                           -408  0xfffffe68 (PmmC func) args[1] r=1  (not used)
+TOUCH_GETX                             1  0x00000001 (const dword)  (not used)
+TOUCH_GETY                             2  0x00000002 (const dword)  (not used)
+TOUCH_MOVING                           3  0x00000003 (const dword)  (not used)
+TOUCH_PRESSED                          1  0x00000001 (const dword)  (not used)
 TOUCH_RAW_X                          117  0x00000075 (const dword)  (not used)
 TOUCH_RAW_Y                          118  0x00000076 (const dword)  (not used)
 TOUCH_REGIONDEFAULT                    2  0x00000002 (const dword)  (not used)
-TOUCH_RELEASED                         2  0x00000002 (const dword)  (usage 3)
-touch_Set                           -407  0xfffffe69 (PmmC func) args[1] r=0  (usage 30)
-TOUCH_STATUS                           0  0x00000000 (const dword)  (usage 18)
+TOUCH_RELEASED                         2  0x00000002 (const dword)  (not used)
+touch_Set                           -407  0xfffffe69 (PmmC func) args[1] r=0  (not used)
+TOUCH_STATUS                           0  0x00000000 (const dword)  (not used)
 touch_TestArea                      -410  0xfffffe66 (PmmC func) args[1] r=1  (not used)
 touch_TestBox                       -409  0xfffffe67 (PmmC func) args[1] r=1  (not used)
 TOUCH_XMAXCAL                         80  0x00000050 (const dword)  (not used)
@@ -7887,18 +6875,16 @@ UNDERLINED                           128  0x00000080 (const dword)  (not used)
 unicode_page                         -15  0xfffffff1 (PmmC func) args[3] r=1  (not used)
 UP                                     1  0x00000001 (const dword)  (not used)
 usub_3232                            -72  0xffffffb8 (PmmC func) args[3] r=1  (not used)
-vDigit_value                          30  0x0000001e (mem) word[4] (global)  (usage 6)
 VIOLET                             60445  0x0000ec1d (const dword)  (not used)
 WHEAT                              63222  0x0000f6f6 (const dword)  (not used)
 WHITE                              65535  0x0000ffff (const dword)  (not used)
 WHITESMOKE                         63422  0x0000f7be (const dword)  (not used)
 WRITE_PAGE                            35  0x00000023 (const dword)  (not used)
-x                                    114  0x00000072 (mem) word (global)  (usage 22)
+x                                 UNRESOLVED  (usage 10)
 X_MAX                                  0  0x00000000 (const dword)  (not used)
 X_ORG                                  6  0x00000006 (const dword)  (not used)
 X_ORIGIN                              30  0x0000001e (const dword)  (not used)
-XYposToDegree                       3097  0x00000c19 (User func) args[2] r=0  (usage 3)
-y                                    116  0x00000074 (mem) word (global)  (usage 22)
+y                                 UNRESOLVED  (usage 10)
 Y_MAX                                  1  0x00000001 (const dword)  (not used)
 Y_ORG                                  7  0x00000007 (const dword)  (not used)
 Y_ORIGIN                              31  0x0000001f (const dword)  (not used)

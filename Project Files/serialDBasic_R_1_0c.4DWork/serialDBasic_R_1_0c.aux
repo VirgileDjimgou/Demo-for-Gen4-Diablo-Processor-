@@ -1,0 +1,210 @@
+==============================================================
+==============================================================
+4DGL Compiler 2.8.0.5 -- Copyright 2004-2015 4D Labs
+** C:\Users\virgile\Desktop\Rutronik_Projekt\Project Files\serialDBasic_R_1_0c.4dg
+compiled Thu Dec 22 23:27:39 2016
+
+==============================================================
+==============================================================
+
+
+No Ref for file
+[LINKING]
+function 6, clearBufLine, address 61
+stack usage 2 + 4
+function 'clearBufLine' requires no arguments
+function 'clearBufLine' has no return value
+
+[LINKING]
+function 5, reverseString, address 113
+stack usage 12 + 4
+function 'reverseString' requires 2 argument
+function 'reverseString' has no return value
+
+[LINKING]
+function 4, printBufferedBytes, address 219
+stack usage 4 + 4
+function 'printBufferedBytes' requires 1 argument
+function 'printBufferedBytes' has no return value
+
+[LINKING]
+function 3, doSomethingElse, address 336
+stack usage 0 + 4
+function 'doSomethingElse' requires no arguments
+function 'doSomethingElse' has no return value
+
+[LINKING]
+function 2, printReceivedBytes, address 496
+stack usage 2 + 4
+function 'printReceivedBytes' requires no arguments
+function 'printReceivedBytes' has no return value
+
+[LINKING]
+function 1, main, address 661
+(main entry point)
+stack usage 0 + 4
+function 'main' requires no arguments
+function 'main' has no return value
+
+[RESERVED WORDS]
+#inherit
+#LISTCODE
+#MODE
+#STACK
+#OPTIMIZE_ON
+#OPTIMIZE_OFF
+byte
+word
+dword
+float
+private
+#IF
+#IFNOT
+#ELSE
+#ENDIF
+#CONST
+#constant
+#USE
+USING
+func
+endfunc
+var
+#STOP
+#DATA
+#ASM
+#END
+#platform
+EXISTS
+#ERROR
+#MESSAGE
+#NOTICE
+sizeof
+argcount
+if
+else
+endif
+while
+wend
+repeat
+until
+forever
+return
+break
+continue
+for
+next
+switch
+case
+default
+endswitch
+print
+goto
+gosub
+endsub
+mcall
+lookup8
+lookup16
+
+[MACRO]
+
+[CONSTANTS]
+__MAXMEM                          00008000      32768  (usage 1)
+__MAXPROG                         00007FEE      32750  (usage 1)
+BLACK                             00000000          0  (usage 9)
+COM0                              0000F804      63492  (usage 3)
+DEC2ZB                            0000220A       8714  (usage 3)
+DEC5ZB                            0000250A       9482  (usage 3)
+DIABLO                            00000003          3  (usage 3)
+FALSE                             00000000          0  (usage 18)
+LANDSCAPE_R                       00000001          1  (usage 3)
+LIME                              000007E0       2016  (usage 9)
+ORANGE                            0000FD20      64800  (usage 6)
+PRINTRCV_COL                      00000000          0  (usage 3)
+PRINTRCV_LINE                     00000003          3  (usage 9)
+RED                               0000F800      63488  (usage 3)
+T0PERIOD                          000000FA        250  (usage 6)
+T1PERIOD                          00000064        100  (usage 6)
+TIMER0                            00000000          0  (usage 9)
+TIMER1                            00000001          1  (usage 9)
+TRUE                              00000001          1  (usage 9)
+YELLOW                            0000FFE0      65504  (usage 3)
+
+[PmmC FUNCTIONS]
+charheight                        FFFFFFF4         -12  args=1 r=1  (usage 6)
+com_Count                         FFFFFF08        -248  args=0 r=1  (usage 6)
+com_Init                          FFFFFF18        -232  args=3 r=0  (usage 3)
+com_SetBaud                       FFFFFF1F        -225  args=2 r=1  (usage 3)
+gfx_CircleFilled                  FFFFFF77        -137  args=4 r=0  (usage 6)
+gfx_RectangleFilled               FFFFFF79        -135  args=5 r=0  (usage 6)
+gfx_ScreenMode                    FFFFFF42        -190  args=1 r=1  (usage 3)
+mem_Copy                          FFFFFE5C        -420  args=3 r=1  (usage 3)
+putch                             FFFFFFFE          -2  args=1 r=0  (usage 3)
+serin                             FFFFFF14        -236  args=0 r=1  (usage 3)
+serout                            FFFFFF10        -240  args=1 r=0  (usage 3)
+str_GetByte                       FFFFFE25        -475  args=1 r=1  (usage 3)
+str_Length                        FFFFFE1D        -483  args=1 r=1  (usage 3)
+str_Printf                        FFFFFE1C        -484  args=2 r=1  (usage 3)
+str_Ptr                           FFFFFE2A        -470  args=1 r=1  (usage 9)
+str_PutByte                       FFFFFE23        -477  args=2 r=0  (usage 6)
+sys_GetTimer                      FFFFFE76        -394  args=1 r=1  (usage 6)
+sys_SetTimer                      FFFFFE77        -393  args=2 r=0  (usage 12)
+txt_FGcolour                      FFFFFFEE         -18  args=1 r=1  (usage 21)
+txt_Height                        FFFFFFEA         -22  args=1 r=1  (usage 3)
+txt_MoveCursor                    FFFFFFF0         -16  args=2 r=0  (usage 15)
+txt_Width                         FFFFFFEB         -21  args=1 r=1  (usage 3)
+
+[USER FUNCTIONS]
+clearBufLine                      0000003D  args=0 r=0  (usage 3)
+doSomethingElse                   00000150  args=0 r=0  (usage 3)
+printBufferedBytes                000000DB  args=1 r=0  (usage 6)
+printReceivedBytes                000001F0  args=0 r=0  (usage 3)
+reverseString                     00000071  args=2 r=0  (usage 3)
+
+[GLOBAL VARIABLES]
+brFlag                                 7  word       (usage 10)
+combuf                                 1  word[5]   (usage 9)
+combufCopy                            13  word[10]   (usage 6)
+combufCopyR                           23  word[10]   (usage 6)
+lengthG                                6  word       (usage 21)
+
+[PRIVATE VARIABLES]
+clearBufLine.clearedFlag              33word      (member of clearBufLine)  (usage 5)
+doSomethingElse.counter               12word      (member of doSomethingElse)  (usage 3)
+doSomethingElse.onFlag                11word      (member of doSomethingElse)  (usage 4)
+printReceivedBytes.colorFlag           8word      (member of printReceivedBytes)  (usage 4)
+printReceivedBytes.x                   9word      (member of printReceivedBytes)  (usage 5)
+printReceivedBytes.y                  10word      (member of printReceivedBytes)  (usage 5)
+
+[DATA]
+0007: 25 73 00 63 6F 6D 5F 43 6F 75 6E 74 3A 00 63 6F     %s.com_Count:.co
+0017: 75 6E 74 65 72 3A 00 42 75 66 66 65 72 65 64 3A     unter:.Buffered:
+0027: 00 49 6E 70 75 74 20 31 30 20 63 68 61 72 61 63     .Input 10 charac
+0037: 74 65 72 73 3A 00                                   ters:.
+
+[__MAXPROG]
+32750
+[__MAXMEM]
+32768
+
+[PROGRAM]
+main
+[CODESIZE]
+881
+[MEMSIZE]
+33
+[ARGCOUNT]
+0
+[RETURNS]
+NO
+[STACKSIZE]
+0 (AUTO)
+[STACK_ESTIMATE]
+44   (nb:- worst case estimate)
+[MODE]
+0
+
+[PROJECT]
+C:\Users\virgile\Desktop\Rutronik_Projekt\Project Files\serialDBasic_R_1_0c.4dg
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\Gen4-uLCD-43DCT-CLB.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\Diablo16_Functions.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\4DGL_16bitColours.fnc
